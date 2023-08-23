@@ -163,6 +163,9 @@
   [arguments: [int...]] // 4
 ]
 
+// a Token is [type: string, value: any, argument_count: number?]
+// argument_count is only present if it's a function call
+
 // --- Init script ---
 // 1. Reset the state stack (set NULLs and prepare lists)
 // 2. Load the text and split it into words (break on spaces)
@@ -273,7 +276,7 @@ Hermes' Gambit // interpreter
       Selection Distillation
       Numerical Reflection: 1
       Subtractive Distillation
-      // TODO: get this number out of here (1.20: dup, fisherman -3 or something)
+      // TODO: get this number down at the bottom of the stack (1.20: dup, fisherman -3 or something)
       Muninn's Reflection
       Jester's Gambit
       Numerical Reflection: 2
@@ -303,6 +306,38 @@ Hermes' Gambit // interpreter
       // [ raven, ...]
       Huginn's Gambit
       // [ argcount, backtracking, ...]
+      Jester's Gambit
+      // [ backtracking, argcount, ...]
+      // now pull the <backtracking>th thing out of tokens...
+      Muninn's Reflection
+      Numerical Reflection: 1
+      Selection Distillation
+      // [ [tokens], backtracking, argcount, ...]
+      Gemini Decomposition
+      Numerical Reflection: 3
+      Fisherman's Gambit II
+      Jester's Gambit
+      Selection Distillation
+      // [ token data, argcount, [tokens], backtracking, ...]
+      Jester's Gambit
+      Numerical Reflection: 2
+      Jester's Gambit
+      Surgeon's Exaltation
+      // [ modified token data, [tokens], backtracking, ...]
+      Numerical Reflection: 3
+      Fisherman's Gambit
+      // [ modified token data, backtracking (which just happens to be the index as well), [tokens], ...]
+      Surgeon's Exaltation
+      // [ [tokens (modified)], ...]
+
+      Muninn's Reflection
+      Jester's Gambit
+      Numerical Reflection: 1
+      Jester's Gambit
+      Surgeon's Exaltation
+      // [ [ravenmind (modified)], ...]
+      Huginn's Gambit
+      // [ octothorpe, etc. ]; done
     }
     {
 
@@ -320,4 +355,4 @@ Hermes' Gambit // interpreter
 // NOTE: Thoths: pattern on the bottom
 Jester's Gambit
 Thoth's Gambit
-
+Bookkeeper's Gambit: v // we don't care about the result from Thoth's
