@@ -229,7 +229,59 @@ Hermes' Gambit // interpreter
   Swindler's Gambit
   Equality Distillation
   // [ is_open_paren?, word, close_paren, octothorpe, dollar, interpreter, ...]
+  {  // it IS an opening paren!
+    // increment backtracking
+    // is there a shorter way to do this?
+    Muninn's Reflection
+    Numerical Reflection: 2
+    Selection Distillation
+    Numerical Reflection: 1
+    Additive Distillation
+    Muninn's Reflection
+    Jester's Gambit
+    Numerical Reflection: 2
+    Jester's Gambit
+    Surgeon's Exaltation
+    Huginn's Gambit
+
+    // also, merge these two? this does the same thing (pick and modify part of array)
+    Muninn's Reflection
+    Numerical Reflection: 4
+    Selection Distillation
+    Numerical Reflection: 0
+    Speaker's Distillation
+    Muninn's Reflection
+    Jester's Gambit
+    Numerical Reflection: 4
+    Jester's Gambit
+    Surgeon's Exaltation
+    Huginn's Gambit
+    // ideally we somehow break in the parent scope but I don't know how to do that
+    // that way I could avoid all this nesting
+  }
+  {  // it's... not an opening paren
+    // is it a *closing* paren???
+    Gemini Decomposition
+    Numerical Reflection: 4
+    Swindler's Gambit
+    Equality Distillation
+    {
+      Muninn's Reflection
+      Numerical Reflection: 2
+      Selection Distillation
+      Numerical Reflection: 1
+      Subtractive Distillation
+      // TODO:
+      Muninn's Reflection
+      Jester's Gambit
+      Numerical Reflection: 2
+      
+    }
+  }
+  // stack, top [<action-if-false>, <action-if-true>, <boolean?>]
   Augur's Exaltation
+  Hermes' Gambit
+  
 }
 
 // [ inline pattern, words, ["(", ")", "//", "$"], interpreter, ...]
