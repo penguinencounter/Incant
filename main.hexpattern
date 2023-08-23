@@ -1,0 +1,239 @@
+// lexcasting: a very very tiny dsl for hexcasting
+
+// standard rules apply
+// tokens must be seperated by spaces
+
+// problematic pattern(s) to benchmark:
+// launch (rc-ent UP + DOWN * 3)
+// launch (rc-ent make-vec (#0, #10, #0))
+
+// command: [function]+
+// expression:
+//   | [function]
+//   | [number-literal]
+//   | [autoref]
+
+// implementation note:
+// recursive decent is dangerous with hexcasting (metacall limit = 512)
+// to minimize metacalls, the lexer is in charge of reordering components into
+// a more resolvable order so the parser is doesn't need to backtrack
+
+// function: IDENTIFIER [parameters]?
+
+// No commas!
+// parameters: '(' [expression]+ ')'
+
+// Numbers are pushed onto the stack.
+// Translates directly to a push() call.
+// number-literal: '//' [0-9]+
+
+// Automatic references to previous results.
+// Translates directly to a pload() call.
+// autoref: '$' [0-9]+
+
+// lexer processes parameters by adding a the tokens **before** the command which pushes the result onto the stack
+
+//    rc-ent launch ($0, UP * #3)
+// -> invoke(rc-ent) pload(0) inline(UP) push(3) inline(op_mul) invoke(launch)
+//    (could be written as `launch (rc-ent, UP * 3)` but then we don't get pload())
+
+// lexer process
+// 1. rc-ent
+//    rc-ent is an function call, BACK is 0, so append invoke(rc-ent)
+// 2. launch
+//    launch is an function call, BACK is 0, so append invoke(launch)
+// 3. ($0
+//    open parentheses; increment BACK by 1 and discard the first char
+//    read $, prepare pload()
+//    read number 0, backinsert pload(0)
+// 4. UP
+//    function call in argument list (BACK > 0), so backinsert inline(UP)
+// 5. *
+//    encountered an operator, set OPERATOR to op_mul's ID, do nothing
+// 6. #3)
+//    function call in argument list (BACK > 0), so backinsert push(3)
+//    OPERATOR is set to op_mul, so backinsert inline(op_mul)
+//    closing parentheses; decrement BACK by 1 (err if < 0) and discard the last char
+
+// interpreter process
+//  1. rc-ent
+//       result from rc-ent gets stored in $0
+//  2a.$0
+//       $0 is loaded from persistant storage onto the stack
+//  2b.UP * #3
+//       this is actually two functions and a constant:
+//         UP, a normal returnable function
+//         push() from the numerical constant evaluator
+//         op_mul, an internal two-parameter returnable function (*)
+//       first, UP is evaluated and pushed
+//       then, #3 is evaluated and pushed literally (push(3))
+//       then, op_mul is evaluated with the previous two arguments, and pushed
+//       this leaves just the op_mul result and $0 on the stack, which is needed for...
+//  2. launch ($0, UP * 3)
+//       invoke launch with pushed items from earlier
+
+// ==== Example #2 (more complex inlines) ====
+//    pos2 facing print ($1 * #5 + $0)
+//    ^$0  ^$1          ^(stack)
+// -> invoke(pos2) invoke(facing) pload(1) push(5) inline(op_mul) pload(0) inline(op_add) invoke(print)
+// -> ^#1          ^#2            ^#4      ^#6a    ^#6b           ^#8a     ^#8b           ^#3
+// Lexer process:
+// 1. pos2
+//    simple: append invoke(pos2)
+// 2. facing
+//    simple: append invoke(facing)
+// 3. print
+//    simple: append invoke(print)
+// 4. ($1
+//    open parentheses, increment BACK and discard
+//    backinsert pload(1)
+// 5. *
+//    set OPERATOR to op_mul
+// 6. #5
+//    a. backinsert push(5)
+//    b. OPERATOR is op_mul, so backinsert inline(op_mul)
+// 7. +
+//    set OPERATOR to op_add
+// 8. $0)
+//    a. backinsert pload(0)
+//    b. OPERATOR is op_add, so backinsert inline(op_add)
+//        this might disobey PEMDAS
+//    c. closing parentheses, decrement BACK and discard
+// 9. EOF; stop
+
+// ==== Example #3 (inline vectors) ===
+//    launch (self make-vec (#0 #10 #0) )
+//           ^(stack)       ^(stack)
+// -> inline(self) push(0) push(10) push(0) inline(make-vec) invoke(launch)
+// -> ^#2          ^#4     ^#5      ^#6     ^#3              ^#1
+// Lexer process:
+// 1. launch
+//    simple append invoke(launch)
+// 2. (self
+//    open parentheses, increment BACK and discard
+//    backinsert inline(self)
+// 3. make-vec
+//    backinsert inline(make-vec)
+// 4. (#0
+//    open parentheses, increment BACK and discard (now 2)
+//    backinsert push(0)
+// 5. #10
+//    backinsert push(10)
+// 6. #0)
+//    backinsert push(0)
+//    closing parentheses, decrement BACK and discard (now 1)
+// 7. )
+//    closing parentheses, decrement BACK and discard (now 0)
+// 8. EOF; stop
+//
+// Interpreter process:
+// 1. inline self
+//    self is called and pushed (inline)
+// 2. push 0
+//    0 is pushed
+// 3. push 10
+//    10 is pushed
+// 4. push 0
+//    0 is pushed
+// 5. inline make-vec
+//    make-vec is called with the previous three arguments and pushed
+// 6. invoke launch
+//    launch is called from the stack
+//    launch isn't returnable, so no storage is performed
+
+
+// --- Focus format ---
+[
+  [persist: [any...]]
+  [library location: vec3]
+  [interpreter: function]
+  ["(", ")", "#", "$"]
+  [lexer: function]
+  [default raven]
+  [<init>: function]
+]
+
+// --- Raven ---
+[
+  [autorefs: [any...]] // 0 (always present, even during lexing)
+  [tokens: [Token...]] // 1 during and after lexing
+  // During lexing only...
+  [back: int]             // 2
+  [operator: string | nothing]      // 3
+  [arguments: [int...]] // 4
+]
+
+// --- Init script ---
+// 1. Reset the state stack (set NULLs and prepare lists)
+// 2. Load the text and split it into words (break on spaces)
+// 3. Run the lexer on the words, producing a list of tokens
+// 4. Clear the autorefs to prepare for the next run
+// 5. Run the interpreter on the tokens, executing the script
+
+// (current impl)
+// After being run by a compatible executor, the stack should start without <init>
+Huginn's Gambit // write ravenmind; now [[], [], 0.00, NULL, []]
+Whisper Reflection // moreiotas; read from chat
+Spacing Reflection // moreiotas; push a space
+Separation Distillation // moreiotas
+// stack here: top [ words:[string...], lexer:function, ["(", ")", "//", "$"], interpreter:function, ...]
+Jester's Gambit  // swap the words and the lexer
+// (optimization note: merge the lexer and interpreter into <init> to save a few evals)
+Hermes' Gambit // lexer
+// the lexer should consume the lexer's static data (the list of ()//$ is removed)
+// stack: top [ interpreter:function, libraryLocation:vec3, persist:[any...] ]
+Hermes' Gambit // interpreter
+// done, ravenmind is discarded by GC automatically
+
+// --- Lexer script ---
+// Iterate over the list of words, at the top of the stack
+// stack is now:
+// top [ words, ["(", ")", "#", "$"], interpreter, ...]
+{
+  // how does loop unrolling work??? investigate later
+  // because this is called by Thoth, the first item on the stack is a word
+  // the stack looks like this:
+  // [ word, ["(", ")", "#", "$"], interpreter, ...]
+  Jester's Gambit
+
+  // Append the length of the character list to the ravenmind.
+  Gemini Decomposition // copy the character list (optimization: hardcode the length)
+  Abacus Purification
+  Muninn's Reflection
+  
+  // [ [raven], len of chars, [... chars ...], word, interpreter, ...]
+  Jester's Gambit
+  // [ len of chars, [raven], [... chars ...], word, interpreter, ...]
+  // only safe because we are immediately discarding in the next step
+  // and makes the next step easier
+  Speaker's Distillation
+  Huginn's Gambit
+  
+  // Unpack the character list, with the length at the start...
+  // [ [... chars ...], word, interpreter, ...]
+  Flock's Disintegration
+  Muninn's Reflection
+  Speaker's Decomposition
+  Jester's Gambit
+  Huginn's Gambit
+  // [ len of chars, *chars, word, interpreter, ...]
+  Numerical Reflection: 1
+  Additive Distillation
+  // [ len of chars + 1, *chars, word, interpreter, ...]
+  Fisherman's Gambit  // pull 'word' to the top
+  // [ word, *chars, interpreter, ...]
+
+  // is it an opening paren?
+  Gemini Decomposition
+  Numerical Reflection: 4  // top [ word, word, paren, ...] -> top [ word, paren, word, ...]
+  Swindler's Gambit
+  Equality Distillation
+  // [ is_open_paren?, word, close_paren, octothorpe, dollar, interpreter, ...]
+  Augur's Exaltation
+}
+
+// [ inline pattern, words, ["(", ")", "//", "$"], interpreter, ...]
+// NOTE: Thoths: pattern on the bottom
+Jester's Gambit
+Thoth's Gambit
+
