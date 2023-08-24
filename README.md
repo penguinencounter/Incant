@@ -54,6 +54,7 @@ feet 0 r
 feet 1 r
 facing 0 r
 facing 1 r
+print 1
 
 random 0 r
 mkvec 3 r

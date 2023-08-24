@@ -1,0 +1,276 @@
+// :: op + 2 r
+Additive Distillation
+// :: op - 2 r
+Subtractive Distillation
+// :: op * 2 r
+Multiplicative Distillation
+// :: op / 2 r
+Division Distillation
+// :: self 0 r
+Mind's Reflection
+// :: head 0 r
+Mind's Reflection
+Compass' Purification
+// :: head 1 r
+Compass' Purification
+// :: feet 0 r
+Mind's Reflection
+Compass' Purification II
+// :: feet 1 r
+Compass' Purification II
+// :: facing 0 r
+Mind's Reflection
+Alidade's Purification
+// :: facing 1 r
+Alidade's Purification
+// :: print 1
+Reveal
+Bookkeeper's Gambit: v
+
+
+// :: random 0 r
+Entropy Reflection
+// :: mkvec 3 r
+Vector Exaltation
+
+// The entity selection tools.
+// :: select-entity 2 r
+Zone Distillation: Any
+Numerical Reflection: 0
+Selection Distillation
+// :: select-entities 2 r
+Zone Distillation: Any
+// :: select-animal 2 r
+Zone Distillation: Animal
+Numerical Reflection: 0
+Selection Distillation
+// :: select-animals 2 r
+Zone Distillation: Animal
+// :: select-monster 2 r
+Zone Distillation: Monster
+Numerical Reflection: 0
+Selection Distillation
+// :: select-monsters 2 r
+Zone Distillation: Monster
+// :: select-item 2 r
+Zone Distillation: Item
+Numerical Reflection: 0
+Selection Distillation
+// :: select-items 2 r
+Zone Distillation: Item
+// :: select-player 2 r
+Zone Distillation: Player
+Numerical Reflection: 0
+Selection Distillation
+// :: select-players 2 r
+Zone Distillation: Player
+// :: select-living 2 r
+Zone Distillation: Living
+Numerical Reflection: 0
+Selection Distillation
+// :: select-livings 2 r
+Zone Distillation: Living
+// :: select-not-living 2 r
+Zone Distillation: Non-Living
+Numerical Reflection: 0
+Selection Distillation
+// :: select-not-livings 2 r
+Zone Distillation: Non-Living
+
+// :: first 1 r
+Numerical Reflection: 0
+Selection Distillation
+// :: last 1 r
+Retrograde Purification
+Numerical Reflection: 0
+Selection Distillation
+// :: index 2 r
+Selection Distillation
+// :: set-or 2 r
+Unifying Distillation
+// :: set-and 2 r
+Intersection Distillation
+// :: set-xor 2 r
+Exclusionary Distillation
+// :: unique 1 r
+Uniqueness Purification
+
+// :: read-entity 1 r
+Chronicler's Purification
+// :: write-entity 2
+Chronicler's Gambit
+
+// spells
+// :: explode 2
+Explosion
+// :: fireball 2
+Fireball
+// :: launch 1
+Mind's Reflection
+Jester's Gambit
+Impulse
+// :: launch 2
+Impulse
+// :: blink 1
+Mind's Reflection
+Jester's Gambit
+Blink
+// :: blink 2
+Blink
+// :: place 1
+Place Block
+// :: break 1
+Break Block
+// :: place-water 1
+Create Water
+// :: remove-liquid 1
+Destroy Liquid
+// :: conjure-block 1
+Conjure Block
+// :: conjure-light 1
+Conjure Light
+// :: grow 1
+Overgrow
+// :: edify 1
+Edify Sapling
+// :: ignite 1
+Ignite Block
+// :: extinguish 1
+Extinguish Area
+// :: sentinel 1
+Summon Sentinel
+// :: rm-sentinel 1
+Banish Sentinel
+// :: loc-sentinel 0 r
+Locate Sentinel
+
+// :: true 0 r
+True Reflection
+// :: false 0 r
+False Reflection
+// :: null 1 r
+Nullary Reflection
+// :: ZERO 0 r
+Vector Reflection Zero
+// :: EAST 0 r
+// +: +X 0 r
+Vector Reflection +X
+// :: WEST 0 r
+// +: -X 0 r
+Vector Reflection -X
+// :: UP 0 r
+// +: +Y 0 r
+Vector Reflection +Y
+// :: DOWN 0 r
+// +: -Y 0 r
+Vector Reflection -Y
+// :: SOUTH 0 r
+// +: +Z 0 r
+Vector Reflection +Z
+// :: NORTH 0 r
+// +: -Z 0 r
+Vector Reflection -Z
+// :: PI 0 r
+Arc's Reflection
+// :: TAU 0 r
+Circle's Reflection
+// :: E 0 r
+Euler's Reflection
+
+// :: rc-vec 0 r
+Mind's Reflection
+Compass' Purification
+Mind's Reflection
+Alidade's Purification
+Archer's Distillation
+// :: rc-vec 1 r
+Gemini Decomposition
+Compass' Purification
+Jester's Gambit
+Alidade's Purification
+Archer's Distillation
+// :: rc-ent 0 r
+Mind's Reflection
+Compass' Purification
+Mind's Reflection
+Alidade's Purification
+Scout's Distillation
+// :: rc-ent 1 r
+Gemini Decomposition
+Compass' Purification
+Jester's Gambit
+Alidade's Purification
+Scout's Distillation
+
+// :: dump-autorefs 0
+Muninn's Reflection
+Numerical Reflection: 0
+Selection Distillation
+Reveal
+Bookkeeper's Gambit: v
+// :: dump-stack 0
+Flock's Reflection
+Flock's Gambit
+Reveal
+Flock's Disintegration
+// :: dump-cache 0
+Muninn's Reflection
+Reveal
+Bookkeeper's Gambit: v
+
+// :: save 1
+Scribe's Reflection
+Numerical Reflection: 0
+Selection Distillation
+Jester's Gambit
+Speaker's Distillation
+Scribe's Reflection
+Jester's Gambit
+Numerical Reflection: 0
+Jester's Gambit
+Surgeon's Exaltation
+Scribe's Gambit
+// :: load 0 r
+// TODO: verify this works and doesn't pollute the stack
+Scribe's Reflection
+Numerical Reflection: 0
+Selection Distillation
+Speaker's Decomposition
+Jester's Gambit
+Scribe's Reflection
+Jester's Gambit
+Numerical Reflection: 0
+Jester's Gambit
+Surgeon's Exaltation
+Scribe's Gambit
+// :: wipe-storage 0
+Scribe's Reflection
+Numerical Reflection: 0
+Vacant Reflection
+Surgeon's Exaltation
+Scribe's Gambit
+// TODO: other persist functions
+// TODO: temporary storage functions
+// :: reset-autorefs 0
+Muninn's Reflection
+Numerical Reflection: 0
+Vacant Reflection
+Surgeon's Exaltation
+Huginn's Gambit
+// :: discard 0
+Muninn's Reflection
+Numerical Reflection: 0
+Selection Distillation
+Gemini Decomposition
+Abacus Purification
+Numerical Reflection: 1
+Subtractive Distillation
+Numerical Reflection: 0
+Jester's Gambit
+Selection Exaltation
+Muninn's Reflection
+Jester's Gambit
+Numerical Reflection: 0
+Jester's Gambit
+Surgeon's Exaltation
+Huginn's Gambit
