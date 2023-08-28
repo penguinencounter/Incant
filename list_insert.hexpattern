@@ -1,0 +1,43 @@
+// Take a `value` and put it in the `target` list at `index`.
+// TOP
+// value: any
+// index: number
+// target: list
+// BOTTOM
+
+// [ value index target ]
+Numerical Reflection: 2
+Fisherman's Gambit II
+Gemini Decomposition
+Abacus Purification
+// [ list_size value index target ]
+Numerical Reflection: 3
+Fisherman's Gambit II
+// [ target list_size value index target ]
+Numerical Reflection: 0
+// [ 0 target list_size value index target ]
+Numerical Reflection: 4
+Fisherman's Gambit II
+// [ index 0 target list_size value index target ]
+Selection Exaltation
+// [ begin-slice list_size value index target ]
+Numerical Reflection: 5 // TODO[1.20] -1 (TEST FIRST!!!)
+Fisherman's Gambit
+// [ target begin-slice list_size value index ]
+Numerical Reflection: 3 // TODO[1.20] -1
+Fisherman's Gambit
+// [ list_size target begin-slice value index ]
+Numerical Reflection: 5 // TODO[1.20] -1
+Fisherman's Gambit
+// [ index list_size target begin-slice value ]
+Selection Exaltation
+// [ end-slice begin-slice value ]
+// -> [ value begin-slice end-slice ] + merge = [ wip end-slice ] + swap + merge = [ done ]
+// (reversed) [value begin-slice end-slice] -> [ end-slice begin-slice value]
+//             CBA                          ->  ABC
+Numerical Reflection: 5
+Swindler's Gambit
+Combination Distillation
+Jester's Gambit
+Combination Distillation
+// [ finished ] :D

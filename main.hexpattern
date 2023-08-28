@@ -33,7 +33,7 @@
 
 // lexer processes parameters by adding a the tokens **before** the command which pushes the result onto the stack
 
-//    rc-ent launch ($0, UP * #3)
+//    rc-ent launch ( $0, UP * #3 )
 // -> invoke(rc-ent) pload(0) inline(UP) push(3) inline(op_mul) invoke(launch)
 //    (could be written as `launch (rc-ent, UP * 3)` but then we don't get pload())
 
@@ -73,7 +73,7 @@
 //       invoke launch with pushed items from earlier
 
 // ==== Example #2 (more complex inlines) ====
-//    pos2 facing print ($1 * #5 + $0)
+//    pos2 facing print ( $1 * #5 + $0 )
 //    ^$0  ^$1          ^(stack)
 // -> invoke(pos2) invoke(facing) pload(1) push(5) inline(op_mul) pload(0) inline(op_add) invoke(print)
 // -> ^#1          ^#2            ^#4      ^#6a    ^#6b           ^#8a     ^#8b           ^#3
@@ -102,7 +102,7 @@
 // 9. EOF; stop
 
 // ==== Example #3 (inline vectors) ===
-//    launch (self make-vec (#0 #10 #0) )
+//    launch ( self make-vec ( #0 #10 #0 ) )
 //           ^(stack)       ^(stack)
 // -> inline(self) push(0) push(10) push(0) inline(make-vec) invoke(launch)
 // -> ^#2          ^#4     ^#5      ^#6     ^#3              ^#1
@@ -142,12 +142,12 @@
 //    launch isn't returnable, so no storage is performed
 
 
-// --- Focus format ---
+// --- Focus ---
 [
   [persist: [any...]]
-  [library location: vec3]
+  [library: [key, value, key, value, ...]]
   [interpreter: function]
-  ["(", ")", "#", "$"]
+  ["(", ")", "#", "$", ["+", "-", "*", "/"]]
   [lexer: function]
   [default raven]
   [<init>: function]
@@ -162,6 +162,13 @@
   [operator: string | nothing]      // 3
   [arguments: [int...]] // 4
 ]
+
+// TOKEN TYPES
+// 0: push
+// 1: pload
+// 2: inline
+// 3: invoke
+
 
 // a Token is [type: string, value: any, argument_count: number?]
 // argument_count is only present if it's a function call
@@ -182,177 +189,8 @@ Separation Distillation // moreiotas
 // stack here: top [ words:[string...], lexer:function, ["(", ")", "//", "$"], interpreter:function, ...]
 Jester's Gambit  // swap the words and the lexer
 // (optimization note: merge the lexer and interpreter into <init> to save a few evals)
-Hermes' Gambit // lexer
+Hermes' Gambit // lexer.hexpattern
 // the lexer should consume the lexer's static data (the list of ()//$ is removed)
 // stack: top [ interpreter:function, libraryLocation:vec3, persist:[any...] ]
 Hermes' Gambit // interpreter
 // done, ravenmind is discarded by GC automatically
-
-// --- Lexer script ---
-// Iterate over the list of words, at the top of the stack
-// stack is now:
-// top [ words, ["(", ")", "#", "$"], interpreter, ...]
-{
-  // how does loop unrolling work??? investigate later
-  // because this is called by Thoth, the first item on the stack is a word
-  // the stack looks like this:
-  // [ word, ["(", ")", "#", "$"], interpreter, ...]
-  Jester's Gambit
-
-  // Append the length of the character list to the ravenmind.
-  Gemini Decomposition // copy the character list (optimization: hardcode the length)
-  Abacus Purification
-  Muninn's Reflection
-  
-  // [ [raven], len of chars, [... chars ...], word, interpreter, ...]
-  Jester's Gambit
-  // [ len of chars, [raven], [... chars ...], word, interpreter, ...]
-  // only safe because we are immediately discarding in the next step
-  // and makes the next step easier
-  Speaker's Distillation
-  Huginn's Gambit
-  
-  // Unpack the character list, with the length at the start...
-  // [ [... chars ...], word, interpreter, ...]
-  Flock's Disintegration
-  Muninn's Reflection
-  Speaker's Decomposition
-  Jester's Gambit
-  Huginn's Gambit
-  // [ len of chars, *chars, word, interpreter, ...]
-  Numerical Reflection: 1
-  Additive Distillation
-  // [ len of chars + 1, *chars, word, interpreter, ...]
-  Fisherman's Gambit  // pull 'word' to the top
-  // [ word, *chars, interpreter, ...]
-
-  // is it an opening paren?
-  Gemini Decomposition
-  Numerical Reflection: 4  // top [ word, word, paren, ...] -> top [ word, paren, word, ...]
-  Swindler's Gambit
-  Equality Distillation
-  // [ is_open_paren?, word, close_paren, octothorpe, dollar, interpreter, ...]
-  {  // it IS an opening paren!
-    // increment backtracking
-    // is there a shorter way to do this?
-    Muninn's Reflection
-    Numerical Reflection: 2
-    Selection Distillation
-    Numerical Reflection: 1
-    Additive Distillation
-    Muninn's Reflection
-    Jester's Gambit
-    Numerical Reflection: 2
-    Jester's Gambit
-    Surgeon's Exaltation
-    Huginn's Gambit
-
-    // also, merge these two? this does the same thing (pick and modify part of array)
-    Muninn's Reflection
-    Numerical Reflection: 4
-    Selection Distillation
-    Numerical Reflection: 0
-    Speaker's Distillation
-    Muninn's Reflection
-    Jester's Gambit
-    Numerical Reflection: 4
-    Jester's Gambit
-    Surgeon's Exaltation
-    Huginn's Gambit
-    // ideally we somehow break in the parent scope
-    // that way I could avoid all this nesting
-    // how???
-  }
-  {  // it's... not an opening paren
-    // is it a *closing* paren???
-    Gemini Decomposition
-    Numerical Reflection: 4
-    Swindler's Gambit
-    Equality Distillation
-    {
-      // decrement backtracking
-      Muninn's Reflection
-      Numerical Reflection: 2
-      Selection Distillation
-      Numerical Reflection: 1
-      Subtractive Distillation
-      // TODO: get this number down at the bottom of the stack (1.20: dup, fisherman -3 or something)
-      Muninn's Reflection
-      Jester's Gambit
-      Numerical Reflection: 2
-      Jester's Gambit
-      Surgeon's Exaltation
-      Gemini Decomposition
-      Huginn's Gambit
-      Gemini Decomposition
-      // raven is still on top of the stack here
-      Numerical Reflection: 2
-      Selection Distillation
-      // top: [ backtracking, [raven], interpreter, ...]
-      Jester's Gambit
-      // [[raven], backtracking, interpreter, ]
-      Numerical Reflection: 4
-      Selection Distillation
-      Speaker's Decomposition
-      // [ argcount, [remaining argcounts], backtracking, interpreter...]
-      Jester's Gambit
-      Muninn's Reflection
-      // [ raven, [remaining argcounts], argcount, backtracking, ...]
-      Jester's Gambit
-      Numerical Reflection: 4
-      Jester's Gambit
-      // [ [remaining argcounts], 4, raven, argcount, backtracking, ...]
-      Surgeon's Exaltation
-      // [ raven, ...]
-      Huginn's Gambit
-      // [ argcount, backtracking, ...]
-      Jester's Gambit
-      // [ backtracking, argcount, ...]
-      // now pull the <backtracking>th thing out of tokens...
-      Muninn's Reflection
-      Numerical Reflection: 1
-      Selection Distillation
-      // [ [tokens], backtracking, argcount, ...]
-      Gemini Decomposition
-      Numerical Reflection: 3
-      Fisherman's Gambit II
-      Jester's Gambit
-      Selection Distillation
-      // [ token data, argcount, [tokens], backtracking, ...]
-      Jester's Gambit
-      Numerical Reflection: 2
-      Jester's Gambit
-      Surgeon's Exaltation
-      // [ modified token data, [tokens], backtracking, ...]
-      Numerical Reflection: 3
-      Fisherman's Gambit
-      // [ modified token data, backtracking (which just happens to be the index as well), [tokens], ...]
-      Surgeon's Exaltation
-      // [ [tokens (modified)], ...]
-
-      Muninn's Reflection
-      Jester's Gambit
-      Numerical Reflection: 1
-      Jester's Gambit
-      Surgeon's Exaltation
-      // [ [ravenmind (modified)], ...]
-      Huginn's Gambit
-      // [ octothorpe, etc. ]; done
-    }
-    {
-
-    }
-    Augur's Exaltation
-    Hermes' Gambit  //close paren
-  }
-  // stack, top [<action-if-false>, <action-if-true>, <boolean?>]
-  Augur's Exaltation
-  Hermes' Gambit  // open paren
-  
-}
-
-// [ inline pattern, words, ["(", ")", "//", "$"], interpreter, ...]
-// NOTE: Thoths: pattern on the bottom
-Jester's Gambit
-Thoth's Gambit
-Bookkeeper's Gambit: v // we don't care about the result from Thoth's

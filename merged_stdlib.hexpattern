@@ -1,10 +1,10 @@
-// :: op + 2 r
+// :: + 2 r
 Additive Distillation
-// :: op - 2 r
+// :: - 2 r
 Subtractive Distillation
-// :: op * 2 r
+// :: * 2 r
 Multiplicative Distillation
-// :: op / 2 r
+// :: / 2 r
 Division Distillation
 // :: self 0 r
 Mind's Reflection
