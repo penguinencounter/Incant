@@ -30,13 +30,13 @@ launch 2
 The math operators +, -, *, and / are actually functions with special names.
 ```
 // addition infix operator
-op + 2 r
++ 2 r
 // subtraction infix operator
-op - 2 r
+- 2 r
 // multiplication infix operator
-op * 2 r
+* 2 r
 // division infix operator
-op / 2 r
+/ 2 r
 ```
 
 ### Recommended standard libraries
