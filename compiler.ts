@@ -4,7 +4,7 @@ type ArrayType<T> = T extends Array<infer U> ? U : never
 type CSVFile<Scheme extends string[]> = {
     headers: Scheme,
     rows: {
-        [header in ArrayType<Scheme>]: string | null | undefined
+        [header in ArrayType<Scheme>]: string | null
     }[]
 }
 
@@ -22,8 +22,10 @@ function parseCSV<Schema extends string[]>(content: string, scheme: Schema): CSV
             for (let key of headers_) {
                 obj[key as keyof typeof obj] = null
             }
-            const obj2 = obj as Required<typeof obj>
-
+            const obj2 = obj as { [key in ArrayType<Schema>]: string | null }
+            for (let i = 0; i < row.length; i++) {
+                obj2[headers[i] as keyof typeof obj2] = row[i]
+            }
             return obj2
         })
     }
@@ -34,4 +36,11 @@ async function getSpellMeta() {
     const resp = await fetch(TABLE_SRC)
     const text = await resp.text()
     const data = parseCSV(text, ["mod", "translation", "direction", "pattern", "is_great", "modid", "name", "classname", "args", "book_anchor"])
+    return data
 }
+
+async function main() {
+    console.log((await getSpellMeta()).rows.length + " rows")
+}
+
+main()
