@@ -42,7 +42,74 @@ const NW = NORTHWEST
 const SE = SOUTHEAST
 const SW = SOUTHWEST
 
-const numberHelper = (number: number) => {
+const doesPathOverlap = (path: string): boolean => {
+    const cursor = [0, 0]
+    let facing = 0
+    const facingDir = ['e', 'se', 'sw', 'w', 'nw', 'ne']
+    const segments: [[number, number], [number, number]][] = []
+    const literal: string[] = []
+    for (const direction in path.split('')) {
+        switch(direction) {
+            case 'a':
+                facing -= 2
+                break
+            case 'q':
+                facing -= 1
+                break
+            case 'w':
+                facing += 0
+                break
+            case 'e':
+                facing += 1
+                break
+            case 'd':
+                facing += 2
+                break
+            case 's':
+                facing += 3
+                break
+        }
+        facing = facing % 6
+        literal.push(facingDir[facing])
+    }
+    return true
+}
+
+const numberHelper = (target: number): string => {
+    // current heuristic: <no-of-steps plus 1> * <abs distance from target>
+    function cost(step: number, x: number) {
+        return step * Math.abs(x - target)
+    }
+    let frontier: [number, number, string][] = [
+        [cost(1, 0), 0, ""]
+    ]
+    let visited: number[] = []
+    function getNexts(from: [number, number, string]) {
+        const [step, current, path] = from
+        let possibilites: [number, number, string][] = [
+            [cost(step + 1, current + 5), current + 5, path + "q"], // slight left
+            [cost(step + 1, current + 1), current + 1, path + "w"], // forward
+            [cost(step + 1, current + 10), current + 10, path + "e"], // slight right
+        ]
+        if (step > 1) {
+            possibilites = possibilites.concat([
+                [cost(step + 1, current * 2), current * 2, path + "a"], // sharp left
+                [cost(step + 1, current / 2), current / 2, path + "d"], // sharp right
+            ])
+        }
+        return possibilites
+    }
+
+    while (frontier.length > 0) {
+        // sort by cost, ascending
+        frontier.sort((a, b) => a[0] - b[0])
+        const next = frontier.shift()!
+        if (next[1] === target) return next[2]
+        if (visited.includes(next[1])) continue
+        visited.push(next[1])
+        frontier = frontier.concat(getNexts(next))
+    }
+    throw new Error("Could not find a path")
 }
 
 class SpellDatabase {
@@ -57,16 +124,12 @@ class SpellDatabase {
         return row
     }
 
-    private numberHelper(number: number) {
-        return "w".repeat(number)
-    }
-
     public generateNumber(theNumber: number) {
         console.debug("building number: " + theNumber)
         const plus = SE.apply("aqaa")
         const minus = NE.apply("dedd")
-        if (theNumber >= 0) return plus.extend(this.numberHelper(theNumber))
-        else return minus.extend(this.numberHelper(-theNumber))
+        if (theNumber >= 0) return plus.extend(numberHelper(theNumber))
+        else return minus.extend(numberHelper(-theNumber))
     }
 }
 
@@ -104,7 +167,7 @@ async function getSpellMeta() {
 async function initDatabases() {
     const rawDatabase = await getSpellMeta()
     const database = new SpellDatabase(rawDatabase)
-    console.log(database.generateNumber(-16))
+    console.log(database.generateNumber(1024))
 }
 
 initDatabases()
