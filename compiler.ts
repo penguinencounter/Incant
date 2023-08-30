@@ -12,24 +12,38 @@ type CSVRow<T extends CSVFile<any>> = T['rows'][number]
 type SpellDatabaseSchema = ["mod", "translation", "direction", "pattern", "is_great", "modid", "name", "classname", "args", "book_anchor"]
 const SpellDatabaseSchema: SpellDatabaseSchema = ["mod", "translation", "direction", "pattern", "is_great", "modid", "name", "classname", "args", "book_anchor"]
 
-class Direction {
-    constructor(public name: string) {}
-    public apply(path: string): Pattern {
-        return  {
-            direction: this,
-            pattern: path
-        }
+class Pattern {
+    constructor(public direction: Direction, public pattern: string) {}
+    public extend(path: string): Pattern {
+        return new Pattern(this.direction, this.pattern + path)
     }
 }
 
-const EAST = new Direction("east")
-type Pattern = {
-    direction: Direction,
-    pattern: string
+class Direction {
+    constructor(public name: string) {}
+    public apply(path: string): Pattern {
+        return new Pattern(
+            this, path
+        )
+    }
 }
 
-const test = EAST.apply("sdfsdf")
-//      ^?
+// directions
+const EAST = new Direction("e")
+const WEST = new Direction("w")
+const NORTHEAST = new Direction("ne")
+const NORTHWEST = new Direction("nw")
+const SOUTHEAST = new Direction("se")
+const SOUTHWEST = new Direction("sw")
+const E = EAST
+const W = WEST
+const NE = NORTHEAST
+const NW = NORTHWEST
+const SE = SOUTHEAST
+const SW = SOUTHWEST
+
+const numberHelper = (number: number) => {
+}
 
 class SpellDatabase {
     sources: CSVFile<SpellDatabaseSchema>
@@ -43,9 +57,16 @@ class SpellDatabase {
         return row
     }
 
+    private numberHelper(number: number) {
+        return "w".repeat(number)
+    }
+
     public generateNumber(theNumber: number) {
         console.debug("building number: " + theNumber)
-        const forward = EAST.
+        const plus = SE.apply("aqaa")
+        const minus = NE.apply("dedd")
+        if (theNumber >= 0) return plus.extend(this.numberHelper(theNumber))
+        else return minus.extend(this.numberHelper(-theNumber))
     }
 }
 
@@ -83,7 +104,7 @@ async function getSpellMeta() {
 async function initDatabases() {
     const rawDatabase = await getSpellMeta()
     const database = new SpellDatabase(rawDatabase)
-    console.log(database.queryByName("Numerical Reflection"))
+    console.log(database.generateNumber(-16))
 }
 
 initDatabases()
