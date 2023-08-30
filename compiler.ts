@@ -7,6 +7,47 @@ type CSVFile<Scheme extends string[]> = {
         [header in ArrayType<Scheme>]: string | null
     }[]
 }
+type CSVRow<T extends CSVFile<any>> = T['rows'][number]
+
+type SpellDatabaseSchema = ["mod", "translation", "direction", "pattern", "is_great", "modid", "name", "classname", "args", "book_anchor"]
+const SpellDatabaseSchema: SpellDatabaseSchema = ["mod", "translation", "direction", "pattern", "is_great", "modid", "name", "classname", "args", "book_anchor"]
+
+class Direction {
+    constructor(public name: string) {}
+    public apply(path: string): Pattern {
+        return  {
+            direction: this,
+            pattern: path
+        }
+    }
+}
+
+const EAST = new Direction("east")
+type Pattern = {
+    direction: Direction,
+    pattern: string
+}
+
+const test = EAST.apply("sdfsdf")
+//      ^?
+
+class SpellDatabase {
+    sources: CSVFile<SpellDatabaseSchema>
+    constructor(sources: CSVFile<SpellDatabaseSchema>) {
+        this.sources = sources
+    }
+
+    public queryByName(name: string): CSVRow<CSVFile<SpellDatabaseSchema>> {
+        const row = this.sources.rows.find(row => row.translation === name)
+        if (!row) throw new Error(`Could not locate "${name}"`)
+        return row
+    }
+
+    public generateNumber(theNumber: number) {
+        console.debug("building number: " + theNumber)
+        const forward = EAST.
+    }
+}
 
 function parseCSV<Schema extends string[]>(content: string, scheme: Schema): CSVFile<Schema> {
     const lines = content.split('\n')
@@ -35,12 +76,14 @@ const TABLE_SRC = 'https://hexxy.media/patterns.csv'
 async function getSpellMeta() {
     const resp = await fetch(TABLE_SRC)
     const text = await resp.text()
-    const data = parseCSV(text, ["mod", "translation", "direction", "pattern", "is_great", "modid", "name", "classname", "args", "book_anchor"])
+    const data = parseCSV(text, SpellDatabaseSchema)
     return data
 }
 
-async function main() {
-    console.log((await getSpellMeta()).rows.length + " rows")
+async function initDatabases() {
+    const rawDatabase = await getSpellMeta()
+    const database = new SpellDatabase(rawDatabase)
+    console.log(database.queryByName("Numerical Reflection"))
 }
 
-main()
+initDatabases()
