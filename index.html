@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="out/compiler.js"></script>
-    <title>Hexpiler</title>
+    <script src="out/hexpp.js" type="module"></script>
+    <title>HexBuild ...</title>
 </head>
+
 <body>
-    
+    <div id="status" style="font-family: monospace; font-size: 1.5rem;">Loading ...</div>
+    <div id="log" style="font-family: monospace; color: #aaa; font-size: 0.9rem; max-height: 20em; overflow: scroll;"></div>
+    <div id="statistics" style="font-family: monospace; font-style: italic; color: #88f; font-size: 1.0rem;"></div>
+    <hr>
+    <code>
+        <pre id="target"></pre>
+    </code>
 </body>
+
 </html>

@@ -143,25 +143,25 @@
 
 
 // --- Focus ---
-[
-  [persist: [any...]]
-  [library: [key, value, key, value, ...]]
-  [interpreter: function]
-  ["(", ")", "#", "$", ["+", "-", "*", "/"]]
-  [lexer: function]
-  [default raven]
-  [<init>: function]
-]
+// [
+//   [persist: [any...]]
+//   [library: [key, value, key, value, ...]]
+//   [interpreter: function]
+//   ["(", ")", "#", "$", ["+", "-", "*", "/"]]
+//   [lexer: function]
+//   [default raven]
+//   [<init>: function]
+// ]
 
 // --- Raven ---
-[
-  [autorefs: [any...]] // 0 (always present, even during lexing)
-  [tokens: [Token...]] // 1 during and after lexing
-  // During lexing only...
-  [back: int]             // 2
-  [operator: string | nothing]      // 3
-  [arguments: [int...]] // 4
-]
+// [
+//   [autorefs: [any...]] // 0 (always present, even during lexing)
+//   [tokens: [Token...]] // 1 during and after lexing
+//   // During lexing only...
+//   [back: int]             // 2
+//   [operator: string | nothing]      // 3
+//   [arguments: [int...]] // 4
+// ]
 
 // TOKEN TYPES
 // 0: push
@@ -189,7 +189,8 @@ Separation Distillation // moreiotas
 // stack here: top [ words:[string...], lexer:function, ["(", ")", "//", "$"], interpreter:function, ...]
 Jester's Gambit  // swap the words and the lexer
 // (optimization note: merge the lexer and interpreter into <init> to save a few evals)
-Hermes' Gambit // lexer.hexpattern
+//#include lexer.hexpattern
+Hermes' Gambit
 // the lexer should consume the lexer's static data (the list of ()//$ is removed)
 // stack: top [ interpreter:function, libraryLocation:vec3, persist:[any...] ]
 Hermes' Gambit // interpreter
