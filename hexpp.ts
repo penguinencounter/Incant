@@ -1,6 +1,9 @@
+import { Pattern, Direction, directions } from './shared.js'
+import { default as initCompiler } from './compiler.js'
+
 ;(function() {
+    let compilerItems: Awaited<ReturnType<typeof initCompiler>>
     const yield_ = () => new Promise((resolve, reject) => setTimeout(resolve, 0))
-    const PATTERN_DATA_SOURCE = 'https://object-object.github.io/HexBug/patterns.csv'
     const nocache = true
     function setStatusMessage(message: string) {
         document.getElementById('status')!.textContent = message
@@ -20,6 +23,13 @@
             log.scrollTop = log.scrollHeight
         }
     })()
+
+    class Pattern {
+        constructor(public direction: Direction, public pattern: string) {}
+        public extend(extension: string) {
+            return new Pattern(this.direction, this.pattern + extension)
+        }
+    }
 
     type HexPackageSpec = {
         entrypoint: string
@@ -47,6 +57,31 @@
         cachedSources.set(path, text)
         console.log('fetch:', path, text.length)
         return text
+    }
+
+    type SupportedExtension = 'hexpattern' | 'hexcasting' | 'hexiota'
+    async function translatePatterns(content: string, targetExtension: SupportedExtension) {
+        const translators: {[key in SupportedExtension]: (content: string) => Promise<string>} = {
+            hexpattern: async content => content,
+            hexcasting: async content => content,
+            hexiota: async content => {
+                let translated: string[] = []
+                let n = 0
+                const totalCount = content.split('\n').length
+                let lastYield = Date.now()
+                for (const line of content.split('\n')) {
+                    n++
+                    setStatusMessage(`Translating: ${Math.round(n/totalCount*100)}% ${n} / ${totalCount}`)
+                    translated.push((await compilerItems!.translatePattern(line, setStatusMessage)))
+                    if (Date.now() - lastYield > 25) {
+                        await yield_()
+                        lastYield = Date.now()
+                    }
+                }
+                return translated.join('\n')
+            }
+        }
+        return await translators[targetExtension](content)
     }
 
     async function processFile(path: string, recurStack: string[] = []) {
@@ -80,10 +115,12 @@
     }
 
     async function load() {
+        setStatusMessage(`Initializing compiler...`)
+        compilerItems = await initCompiler()
         const start = Date.now()
-        const sources = await getOrCache(PATTERN_DATA_SOURCE)
         let packageInfo = await loadHexPackage()
         let built = await processFile(packageInfo.entrypoint)
+        built = await translatePatterns(built, 'hexiota')
         const end = Date.now()
         setStatusMessage(`Build completed.`)
         setStatistics(`output ${built.length} bytes in ${end-start}ms, fetched ${cachedSources.size} things, processed ${cachedProcessed.size} files`)

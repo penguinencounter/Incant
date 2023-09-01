@@ -1,0 +1,8 @@
+[
+    #buildvar libraries,
+    [
+        "(", ")", "#", "$",
+        #buildvar operators
+    ],
+    #translate main.hexpattern
+]

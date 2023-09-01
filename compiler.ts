@@ -1,4 +1,5 @@
-type ValOf<T> = T[keyof T]
+import { Pattern, Direction, directions } from './shared.js'
+
 type ArrayType<T> = T extends Array<infer U> ? U : never
 
 type CSVFile<Scheme extends string[]> = {
@@ -11,36 +12,6 @@ type CSVRow<T extends CSVFile<any>> = T['rows'][number]
 
 type SpellDatabaseSchema = ["mod", "translation", "direction", "pattern", "is_great", "modid", "name", "classname", "args", "book_anchor"]
 const SpellDatabaseSchema: SpellDatabaseSchema = ["mod", "translation", "direction", "pattern", "is_great", "modid", "name", "classname", "args", "book_anchor"]
-
-class Pattern {
-    constructor(public direction: Direction, public pattern: string) { }
-    public extend(path: string): Pattern {
-        return new Pattern(this.direction, this.pattern + path)
-    }
-}
-
-class Direction {
-    constructor(public name: string) { }
-    public apply(path: string): Pattern {
-        return new Pattern(
-            this, path
-        )
-    }
-}
-
-// directions
-const EAST = new Direction("e")
-const WEST = new Direction("w")
-const NORTHEAST = new Direction("ne")
-const NORTHWEST = new Direction("nw")
-const SOUTHEAST = new Direction("se")
-const SOUTHWEST = new Direction("sw")
-const E = EAST
-const W = WEST
-const NE = NORTHEAST
-const NW = NORTHWEST
-const SE = SOUTHEAST
-const SW = SOUTHWEST
 
 const yield_ = () => new Promise((resolve, reject) => setTimeout(resolve, 0))
 
@@ -124,8 +95,11 @@ const Modes = {
     SHORTER: 10000
 }
 
-const STEP_WEIGHT = Modes.FAST
+const NumberCache: { [val: number]: string } = {}
+
+const STEP_WEIGHT = Modes.SHORTER
 const numberHelper = async (target: number): Promise<string> => {
+    if (NumberCache[target]) return NumberCache[target]
     const start = Date.now()
 
     // current heuristic: <no-of-steps plus 1> * <abs distance from target>
@@ -168,7 +142,7 @@ const numberHelper = async (target: number): Promise<string> => {
         steps++
         // sort by cost, ascending
         frontier.sort((a, b) => a[0] - b[0])
-        if (steps % 1000 === 0) {
+        if (steps % 100 === 0) {
             const end = Date.now()
             console.log(`${steps} steps, ${end - start}ms, ${frontier.length} frontier nodes, best is ${frontier[0][0]} (step ${frontier[0][1]}, ${frontier[0][2]})`)
             await yield_()
@@ -176,7 +150,9 @@ const numberHelper = async (target: number): Promise<string> => {
         const next = frontier.shift()!
         if (next[2] === target) {
             const end = Date.now()
-            console.log(`solution found in ${steps} steps, took ${end - start}ms`)
+            if (end - start > 100)
+                console.log(`solution found in ${steps} steps, took ${end - start}ms`)
+            NumberCache[target] = next[3]
             return next[3]
         }
         if (visited.includes(next[2])) continue
@@ -194,18 +170,41 @@ class SpellDatabase {
         this.sources = sources
     }
 
-    public queryByName(name: string): CSVRow<CSVFile<SpellDatabaseSchema>> {
+    public queryByName(name: string): CSVRow<CSVFile<SpellDatabaseSchema>> | null {
         const row = this.sources.rows.find(row => row.translation === name)
-        if (!row) throw new Error(`Could not locate "${name}"`)
+        if (!row) return null
         return row
     }
 
     public async generateNumber(theNumber: number) {
-        console.debug("building number: " + theNumber)
-        const plus = SE.apply("aqaa")
-        const minus = NE.apply("dedd")
+        const plus = directions.SE.apply("aqaa")
+        const minus = directions.NE.apply("dedd")
         if (theNumber >= 0) return plus.extend(await numberHelper(theNumber))
         else return minus.extend(await numberHelper(-theNumber))
+    }
+    public generateBookkeeper(mask: string) {
+        if (mask.length < 1) throw new Error(`Invalid mask: "${mask}"`)
+        const starter = mask[0]
+        let build: Pattern
+        if (starter == 'v') {
+            build = directions.SE.apply("a")
+        } else if (starter == '-') {
+            build = directions.E.apply("")
+        } else {
+            throw new Error(`Invalid character in mask: "${starter}"`)
+        }
+        mask = mask.slice(1)
+        for (const char of mask) {
+            if (!['v', '-'].includes(char)) throw new Error(`Invalid character in mask: "${char}"`)
+            if (char == 'v') {
+                if (build.last() == 'a') build = build.extend("da")
+                else build = build.extend("ea")
+            } else {
+                if (build.last() == 'a') build = build.extend("e")
+                else build = build.extend("w")
+            }
+        }
+        return build
     }
 }
 
@@ -232,7 +231,7 @@ function parseCSV<Schema extends string[]>(content: string, scheme: Schema): CSV
     }
 }
 
-const TABLE_SRC = 'https://hexxy.media/patterns.csv'
+const TABLE_SRC = 'https://object-object.github.io/HexBug/patterns.csv'
 async function getSpellMeta() {
     const resp = await fetch(TABLE_SRC)
     const text = await resp.text()
@@ -240,32 +239,40 @@ async function getSpellMeta() {
     return data
 }
 
-import * as readline from 'node:readline/promises';  // This uses the promise-based APIs
-import { stdin as input, stdout as output } from 'node:process';
-import { setMaxIdleHTTPParsers } from 'node:http'
-
-async function initDatabases() {
-    const rawDatabase = await getSpellMeta()
-    const database = new SpellDatabase(rawDatabase)
-
-    const rl = readline.createInterface({ input, output });
-
-    const answer = await rl.question('enter a number: ');
-    console.log(await database.generateNumber(+answer!))
-    rl.close()
+async function translatePattern(db: SpellDatabase, pattern: string, statusMessageAcceptor: ((message: string) => void) = (_) => {}) {
+    pattern = pattern.replace(/^\s*(.*?)\s*$/g, `$1`)
+    const strippedOriginal = pattern
+    if (pattern === '') return ''
+    pattern = pattern.replaceAll('{', 'Introspection').replaceAll('}', 'Retrospection')
+    let result: Pattern | null = null
+    const numericalReflection = /^Numerical Reflection: (.+)$/
+    if (numericalReflection.test(pattern)) {
+        const value = parseFloat(pattern.match(numericalReflection)![1])
+        // if (value > 1000 && !NumberCache[value]) statusMessageAcceptor(`Solving number: ${value}`)
+        result = await db.generateNumber(value)
+    }
+    const bookkeepers = /^Bookkeeper's Gambit: ([\-v]+)$/
+    if (bookkeepers.test(pattern)) {
+        const mask = pattern.match(bookkeepers)![1]
+        result = db.generateBookkeeper(mask)
+    }
+    if (!result) {
+        const possible = db.queryByName(pattern)
+        if (!possible) {
+            console.log("failed to translate", pattern)
+            return ``
+        } else {
+            result = directions[possible.direction as keyof typeof directions].apply(possible.pattern!)
+        }
+    }
+    return `${result.direction.name},${result.pattern} // ${strippedOriginal}`
 }
 
-async function testOverlap() {
-    const rl = readline.createInterface({ input, output });
-    try {
-        while (true) {
-            const answer = await rl.question('enter a path: ');
-            console.log(answer, 'overlap?', doesPathOverlap(answer!))
-        }
-    } finally {
-        rl.close()
+export default async function() {
+    // init stuffs
+    const db = new SpellDatabase(await getSpellMeta())
+    return {
+        db,
+        translatePattern: translatePattern.bind(null, db)
     }
 }
-
-// testOverlap()
-initDatabases()
