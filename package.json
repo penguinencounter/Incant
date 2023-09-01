@@ -1,9 +1,14 @@
 {
+  "type": "module",
   "name": "lexcasting",
   "version": "1.0.0",
   "description": "DSL is in quotes because it's really just a command dispatcher.",
   "main": "index.js",
   "scripts": {
     "run": "npx tsc && node out/compiler.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.7",
+    "prompt-sync": "^4.2.0"
   }
 }
