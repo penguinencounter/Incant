@@ -149,7 +149,7 @@
 //   [interpreter: function]
 //   ["(", ")", "#", "$", ["+", "-", "*", "/"]]
 //   [lexer: function]
-//   [default raven]
+//   [ravenmind default]
 //   [<init>: function]
 // ]
 
@@ -186,12 +186,13 @@ Huginn's Gambit // write ravenmind; now [[], [], 0.00, NULL, []]
 Whisper Reflection // moreiotas; read from chat
 Spacing Reflection // moreiotas; push a space
 Separation Distillation // moreiotas
-// stack here: top [ words:[string...], lexer:function, ["(", ")", "//", "$"], interpreter:function, ...]
-Jester's Gambit  // swap the words and the lexer
+// stack here: top [ words:[string...], ["(", ")", "//", "$"], lib...]
 // (optimization note: merge the lexer and interpreter into <init> to save a few evals)
+
 //#include lexer.hexpattern
-Hermes' Gambit
+
+
 // the lexer should consume the lexer's static data (the list of ()//$ is removed)
 // stack: top [ interpreter:function, libraryLocation:vec3, persist:[any...] ]
-Hermes' Gambit // interpreter
+// Hermes' Gambit // interpreter
 // done, ravenmind is discarded by GC automatically

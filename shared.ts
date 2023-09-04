@@ -23,8 +23,23 @@ const
     E = new Direction('e'),
     directions = { SE, SW, W, NW, NE, E, SOUTH_EAST: SE, SOUTH_WEST: SW, WEST: W, NORTH_WEST: NW, NORTH_EAST: NE, EAST: E }
 
+function stripString(s: string): string {
+    return s.replace(/^\s*(.*?)\s*$/, '$1')
+}
+
+function nodify(multiline: string): HTMLDivElement[] {
+    const els = []
+    for (const line of multiline.split('\n')) {
+        const el = document.createElement('div')
+        el.textContent = line
+        els.push(el)
+    }
+    return els
+}
 export {
     Pattern,
     Direction,
-    directions
+    directions,
+    stripString,
+    nodify
 }

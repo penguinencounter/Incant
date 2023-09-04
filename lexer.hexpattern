@@ -5,420 +5,414 @@
 // top [ words, ["(", ")", "#", "$", [operators]], interpreter, ...]
 
 {
-  // discard blanks
-  Gemini Decomposition
-  Blank Reflection
-  Equality Distillation
   {
-    Charon's Gambit
-    Bookkeeper's Gambit: -
-  }
-  Flock's Disintegration
-  Augur's Exaltation
-  Hermes' Gambit
+    // discard blanks
+    Gemini Decomposition
+    Blank Reflection
+    Equality Distillation
+    {
+      Charon's Gambit
+      Bookkeeper's Gambit: -
+    }
+    Flock's Disintegration
+    Augur's Exaltation
+    Hermes' Gambit
 
-  // how does loop unrolling work??? investigate later
-  // because this is called by Thoth, the first item on the stack is a word
-  // the stack looks like this:
-  // [ word, ["(", ")", "#", "$", [operators]], interpreter, ...]
-  Jester's Gambit
+    // how does loop unrolling work??? investigate later
+    // because this is called by Thoth, the first item on the stack is a word
+    // the stack looks like this:
+    // [ word, [[operators], "$", "#", "(", ")"], interpreter, ...]
+    Jester's Gambit
 
-  // Append the length of the character list to the ravenmind.
-  Gemini Decomposition // copy the character list (optimization: hardcode the length)
-  Abacus Purification
-  Muninn's Reflection
-  
-  // [ [raven], len of chars, [... chars ...], word, interpreter, ...]
-  Jester's Gambit
-  // [ len of chars, [raven], [... chars ...], word, interpreter, ...]
-  // only safe because we are immediately discarding in the next step
-  // and makes the next step easier
-  Speaker's Distillation
-  Huginn's Gambit
-  
-  // Unpack the character list, with the length at the start...
-  // [ [... chars ...], word, interpreter, ...]
-  Flock's Disintegration
-  Muninn's Reflection
-  Speaker's Decomposition
-  Jester's Gambit
-  Huginn's Gambit
-  // [ len of chars, *chars, word, interpreter, ...]
-  Numerical Reflection: 1
-  Additive Distillation
-  // [ len of chars + 1, *chars, word, interpreter, ...]
-  Fisherman's Gambit  // pull 'word' to the top
-  // [ word, *chars, interpreter, ...]
-
-  // is it an opening paren?
-  Gemini Decomposition
-  Numerical Reflection: 4  // top [ word, word, paren, ...] -> top [ word, paren, word, ...]
-  Swindler's Gambit
-  Equality Distillation
-  Gemini Decomposition  // do the conditional execution *first*, then re-use the result to Break/not
-  // [ is_open_paren?, word, close_paren, octothorpe, dollar, [operators], interpreter, ...]
-  {  // it IS an opening paren!
-    // increment backtracking
-    // is there a shorter way to do this?
+    // Append the length of the character list to the ravenmind.
+    Gemini Decomposition // copy the character list (optimization: hardcode the length)
+    Abacus Purification
     Muninn's Reflection
-    Numerical Reflection: 2
-    Dioscuri Gambit
-    Selection Distillation
+    
+    // [ [raven], len of chars, [... chars ...], word, interpreter, ...]
+    Jester's Gambit
+    // [ len of chars, [raven], [... chars ...], word, interpreter, ...]
+    // only safe because we are immediately discarding in the next step
+    // and makes the next step easier
+    Speaker's Distillation
+    Huginn's Gambit
+    
+    // Unpack the character list, with the length at the start...
+    // [ [... chars ...], word, interpreter, ...]
+    Flock's Disintegration
+    Muninn's Reflection
+    Speaker's Decomposition
+    Jester's Gambit
+    Huginn's Gambit
+    // [ len of chars, *chars, word, interpreter, ...]
     Numerical Reflection: 1
     Additive Distillation
-    Surgeon's Exaltation
-    Huginn's Gambit
+    // [ len of chars + 1, *chars, word, interpreter, ...]
+    Fisherman's Gambit  // pull 'word' to the top
+    // [ word, *chars, interpreter, ...]
 
-    // also, merge these two? this does the same thing (pick and modify part of array)
-    Muninn's Reflection
-    Numerical Reflection: 4
-    Dioscuri Gambit
-    Selection Distillation
-    Numerical Reflection: 0
-    Speaker's Distillation
-    Surgeon's Exaltation
-    Huginn's Gambit
-  }
-  {
-    Bookkeeper's Gambit: -
-  }
-  Flock's Disintegration
-  // Marker (v1) -- last saved item... --
-  // stack, top [<action-if-false>, <action-if-true>, <boolean?>]
-  Augur's Exaltation
-  Hermes' Gambit  // open paren
-  {
-    Charon's Gambit
-    Bookkeeper's Gambit: -
-  }
-  Flock's Disintegration
-  Augur's Exaltation
-  Hermes' Gambit  // Break if true
+    // is it an opening paren?
+    Gemini Decomposition
+    Numerical Reflection: 4  // top [ word, word, paren, ...] -> top [ word, paren, word, ...]
+    Swindler's Gambit
+    Equality Distillation
+    Gemini Decomposition  // do the conditional execution *first*, then re-use the result to Break/not
+    // [ is_open_paren?, word, close_paren, octothorpe, dollar, [operators], interpreter, ...]
+    {  // it IS an opening paren!
+      // increment backtracking
+      // is there a shorter way to do this?
+      Muninn's Reflection
+      Numerical Reflection: 2
+      Dioscuri Gambit
+      Selection Distillation
+      Numerical Reflection: 1
+      Additive Distillation
+      Surgeon's Exaltation
+      Huginn's Gambit
 
-  // is it a *closing* paren???
-  Gemini Decomposition
-  Numerical Reflection: 4
-  Swindler's Gambit
-  Equality Distillation
-  Gemini Decomposition
-  {
-    // decrement backtracking
-    Muninn's Reflection
-    Gemini Decomposition
-    Numerical Reflection: 2
-    Dioscuri Gambit
-    Dioscuri Gambit
-    Numerical Reflection: 1
-    Subtractive Distillation
-    Surgeon's Exaltation
-    Huginn's Gambit
-    // [ 2, raven, raven, ...] on top
-    Selection Distillation
-    // [ back, raven, ...]
-    Numerical Reflection: 2
-    Fisherman's Gambit
-    // [ raven, back, ...]
-    // pull the argcount out of the list (part I)
-    Numerical Reflection: 4
-    Selection Distillation
-    Speaker's Decomposition
-    // [ argcount, [remaining argcounts]]
-    // get the <back>th item out of the token list
-    Muninn's Reflection
-    Numerical Reflection: 1
-    Dioscuri Gambit
-    Selection Distillation
-    // [ [tokens], 1, raven, argcount, [argcounts], ...]
-    Muninn's Reflection
-    Numerical Reflection: 2
-    Selection Distillation
-    // [ back, [tokens], 1, raven, argcount, [argcounts], ...]
-    Dioscuri Gambit
-    // [ back, [tokens], back, [tokens], 1, raven, argcount, [argcounts], ...]
-    Selection Distillation
-    // [ token, back, [tokens], 1, raven, argcount, [argcounts], ...]
-    Numerical Reflection: 2
-    Numerical Reflection: 7
-    Fisherman's Gambit
-    // [ argcount, 2, token, back, [tokens], 1, raven, [argcounts], ...]
-    Surgeon's Exaltation
-    // [ token, back, [tokens], 1, raven, [argcounts], ...]
-    Surgeon's Exaltation
-    // [ [tokens*], 1, raven, [argcounts], ...]
+      // also, merge these two? this does the same thing (pick and modify part of array)
+      Muninn's Reflection
+      Numerical Reflection: 4
+      Dioscuri Gambit
+      Selection Distillation
+      Numerical Reflection: 0
+      Speaker's Distillation
+      Surgeon's Exaltation
+      Huginn's Gambit
+    }
+    {
+      Bookkeeper's Gambit: -
+    }
+    Flock's Disintegration
+    // Marker (v1) -- last saved item... --
+    // stack, top [<action-if-false>, <action-if-true>, <boolean?>]
+    Augur's Exaltation
+    Hermes' Gambit  // open paren
+    {
+      Charon's Gambit
+      Bookkeeper's Gambit: -
+    }
+    Flock's Disintegration
+    Augur's Exaltation
+    Hermes' Gambit  // Break if true
 
-    // TODO: Use Chloe's shorter version to modify the ravenmind
-    // TODO: this code
+    // is it a *closing* paren???
+    // FIXME: One of these Surgeon's Exaltations is broken
+    Gemini Decomposition
     Numerical Reflection: 4
-    Selection Distillation
-    Speaker's Decomposition
-    // [ argcount, [remaining argcounts], backtracking, ...]
-    Jester's Gambit
-    Muninn's Reflection
-    // [ raven, [remaining argcounts], argcount, backtracking, ...]
-    Jester's Gambit
-    Numerical Reflection: 4
-    Jester's Gambit
-    // [ [remaining argcounts], 4, raven, argcount, backtracking, ...]
-    Surgeon's Exaltation
-    // [ raven, ...]
-    Huginn's Gambit
-    // [ argcount, backtracking, ...]
-    Jester's Gambit
-    // [ backtracking, argcount, ...]
-    // now pull the <backtracking>th thing out of tokens...
-    Muninn's Reflection
-    Numerical Reflection: 1
-    Selection Distillation
-    // [ [tokens], backtracking, argcount, ...]
-    Gemini Decomposition
-    Numerical Reflection: 2
-    Fisherman's Gambit II
-    Jester's Gambit
-    Selection Distillation
-    // [ token data, argcount, [tokens], backtracking, ...]
-    Jester's Gambit
-    Numerical Reflection: 2
-    Jester's Gambit
-    Surgeon's Exaltation
-    // [ modified token data, [tokens], backtracking, ...]
-    Numerical Reflection: 3
-    Fisherman's Gambit
-    // [ modified token data, backtracking (which just happens to be the index as well), [tokens], ...]
-    Surgeon's Exaltation
-    // [ [tokens (modified)], ...]
-    Muninn's Reflection
-    Jester's Gambit
-    Numerical Reflection: 1
-    Jester's Gambit 
-    Surgeon's Exaltation
-    // [ [ravenmind (modified)], ...]
-    Huginn's Gambit
-  }
-  {
-    Bookkeeper's Gambit: -
-  }
-  Flock's Disintegration
-  Augur's Exaltation
-  Hermes' Gambit  //close paren
-  {
-    Charon's Gambit
-    Bookkeeper's Gambit: -
-  }
-  Flock's Disintegration
-  Augur's Exaltation
-  Hermes' Gambit  // Break if true
-
-  // [ word, octothorpe, dollar, ...]
-  // Number literals and autorefs.
-  Gemini Decomposition
-  Numerical Reflection: 0
-  Numerical Reflection: 1
-  Winnowing Distillation
-  // [ first char, word, octothorpe, dollar, ...]
-  Numerical Reflection: 3
-  Fisherman's Gambit
-  // [ octothorpe, first char, word, dollar, ...]
-  Equality Distillation
-  Gemini Decomposition
-  {
-    // [ true, word, dollar, ...]
-    Jester's Gambit
-    // [ word, true, dollar, ...]
-    Gemini Decomposition
-    Length Distillation: Str
-    Numerical Reflection: 1
-    Jester's Gambit
-    Winnowing Distillation
-    // [ word (without #), true, dollar]
-    Input Purification
-    // [ number, true, dollar ]
-    Numerical Reflection: 0
-    Jester's Gambit
-    Numerical Reflection: 2
-    Flock's Gambit
-    // [ [0, number], true, dollar]
-    Jester's Gambit
-  }
-  {
-    // [ false ]
-    Bookkeeper's Gambit: -
-  }
-  Flock's Disintegration
-  Augur's Exaltation
-  Hermes' Gambit
-  // IF is-number-literal is false:
-  // [ is-number-literal<false>, word, dollar, [operators], ]
-  // ELSE:
-  // [ is-number-literal<true>, token, dollar, [operators], ]
-  { // true, token, dollar
-    // but first, we have to talk about parallel universes
-    // <insert mario 64 music>
-    Bookkeeper's Gambit: v-- // discard the "$" so that this and the other path are synchronized
-  }
-  Flock's Disintegration
-  { // false, word, dollar
-    Bookkeeper's Gambit: v
-    Gemini Decomposition
-    // word, word, dollar
-    Numerical Reflection: 0
-    Numerical Reflection: 1
-    Winnowing Distillation
-    // [ first char, word, dollar, ...]
-    Numerical Reflection: 3
-    Fisherman's Gambit
-    // [ dollar, first char, word, ...]
+    Swindler's Gambit
     Equality Distillation
     Gemini Decomposition
-    // [ is-autoref, is-autoref, word, [operators], ...]
-    { // true
+    {
+      // decrement backtracking
+      Muninn's Reflection
+      Gemini Decomposition
+      Numerical Reflection: 2
+      Dioscuri Gambit
+      Dioscuri Gambit
+      Numerical Reflection: 1
+      Subtractive Distillation
+      Surgeon's Exaltation
+      Huginn's Gambit
+      // [ 2, raven, raven, ...] on top
+      Selection Distillation
+      // [ back, raven, ...]
+      Numerical Reflection: 2
+      Fisherman's Gambit
+      // [ raven, back, ...]
+      // pull the argcount out of the list (part I)
+      Numerical Reflection: 4
+      Selection Distillation
+      Speaker's Decomposition
+      // [ argcount, [remaining argcounts]]
+      // get the <back>th item out of the token list
+      Muninn's Reflection
+      Numerical Reflection: 1
+      Dioscuri Gambit
+      Selection Distillation
+      // [ [tokens], 1, raven, argcount, [argcounts], ...]
+      Muninn's Reflection
+      Numerical Reflection: 2
+      Selection Distillation
+      // [ back, [tokens], 1, raven, argcount, [argcounts], ...]
+      Dioscuri Gambit
+      // [ back, [tokens], back, [tokens], 1, raven, argcount, [argcounts], ...]
+      Selection Distillation
+      // [ token, back, [tokens], 1, raven, argcount, [argcounts], ...]
+      Numerical Reflection: 2
+      Numerical Reflection: 7
+      Fisherman's Gambit
+      // [ argcount, 2, token, back, [tokens], 1, raven, [argcounts], ...]
+      Surgeon's Exaltation
+      // [ token, back, [tokens], 1, raven, [argcounts], ...]
+      Surgeon's Exaltation
+      // [ [tokens*], 1, raven, [argcounts], ...]
+      Surgeon's Exaltation
+      // [ raven*, [argcounts], ...]
       Jester's Gambit
-      // [ word, is-autoref, [operators], ...]
+      // [ [argcounts], raven*, ...]
+      Numerical Reflection: 4
+      Jester's Gambit
+      // [ [argcounts], 4, raven*]
+      Surgeon's Exaltation
+      // [ raven**, ...]
+      Huginn's Gambit
+    }
+    {
+      Bookkeeper's Gambit: -
+    }
+    Flock's Disintegration
+    Augur's Exaltation
+    Hermes' Gambit  //close paren
+    {
+      Charon's Gambit
+      Bookkeeper's Gambit: -
+    }
+    Flock's Disintegration
+    Augur's Exaltation
+    Hermes' Gambit  // Break if true
+
+    // TODO: Remove debugging code
+    Numerical Reflection: 3
+    Reveal
+    Bookkeeper's Gambit: v
+
+    // [ word, octothorpe, dollar, ...]
+    // Number literals and autorefs.
+    Gemini Decomposition
+    Numerical Reflection: 0
+    Numerical Reflection: 1
+    Winnowing Distillation
+    // [ first char, word, octothorpe, dollar, ...]
+    Numerical Reflection: 3
+    Fisherman's Gambit
+    // [ octothorpe, first char, word, dollar, ...]
+    Equality Distillation
+    Gemini Decomposition
+    {
+      // [ true, word, dollar, ...]
+      Jester's Gambit
+      // [ word, true, dollar, ...]
       Gemini Decomposition
       Length Distillation: Str
       Numerical Reflection: 1
       Jester's Gambit
       Winnowing Distillation
-      // [ word (without $), is-autoref, [operators], ...]
+      // [ word (without #), true, dollar]
       Input Purification
-      // [ autoref-index, is-autoref ]
-      // PLOAD is index 1
-      Numerical Reflection: 1
+      // [ number, true, dollar ]
+      Numerical Reflection: 0
       Jester's Gambit
       Numerical Reflection: 2
       Flock's Gambit
-      // [ [1, autoref-index], is-autoref, [operators], ...]
+      // [ [0, number], true, dollar]
       Jester's Gambit
-      // [ is-autoref, [1, autoref-index], [operators], ...]
     }
-    { // false
+    {
+      // [ false ]
       Bookkeeper's Gambit: -
     }
     Flock's Disintegration
     Augur's Exaltation
     Hermes' Gambit
-  }
-  Augur's Exaltation
-  Hermes' Gambit
-  // [ is-number-literal || is-autoref, <varies>, [operators], ]
-  //   ^ == true                      , token,    [operators], ]
-  //   ^ == false                     , word,     [operators], ]
-  // It is a function call of some kind (inline, invoke, or operator)
-  {
-    Bookkeeper's Gambit: v-- // discard the operators list
-  }
-  Flock's Disintegration
-  { // false, word, [operators]
-    Bookkeeper's Gambit: v
-    Gemini Decomposition
-    // word, word, [operators]
-    // cba -> bca
-    Numerical Reflection: 2
-    Swindler's Gambit
-    // word, [operators], word
-    Locator's Distillation
-    // [ index/-1, word]
-    Numerical Reflection: -1
-    // [ -1, index, word]
-    Equality Distillation
-    // True: Not an operator
-    // False: Is an operator
-    { // Not an op; push... something
-      // load backtracking
-      Muninn's Reflection
-      Numerical Reflection: 2
-      Selection Distillation
-      // [ backtracking, word ]
-      Numerical Reflection: 0
-      Equality Distillation
-      // [ backtracking==0?, word ]
-      Numerical Reflection: 3 // invoke ; base level
-      Numerical Reflection: 2 // inline ; non-base level (arguments)
-      Augur's Exaltation
-      // [ token type, word ]
-      Jester's Gambit
-      Numerical Reflection: 0
-      // [ 0 (argcount), word, token type ]
-      Numerical Reflection: 3
-      Flock's Gambit
-      // [ [type, word, 0], ]
-      True Reflection
-      // [ true, token ]
+    // IF is-number-literal is false:
+    // [ is-number-literal<false>, word, dollar, [operators], ]
+    // ELSE:
+    // [ is-number-literal<true>, token, dollar, [operators], ]
+    { // token, dollar
+      // but first, we have to talk about parallel universes
+      // <insert mario 64 music>
+      Bookkeeper's Gambit: v- // discard the "$" so that this and the other path are synchronized
     }
-    { // Op; set OPERATOR flag
-      Muninn's Reflection
-      Numerical Reflection: 3
-      // [ 3, raven, word ]
+    Flock's Disintegration
+    { // false, word, dollar
+      Bookkeeper's Gambit: v
+      Gemini Decomposition
+      // word, word, dollar
+      Numerical Reflection: 0
+      Numerical Reflection: 1
+      Winnowing Distillation
+      // [ first char, word, dollar, ...]
       Numerical Reflection: 3
       Fisherman's Gambit
-      // [ word, 3, raven ]
-      Surgeon's Exaltation
-      Huginn's Gambit
-
-      False Reflection
-      // [ false ]
+      // [ dollar, first char, word, ...]
+      Equality Distillation
+      Gemini Decomposition
+      // [ is-autoref, is-autoref, word, [operators], ...]
+      { // true
+        Jester's Gambit
+        // [ word, is-autoref, [operators], ...]
+        Gemini Decomposition
+        Length Distillation: Str
+        Numerical Reflection: 1
+        Jester's Gambit
+        Winnowing Distillation
+        // [ word (without $), is-autoref, [operators], ...]
+        Input Purification
+        // [ autoref-index, is-autoref ]
+        // PLOAD is index 1
+        Numerical Reflection: 1
+        Jester's Gambit
+        Numerical Reflection: 2
+        Flock's Gambit
+        // [ [1, autoref-index], is-autoref, [operators], ...]
+        Jester's Gambit
+        // [ is-autoref, [1, autoref-index], [operators], ...]
+      }
+      { // false
+        Bookkeeper's Gambit: -
+      }
+      Flock's Disintegration
+      Augur's Exaltation
+      Hermes' Gambit
     }
     Augur's Exaltation
     Hermes' Gambit
-  }
-
-
-  // [ has-token, token ]
-  { // yes, there is a [ token ] at the top of the stack
-    Muninn's Reflection
-    Gemini Decomposition
-    Numerical Reflection: 1
-    Selection Distillation
-    // [ [tokens], [raven], token ]
-    Jester's Gambit
-    Numerical Reflection: 2
-    Selection Distillation
-    // [ backtrack, [tokens], token ]
-    Numerical Reflection: 3
-    Fisherman's Gambit
-    // [ token, backtrack, [tokens] ]
-
-    //#include list_insert_clean.hexpattern
-    
-    // [ [tokens] ]
-    // is there an OPERATOR queued?
-    Muninn's Reflection
-    Numerical Reflection: 3
-    Selection Distillation
-    Gemini Decomposition
-    Nullary Reflection
-    // [ NULL, operator, operator, [tokens] ]
-    Equality Distillation
-    // [ isNull?, operator, [tokens] ]
+    // [ is-number-literal || is-autoref, <varies>, [operators], ]
+    //   ^ == true                      , token,    [operators], ]
+    //   ^ == false                     , word,     [operators], ]
+    // It is a function call of some kind (inline, invoke, or operator)
     {
-      Bookkeeper's Gambit: -
+      Bookkeeper's Gambit: v- // discard the operators list
     }
     Flock's Disintegration
-    {
-      // [ operator, [tokens] ]
-      Numerical Reflection: 2 // inline ; non-base level (arguments)
-      Jester's Gambit
-      Numerical Reflection: 2 // there are always two arguments
-      // [ 2, operator, 2, [tokens] ]
-      Numerical Reflection: 3
-      Flock's Gambit
-      // [ [2, operator, 2], [tokens] ]
+    { // word, [operators]
+      Gemini Decomposition
+      // word, word, [operators]
+      // cba -> bca
+      Numerical Reflection: 2
+      Swindler's Gambit
+      // word, [operators], word
+      Locator's Distillation
+      // [ index/-1, word]
+      Numerical Reflection: -1
+      // [ -1, index, word]
+      Equality Distillation
+      // True: Not an operator
+      // False: Is an operator
+      { // Not an op; push... something
 
+        // TODO: Remove debugging code
+        Flock's Reflection
+        Flock's Gambit
+        Reveal
+        Flock's Disintegration
+
+        // load backtracking
+        Muninn's Reflection
+        Numerical Reflection: 2
+        Selection Distillation
+        // [ backtracking, word ]
+        Numerical Reflection: 0
+        Equality Distillation
+        // [ backtracking==0?, word ]
+        Numerical Reflection: 3 // invoke ; base level
+        Numerical Reflection: 2 // inline ; non-base level (arguments)
+        Augur's Exaltation
+        // [ token type, word ]
+        Jester's Gambit
+        Numerical Reflection: 0
+        // [ 0 (argcount), word, token type ]
+        Numerical Reflection: 3
+        Flock's Gambit
+        // [ [type, word, 0], ]
+        True Reflection
+        // [ true, token ]
+      }
+      { // Op; set OPERATOR flag
+        Muninn's Reflection
+        Numerical Reflection: 3
+        // [ 3, raven, word ]
+        Numerical Reflection: 3
+        Fisherman's Gambit
+        // [ word, 3, raven ]
+        Surgeon's Exaltation
+        Huginn's Gambit
+
+        False Reflection
+        // [ false ]
+      }
+      Augur's Exaltation
+      Hermes' Gambit
+    }
+    Augur's Exaltation
+    Hermes' Gambit
+
+    // [ has-token, token ]
+    { // yes, there is a [ token ] at the top of the stack
       Muninn's Reflection
+      Gemini Decomposition
+      Numerical Reflection: 1
+      Selection Distillation
+      // [ [tokens], [raven], token ]
+      Jester's Gambit
       Numerical Reflection: 2
       Selection Distillation
-      Jester's Gambit
-      // [ [2, operator, 2], 2, [tokens] ]
+      // [ backtrack, [tokens], token ]
+      Numerical Reflection: 3
+      Fisherman's Gambit
+      // [ token, backtrack, [tokens] ]
 
       //#include list_insert_clean.hexpattern
-
-      // Operator = NULL
+      
+      // [ [tokens] ]
+      // is there an OPERATOR queued?
       Muninn's Reflection
       Numerical Reflection: 3
+      Selection Distillation
+      Gemini Decomposition
       Nullary Reflection
+      // [ NULL, operator, operator, [tokens] ]
+      Equality Distillation
+      // [ isNull?, operator, [tokens] ]
+      {
+        Bookkeeper's Gambit: v
+      }
+      Flock's Disintegration
+      {
+        // [ operator, [tokens] ]
+        Numerical Reflection: 2 // inline ; non-base level (arguments)
+        Jester's Gambit
+        Numerical Reflection: 2 // there are always two arguments
+        // [ 2, operator, 2, [tokens] ]
+        Numerical Reflection: 3
+        Flock's Gambit
+        // [ [2, operator, 2], [tokens] ]
+
+        Muninn's Reflection
+        Numerical Reflection: 2
+        Selection Distillation
+        Jester's Gambit
+        // [ [2, operator, 2], 2, [tokens] ]
+
+        //#include list_insert_clean.hexpattern
+
+        // Operator = NULL
+        Muninn's Reflection
+        Numerical Reflection: 3
+        Nullary Reflection
+        Surgeon's Exaltation
+        Huginn's Gambit
+      }
+      Augur's Exaltation
+      Hermes' Gambit
+
+      // write modified tokens
+      Muninn's Reflection
+      Jester's Gambit
+      Numerical Reflection: 1
+      Jester's Gambit
       Surgeon's Exaltation
       Huginn's Gambit
     }
+    { // there is not a token, so... we chilling?
+      Bookkeeper's Gambit: -
+    }
+    Flock's Disintegration
+    Augur's Exaltation
+    Hermes' Gambit
   }
+  Hermes' Gambit // it pains me, but this way charon's gambit does 'continue' instead 
 }
 
 // [ inline pattern, words, ["(", ")", "#", "$", [ operators ]], interpreter, ...]

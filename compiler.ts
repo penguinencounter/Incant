@@ -1,4 +1,4 @@
-import { Pattern, Direction, directions } from './shared.js'
+import { Pattern, Direction, directions, stripString } from './shared.js'
 
 type ArrayType<T> = T extends Array<infer U> ? U : never
 
@@ -240,7 +240,7 @@ async function getSpellMeta() {
 }
 
 async function translatePattern(db: SpellDatabase, pattern: string, statusMessageAcceptor: ((message: string) => void) = (_) => {}) {
-    pattern = pattern.replace(/^\s*(.*?)\s*$/g, `$1`)
+    pattern = stripString(pattern)
     const strippedOriginal = pattern
     if (pattern === '') return ''
     pattern = pattern.replaceAll('{', 'Introspection').replaceAll('}', 'Retrospection')
@@ -265,7 +265,7 @@ async function translatePattern(db: SpellDatabase, pattern: string, statusMessag
             result = directions[possible.direction as keyof typeof directions].apply(possible.pattern!)
         }
     }
-    return `${result.direction.name},${result.pattern} // ${strippedOriginal}`
+    return `${result.direction.name},${result.pattern}`
 }
 
 export default async function() {

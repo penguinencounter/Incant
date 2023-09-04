@@ -1,8 +1,7 @@
 [
-    #buildvar libraries,
     [
         "(", ")", "#", "$",
-        #buildvar operators
+        ["+", "-", "*", "/"]
     ],
-    #translate main.hexpattern
+    #include main.hexpattern;
 ]

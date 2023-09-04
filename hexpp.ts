@@ -1,7 +1,8 @@
-import { Pattern, Direction, directions } from './shared.js'
+import { Pattern, Direction, directions, stripString, nodify } from './shared.js'
 import { default as initCompiler } from './compiler.js'
+import { shorthandToNBT } from './export_give.js'
 
-;(function() {
+(function () {
     let compilerItems: Awaited<ReturnType<typeof initCompiler>>
     const yield_ = () => new Promise((resolve, reject) => setTimeout(resolve, 0))
     const nocache = true
@@ -25,7 +26,7 @@ import { default as initCompiler } from './compiler.js'
     })()
 
     class Pattern {
-        constructor(public direction: Direction, public pattern: string) {}
+        constructor(public direction: Direction, public pattern: string) { }
         public extend(extension: string) {
             return new Pattern(this.direction, this.pattern + extension)
         }
@@ -39,7 +40,7 @@ import { default as initCompiler } from './compiler.js'
 
     async function loadHexPackage() {
         setStatusMessage('Loading hexpackage.json')
-        const resp = await fetch('hexpackage.json', {cache: 'no-store'})
+        const resp = await fetch('hexpackage.json', { cache: 'no-store' })
         const data = await resp.json()
         return data as HexPackageSpec
     }
@@ -53,6 +54,9 @@ import { default as initCompiler } from './compiler.js'
         const resp = await fetch(path, {
             cache: nocache ? 'no-store' : 'default'
         })
+        if (resp.status !== 200) {
+            throw new Error(`Failed to fetch ${path}: ${resp.status} ${resp.statusText}`)
+        }
         const text = await resp.text()
         cachedSources.set(path, text)
         console.log('fetch:', path, text.length)
@@ -60,28 +64,67 @@ import { default as initCompiler } from './compiler.js'
     }
 
     type SupportedExtension = 'hexpattern' | 'hexcasting' | 'hexiota'
-    async function translatePatterns(content: string, targetExtension: SupportedExtension) {
-        const translators: {[key in SupportedExtension]: (content: string) => Promise<string>} = {
-            hexpattern: async content => content,
-            hexcasting: async content => content,
-            hexiota: async content => {
-                let translated: string[] = []
-                let n = 0
-                const totalCount = content.split('\n').length
-                let lastYield = Date.now()
-                for (const line of content.split('\n')) {
-                    n++
-                    setStatusMessage(`Translating: ${Math.round(n/totalCount*100)}% ${n} / ${totalCount}`)
-                    translated.push((await compilerItems!.translatePattern(line, setStatusMessage)))
-                    if (Date.now() - lastYield > 25) {
-                        await yield_()
-                        lastYield = Date.now()
+    type UniqueExtensions = 'hexcasting' | 'hexiota'
+    async function translatePatterns(content: string, sourceExtension: SupportedExtension, targetExtension: SupportedExtension) {
+        if (sourceExtension === 'hexpattern') sourceExtension = 'hexcasting'
+        if (targetExtension === 'hexpattern') targetExtension = 'hexcasting'
+        if (sourceExtension !== targetExtension) console.log('Translating', sourceExtension, 'to', targetExtension)
+        sourceExtension = sourceExtension as UniqueExtensions
+        targetExtension = targetExtension as UniqueExtensions
+        // translators.source.target
+        const translators: { [key in UniqueExtensions]: { [key in UniqueExtensions]: (content: string) => Promise<string> } } = {
+            hexcasting: {
+                hexcasting: async content => content,
+                hexiota: async content => {
+                    let translated: string[] = []
+                    let n = 0
+                    const totalCount = content.split('\n').length
+                    const start = Date.now()
+                    let lastYield = Date.now()
+                    for (const line of content.split('\n')) {
+                        n++
+                        setStatusMessage(`Translating: ${Math.round(n / totalCount * 100)}% ${n} / ${totalCount}`)
+                        const partial = await compilerItems!.translatePattern(line, setStatusMessage)
+                        if (!partial.match(/^\s*$/gm))
+                            translated.push('<' + partial + '>')
+                        if (Date.now() - lastYield > 25) {
+                            await yield_()
+                            lastYield = Date.now()
+                        }
                     }
+                    console.log('translated', translated.length, 'lines in', Date.now() - start, 'ms')
+                    return `[${translated.join(';')}]`
                 }
-                return translated.join('\n')
+            },
+            hexiota: {
+                hexcasting: async content => {
+                    throw new Error('cannot translate: hexiota -> hexcasting not implemented')
+                },
+                hexiota: async content => content,
             }
         }
-        return await translators[targetExtension](content)
+        const translator = translators[sourceExtension][targetExtension]
+        return await translator(content)
+    }
+
+    type DirectiveRules = {
+        include?: RegExp,
+        buildvar?: RegExp
+    }
+
+    const directiveRules: { [key in SupportedExtension]: DirectiveRules } = {
+        hexpattern: {
+            include: /^[ \t]*\/\/#include (.*?)(?:$|;)/gm,
+            buildvar: /\/\/#buildvar (.*?)(?:$|;)/gm,
+        },
+        hexcasting: {
+            include: /^[ \t]*\/\/#include (.*?)(?:$|;)/gm,
+            buildvar: /\/\/#buildvar (.*?)(?:$|;)/gm,
+        },
+        hexiota: {
+            include: /^[ \t]*#include (.*?)(?:$|;)/gm,
+            buildvar: /#buildvar (.*?)(?:$|;)/gm,
+        }
     }
 
     async function processFile(path: string, recurStack: string[] = []) {
@@ -96,14 +139,25 @@ import { default as initCompiler } from './compiler.js'
             console.log('reusing', path, `(${val.length})`)
             return val
         }
+        const language = path.split('.').pop() as SupportedExtension
+        const rules = directiveRules[language]
+        if (!rules) {
+            throw new Error(`Unsupported language: ${language}`)
+        }
+
         let content = await getOrCache(path)
         const originalContent = content
-        while (true) {
-            const match = /^[ \t]*\/\/#include (.*)$/gm.exec(content)
-            if (!match) break
-            const includePath = match[1]
-            const includeContent = await processFile(includePath, [...recurStack, path])
-            content = content.slice(0, match.index!) + includeContent + content.slice(match.index! + match[0].length)
+        // process #includes
+        if (rules.include) {
+            while (new RegExp(rules.include).test(content)) {
+                const match = new RegExp(rules.include).exec(content)!
+                const includePath = stripString(match[1])
+                const sourceLanguage = includePath.split('.').pop() as SupportedExtension
+                const includeContent = await processFile(includePath, [...recurStack, path])
+                const translatedContent = await translatePatterns(includeContent, sourceLanguage, language)
+                setStatusMessage(`Merging ${path} <- ${includePath}`)
+                content = content.slice(0, match.index!) + translatedContent + content.slice(match.index! + match[0].length)
+            }
         }
 
         // erase comments and extraneous newlines
@@ -115,17 +169,25 @@ import { default as initCompiler } from './compiler.js'
     }
 
     async function load() {
-        setStatusMessage(`Initializing compiler...`)
-        compilerItems = await initCompiler()
-        const start = Date.now()
-        let packageInfo = await loadHexPackage()
-        let built = await processFile(packageInfo.entrypoint)
-        built = await translatePatterns(built, 'hexiota')
-        const end = Date.now()
-        setStatusMessage(`Build completed.`)
-        setStatistics(`output ${built.length} bytes in ${end-start}ms, fetched ${cachedSources.size} things, processed ${cachedProcessed.size} files`)
-        document.getElementById('target')!.textContent = built
+        try {
+            setStatusMessage(`Initializing compiler...`)
+            compilerItems = await initCompiler()
+            const start = Date.now()
+            let packageInfo = await loadHexPackage()
+            let built = await processFile(packageInfo.entrypoint)
+            const end = Date.now()
+            setStatusMessage(`Build completed.`)
+            setStatistics(`output ${built.length} bytes in ${end - start}ms, fetched ${cachedSources.size} things, processed ${cachedProcessed.size} files`)
+            const target = document.getElementById('target')!
+            target.innerHTML = ''
+            nodify(built).forEach(el => target.appendChild(el))
+        } catch (e) {
+            setStatusMessage(`Build failed`)
+            if (e instanceof Error) console.log(e.message)
+        }
     }
 
     window.addEventListener('load', load)
+
+    console.log(shorthandToNBT)
 })()

@@ -1,25 +1,37 @@
 // Take a `value` and put it in the `target` list at `index`.
 // list, number, any -> list
 
+// FIXME: one of these is broken. oh no
+
 Numerical Reflection: 2
 Fisherman's Gambit II
-Gemini Decomposition
-Abacus Purification
+// [ target, value, index, target ]
+Numerical Reflection: 0
+// [ 0 target value index target ]
 Numerical Reflection: 3
 Fisherman's Gambit II
-Numerical Reflection: 0
-Numerical Reflection: 4
-Fisherman's Gambit II
+// actual target stack [ index 0 target value index target ]
 Selection Exaltation
-Numerical Reflection: 5 // TODO[1.20] -1 (TEST FIRST!!!)
+// [ sli1 value index target ]
+Numerical Reflection: 4 // TODO[1.20] -1 (TEST FIRST!!!)
 Fisherman's Gambit
-Numerical Reflection: 3 // TODO[1.20] -1
+// [ target sli1 value index ]
+Gemini Decomposition
+Abacus Purification
+// [ #target target sli1 value index ]
+Numerical Reflection: 5
 Fisherman's Gambit
-Numerical Reflection: 5 // TODO[1.20] -1
-Fisherman's Gambit
+// [ index #target target sli1 value ]
+Jester's Gambit
+// [ #target index target sli1 value ]
 Selection Exaltation
+// [ sli2 sli1 value ]
+// cba abc
 Numerical Reflection: 5
 Swindler's Gambit
+// [ value sli1 sli2 ]
 Combination Distillation
+// [ sli1+value sli2 ]
 Jester's Gambit
 Combination Distillation
+// [ sli1+value+sli2 ]
