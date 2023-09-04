@@ -51,6 +51,15 @@
     Fisherman's Gambit  // pull 'word' to the top
     // [ word, *chars, interpreter, ...]
 
+    // TODO: Remove debugging code
+    Numerical Reflection: 1
+    Reveal
+    Bookkeeper's Gambit: v
+    Flock's Reflection
+    Flock's Gambit
+    Reveal
+    Flock's Disintegration
+
     // is it an opening paren?
     Gemini Decomposition
     Numerical Reflection: 4  // top [ word, word, paren, ...] -> top [ word, paren, word, ...]
@@ -96,6 +105,15 @@
     Augur's Exaltation
     Hermes' Gambit  // Break if true
 
+    // TODO: Remove debugging code
+    Numerical Reflection: 2
+    Reveal
+    Bookkeeper's Gambit: v
+    Flock's Reflection
+    Flock's Gambit
+    Reveal
+    Flock's Disintegration
+
     // is it a *closing* paren???
     // FIXME: One of these Surgeon's Exaltations is broken
     Gemini Decomposition
@@ -106,15 +124,17 @@
     {
       // decrement backtracking
       Muninn's Reflection
-      Gemini Decomposition
       Numerical Reflection: 2
       Dioscuri Gambit
-      Dioscuri Gambit
+      Selection Distillation
       Numerical Reflection: 1
       Subtractive Distillation
       Surgeon's Exaltation
       Huginn's Gambit
-      // [ 2, raven, raven, ...] on top
+      // < empty stack >
+      Muninn's Reflection
+      Gemini Decomposition
+      Numerical Reflection: 2
       Selection Distillation
       // [ back, raven, ...]
       Numerical Reflection: 2
@@ -124,38 +144,47 @@
       Numerical Reflection: 4
       Selection Distillation
       Speaker's Decomposition
-      // [ argcount, [remaining argcounts]]
-      // get the <back>th item out of the token list
+      // [ argcount, [remaining argcounts], back ]
+      // get the <back>th item out of the token list and set its third item to the argcount
       Muninn's Reflection
       Numerical Reflection: 1
       Dioscuri Gambit
       Selection Distillation
-      // [ [tokens], 1, raven, argcount, [argcounts], ...]
-      Muninn's Reflection
-      Numerical Reflection: 2
-      Selection Distillation
-      // [ back, [tokens], 1, raven, argcount, [argcounts], ...]
+      // [ [tokens], 1, raven, argcount, [argcounts], back ]
+      Numerical Reflection: 6
+      Fisherman's Gambit
       Dioscuri Gambit
-      // [ back, [tokens], back, [tokens], 1, raven, argcount, [argcounts], ...]
       Selection Distillation
-      // [ token, back, [tokens], 1, raven, argcount, [argcounts], ...]
+      // [ token, back, [tokens], 1, raven, argcount, [argcounts] ]
       Numerical Reflection: 2
+
       Numerical Reflection: 7
       Fisherman's Gambit
-      // [ argcount, 2, token, back, [tokens], 1, raven, [argcounts], ...]
+      // [ argcount, 2, token, back, [tokens], 1, raven, [argcounts] ]
+
+      // TODO: Remove debugging code
+      Numerical Reflection: 2.5
+      Reveal
+      Bookkeeper's Gambit: v
+      Flock's Reflection
+      Flock's Gambit
+      Reveal
+      Flock's Disintegration
+
+
       Surgeon's Exaltation
-      // [ token, back, [tokens], 1, raven, [argcounts], ...]
+      // [ token*, back, [tokens], 1, raven, [argcounts*]]
       Surgeon's Exaltation
-      // [ [tokens*], 1, raven, [argcounts], ...]
+      // [ [tokens*], 1, raven, [argcounts*]]
       Surgeon's Exaltation
-      // [ raven*, [argcounts], ...]
-      Jester's Gambit
-      // [ [argcounts], raven*, ...]
+      // [ raven*, [argcounts*]]
       Numerical Reflection: 4
-      Jester's Gambit
-      // [ [argcounts], 4, raven*]
+      // [ 4, raven*, [argcounts*]]
+      Numerical Reflection: 3
+      Fisherman's Gambit
+      // [ [argcounts*], 4, raven*]
       Surgeon's Exaltation
-      // [ raven**, ...]
+      // [ raven** ]
       Huginn's Gambit
     }
     {
@@ -176,6 +205,10 @@
     Numerical Reflection: 3
     Reveal
     Bookkeeper's Gambit: v
+    Flock's Reflection
+    Flock's Gambit
+    Reveal
+    Flock's Disintegration
 
     // [ word, octothorpe, dollar, ...]
     // Number literals and autorefs.
@@ -187,6 +220,16 @@
     Numerical Reflection: 3
     Fisherman's Gambit
     // [ octothorpe, first char, word, dollar, ...]
+
+    // TODO: Remove debugging code
+    Numerical Reflection: 3.5
+    Reveal
+    Bookkeeper's Gambit: v
+    Flock's Reflection
+    Flock's Gambit
+    Reveal
+    Flock's Disintegration
+
     Equality Distillation
     Gemini Decomposition
     {
@@ -215,6 +258,16 @@
     Flock's Disintegration
     Augur's Exaltation
     Hermes' Gambit
+
+    // TODO: Remove debugging code
+    Numerical Reflection: 4
+    Reveal
+    Bookkeeper's Gambit: v
+    Flock's Reflection
+    Flock's Gambit
+    Reveal
+    Flock's Disintegration
+
     // IF is-number-literal is false:
     // [ is-number-literal<false>, word, dollar, [operators], ]
     // ELSE:
@@ -223,10 +276,9 @@
       // but first, we have to talk about parallel universes
       // <insert mario 64 music>
       Bookkeeper's Gambit: v- // discard the "$" so that this and the other path are synchronized
+      True Reflection // put the true back on (it got popped by the Augur's Exaltation)
     }
-    Flock's Disintegration
-    { // false, word, dollar
-      Bookkeeper's Gambit: v
+    { // word, dollar
       Gemini Decomposition
       // word, word, dollar
       Numerical Reflection: 0
@@ -268,14 +320,24 @@
     }
     Augur's Exaltation
     Hermes' Gambit
+
+    // TODO: Remove debugging code
+    Numerical Reflection: 5
+    Reveal
+    Bookkeeper's Gambit: v
+    Flock's Reflection
+    Flock's Gambit
+    Reveal
+    Flock's Disintegration
+
     // [ is-number-literal || is-autoref, <varies>, [operators], ]
     //   ^ == true                      , token,    [operators], ]
     //   ^ == false                     , word,     [operators], ]
     // It is a function call of some kind (inline, invoke, or operator)
     {
       Bookkeeper's Gambit: v- // discard the operators list
+      True Reflection // repush true
     }
-    Flock's Disintegration
     { // word, [operators]
       Gemini Decomposition
       // word, word, [operators]
@@ -293,6 +355,7 @@
       { // Not an op; push... something
 
         // TODO: Remove debugging code
+        // WHERE WORD???
         Flock's Reflection
         Flock's Gambit
         Reveal
@@ -326,6 +389,18 @@
         Numerical Reflection: 3
         Fisherman's Gambit
         // [ word, 3, raven ]
+        Surgeon's Exaltation
+        Huginn's Gambit
+
+        // subtract 1 from argument count (the operator doesn't count)
+        Muninn's Reflection
+        Numerical Reflection: 4
+        Dioscuri Gambit
+        Selection Distillation
+        Speaker's Decomposition
+        Numerical Reflection: 1
+        Subtractive Distillation
+        Speaker's Distillation
         Surgeon's Exaltation
         Huginn's Gambit
 
@@ -404,6 +479,18 @@
       Jester's Gambit
       Surgeon's Exaltation
       Huginn's Gambit
+
+      // increase argument count
+      Muninn's Reflection
+      Numerical Reflection: 4
+      Dioscuri Gambit
+      Selection Distillation
+      Speaker's Decomposition
+      Numerical Reflection: 1
+      Additive Distillation
+      Speaker's Distillation
+      Surgeon's Exaltation
+      Huginn's Gambit
     }
     { // there is not a token, so... we chilling?
       Bookkeeper's Gambit: -
@@ -412,7 +499,8 @@
     Augur's Exaltation
     Hermes' Gambit
   }
-  Hermes' Gambit // it pains me, but this way charon's gambit does 'continue' instead 
+  Hermes' Gambit // it pains me, but this way charon's gambit does 'continue' instead
+  // someone provided an alternative of using an unmatched Introspection, but that didn't work
 }
 
 // [ inline pattern, words, ["(", ")", "#", "$", [ operators ]], interpreter, ...]
@@ -420,3 +508,7 @@
 Jester's Gambit
 Thoth's Gambit
 Bookkeeper's Gambit: v // we don't care about the result from Thoth's
+
+// for some reason the static data is still here?
+// I'm too lazy to figure out why, so just pop it off the stack :P
+Bookkeeper's Gambit: v

@@ -182,7 +182,7 @@
 
 // (current impl)
 // After being run by a compatible executor, the stack should start without <init>
-Huginn's Gambit // write ravenmind; now [[], [], 0.00, NULL, []]
+Huginn's Gambit // write ravenmind; now [[], [], 0.00, NULL, [0]]
 Whisper Reflection // moreiotas; read from chat
 Spacing Reflection // moreiotas; push a space
 Separation Distillation // moreiotas

@@ -2,6 +2,26 @@
 ### A tiny "DSL" for Hex Casting + MoreIotas
 DSL is in quotes because it's really just a command dispatcher.
 
+## Current (very scuffed) build process:
+1. `npx tsc` (add `-w` if you're actively developing)
+2. `python server.py` (keep running for future use)
+3. open [the server](http://localhost:8080) in your browser
+4. open Firefox DevTools
+5. copy approximately the first half of the patterns
+6. run `s2n('<paste>')` in the console
+7. right-click the output, click "Copy Object"
+8. paste into a command block, run it
+9. Scribe's Reflection w/ staff
+10. (optional) throw the focus into the void
+11. copy the second half, run `s2n('<paste>')` again, run in a command block
+12. Scribe's Reflection w/ staff
+13. Combination Distillation
+14. Switch to the premade "Parser Base" focus
+15. Scribe's Reflection
+16. Integration Distillation
+17. Switch to the focus from /give
+18. Scribe's Gambit
+
 ## Security
 If you use a akashic library as a function source, if the libraries are compromised (i.e. malicious patterns are installed) your player reference could be writen to an arbitrary library without your knowledge.
 
