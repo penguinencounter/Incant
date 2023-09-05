@@ -43,12 +43,38 @@ function targetGive(list_of_patterns: string) {
     return `give @p hexcasting:focus{data:{"hexcasting:type":"hexcasting:list","hexcasting:data":[${patterns.join(',')}]}}`
 }
 
+function procedural(list_of_patterns: string) {
+    const LIM = 32_000
+    const patterns = list_of_patterns.split(';')
+    const commands = []
+    let collect: string[] = []
+    for (let i = 0; i < patterns.length; i += 1) {
+        collect.push(patterns[i])
+        const c = targetGive(collect.join(';'))
+        if (c.length > LIM) {
+            collect.pop()
+            commands.push(targetGive(collect.join(';')))
+            collect = [patterns[i]]
+        }
+    }
+    if (collect.length > 0)
+        commands.push(targetGive(collect.join(';')))
+    for (const c of commands) {
+        console.log(c)
+    }
+    const capacityReal = LIM - commands[commands.length - 1].length
+    const capacity = Math.round(capacityReal / LIM * 1000)/10
+    console.log(`${commands.length} commands, ${capacity}% capacity (${capacityReal} chars) in last command`)
+}
+
 declare global {
     interface Window {
         s2n: typeof shorthandToNBT
+        give: typeof procedural
     }
 }
 window.s2n = targetGive
+window.give = procedural
 
 export {
     shorthandToNBT
