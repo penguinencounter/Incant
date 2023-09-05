@@ -357,7 +357,7 @@
       Fisherman's Gambit
       // [ token, backtrack, [tokens] ]
 
-      //#include list_insert_clean.hexpattern
+      //#include util/list_insert_clean.hexpattern
       
       // [ [tokens] ]
       // is there an OPERATOR queued?
@@ -389,7 +389,7 @@
         Jester's Gambit
         // [ [2, operator, 2], 2, [tokens] ]
 
-        //#include list_insert_clean.hexpattern
+        //#include util/list_insert_clean.hexpattern
 
         // Operator = NULL
         Muninn's Reflection

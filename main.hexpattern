@@ -162,7 +162,7 @@
 //   [operator: string | nothing]      // 3
 //   [arguments: [int...]] // 4
 //   // At runtime...
-//   [virtualStack: any[]]
+//   [build: any[]] // 2
 // ]
 
 // TOKEN TYPES
@@ -206,5 +206,5 @@ Numerical Reflection: 3
 Flock's Gambit
 Huginn's Gambit
 
-// ravenmind for interpreter: [ autorefs tokens stack ]
+// ravenmind for interpreter: [ autorefs tokens build ]
 //#include interpreter.hexpattern

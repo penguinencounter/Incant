@@ -1,15 +1,54 @@
 
 // you know, for the part that actually does the stuff, it's pretty short
 {
-    // [token, ]
-    // load the "stack"
-    Muninn's Reflection
-    Numerical Reflection: 2
-    Selection Distillation
-
-    Jester's Gambit
+    // [ token ]
     Gemini Decomposition
-    
+    Numerical Reflection: 0
+    Selection Distillation
+    // [ tokenType token ]
+    Gemini Decomposition
+    Numerical Reflection: 0 // push
+    Equality Distillation
+    {
+        // [ tokenType, token ]
+        Bookkeeper's Gambit: v
+        // [ token ]
+        {
+            {
+                Bookkeeper's Gambit: -
+            }
+            Flock's Disintegration
+        }
+        Numerical Reflection: 1
+        // [ 1, injection, token ]
+        Numerical Reflection: 3
+        Fisherman's Gambit
+        Numerical Reflection: 1
+        Selection Distillation
+        // [ value, 1, injection ]
+        Surgeon's Exaltation
+
+        // very poggers build system
+        //#include util/append_to_build.hexpattern
+
+        True Reflection
+    }
+    {
+        False Reflection
+    }
+    Flock's Disintegration
+    Augur's Exaltation
+    Hermes' Gambit
+    // True or False from eval of previous section
+    {
+        Charon's Gambit
+        Bookkeeper's Gambit: -
+    }
+    Flock's Disintegration
+    Augur's Exaltation
+    Hermes' Gambit
+
+    // [ tokenType, token ]
 }
 Muninn's Reflection
 Numerical Reflection: 2
