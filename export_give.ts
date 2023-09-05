@@ -1,7 +1,5 @@
 // { data: { 'hexcasting:type': 'list', 'hexcasting:data': [ {'hexcasting:type': 'pattern', 'hexcasting:data': { startDir: 0b, angles: [B;] } } ] } }
 
-import { start } from "repl"
-
 // startAngle
 // Northeast => 0
 // East => 1
