@@ -51,15 +51,6 @@
     Fisherman's Gambit  // pull 'word' to the top
     // [ word, *chars, interpreter, ...]
 
-    // TODO: Remove debugging code
-    Numerical Reflection: 1
-    Reveal
-    Bookkeeper's Gambit: v
-    Flock's Reflection
-    Flock's Gambit
-    Reveal
-    Flock's Disintegration
-
     // is it an opening paren?
     Gemini Decomposition
     Numerical Reflection: 4  // top [ word, word, paren, ...] -> top [ word, paren, word, ...]
@@ -104,15 +95,6 @@
     Flock's Disintegration
     Augur's Exaltation
     Hermes' Gambit  // Break if true
-
-    // TODO: Remove debugging code
-    Numerical Reflection: 2
-    Reveal
-    Bookkeeper's Gambit: v
-    Flock's Reflection
-    Flock's Gambit
-    Reveal
-    Flock's Disintegration
 
     // is it a *closing* paren???
     // FIXME: One of these Surgeon's Exaltations is broken
@@ -162,16 +144,6 @@
       Fisherman's Gambit
       // [ argcount, 2, token, back, [tokens], 1, raven, [argcounts] ]
 
-      // TODO: Remove debugging code
-      Numerical Reflection: 2.5
-      Reveal
-      Bookkeeper's Gambit: v
-      Flock's Reflection
-      Flock's Gambit
-      Reveal
-      Flock's Disintegration
-
-
       Surgeon's Exaltation
       // [ token*, back, [tokens], 1, raven, [argcounts*]]
       Surgeon's Exaltation
@@ -201,15 +173,6 @@
     Augur's Exaltation
     Hermes' Gambit  // Break if true
 
-    // TODO: Remove debugging code
-    Numerical Reflection: 3
-    Reveal
-    Bookkeeper's Gambit: v
-    Flock's Reflection
-    Flock's Gambit
-    Reveal
-    Flock's Disintegration
-
     // [ word, octothorpe, dollar, ...]
     // Number literals and autorefs.
     Gemini Decomposition
@@ -220,15 +183,6 @@
     Numerical Reflection: 3
     Fisherman's Gambit
     // [ octothorpe, first char, word, dollar, ...]
-
-    // TODO: Remove debugging code
-    Numerical Reflection: 3.5
-    Reveal
-    Bookkeeper's Gambit: v
-    Flock's Reflection
-    Flock's Gambit
-    Reveal
-    Flock's Disintegration
 
     Equality Distillation
     Gemini Decomposition
@@ -258,15 +212,6 @@
     Flock's Disintegration
     Augur's Exaltation
     Hermes' Gambit
-
-    // TODO: Remove debugging code
-    Numerical Reflection: 4
-    Reveal
-    Bookkeeper's Gambit: v
-    Flock's Reflection
-    Flock's Gambit
-    Reveal
-    Flock's Disintegration
 
     // IF is-number-literal is false:
     // [ is-number-literal<false>, word, dollar, [operators], ]
@@ -321,15 +266,6 @@
     Augur's Exaltation
     Hermes' Gambit
 
-    // TODO: Remove debugging code
-    Numerical Reflection: 5
-    Reveal
-    Bookkeeper's Gambit: v
-    Flock's Reflection
-    Flock's Gambit
-    Reveal
-    Flock's Disintegration
-
     // [ is-number-literal || is-autoref, <varies>, [operators], ]
     //   ^ == true                      , token,    [operators], ]
     //   ^ == false                     , word,     [operators], ]
@@ -353,13 +289,6 @@
       // True: Not an operator
       // False: Is an operator
       { // Not an op; push... something
-
-        // TODO: Remove debugging code
-        // WHERE WORD???
-        Flock's Reflection
-        Flock's Gambit
-        Reveal
-        Flock's Disintegration
 
         // load backtracking
         Muninn's Reflection
@@ -508,6 +437,15 @@
 Jester's Gambit
 Thoth's Gambit
 Bookkeeper's Gambit: v // we don't care about the result from Thoth's
+
+// reverse the tokens (so they read in the correct order)
+Muninn's Reflection
+Numerical Reflection: 1
+Dioscuri Gambit
+Selection Distillation
+Retrograde Purification
+Surgeon's Exaltation
+Huginn's Gambit
 
 // for some reason the static data is still here?
 // I'm too lazy to figure out why, so just pop it off the stack :P

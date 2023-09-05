@@ -161,6 +161,8 @@
 //   [back: int]             // 2
 //   [operator: string | nothing]      // 3
 //   [arguments: [int...]] // 4
+//   // At runtime...
+//   [virtualStack: any[]]
 // ]
 
 // TOKEN TYPES
@@ -191,8 +193,18 @@ Separation Distillation // moreiotas
 
 //#include lexer.hexpattern
 
-
 // the lexer should consume the lexer's static data (the list of ()//$ is removed)
 // stack: top [ interpreter:function, libraryLocation:vec3, persist:[any...] ]
-// Hermes' Gambit // interpreter
-// done, ravenmind is discarded by GC automatically
+
+// clean up ravenmind
+Muninn's Reflection
+Flock's Disintegration
+// first characters on the bottom; last characters on the top
+Bookkeeper's Gambit: --vvv
+Vacant Reflection
+Numerical Reflection: 3
+Flock's Gambit
+Huginn's Gambit
+
+// ravenmind for interpreter: [ autorefs tokens stack ]
+//#include interpreter.hexpattern
