@@ -15,14 +15,13 @@
         // [ token ]
         {
             {
-                Bookkeeper's Gambit: -
+                Bookkeeper's Gambit: - // value to push
             }
             Flock's Disintegration
         }
         Numerical Reflection: 1
         // [ 1, injection, token ]
-        Numerical Reflection: 3
-        Fisherman's Gambit
+        Rotation Gambit
         Numerical Reflection: 1
         Selection Distillation
         // [ value, 1, injection ]
@@ -55,7 +54,30 @@
 
     {
         Bookkeeper's Gambit: v
+        // [ token ]
+        {
+            {
+                Bookkeeper's Gambit: - // pload value
+            }
+            Flock's Disintegration
+            Muninn's Reflection
+            Numerical Reflection: 0
+            Selection Distillation
+            // [ autorefs, pload value, ... ]
+            Jester's Gambit
+            Selection Distillation
+        }
+        Numerical Reflection: 1
+        // [ 1, inject, token ]
+        Rotation Gambit
+        // [ token, 1, inject ]
+        Numerical Reflection: 1
+        Selection Distillation
+        Surgeon's Exaltation
         
+        //#include util/append_to_build.hexpattern
+
+        True Reflection
     }
     {
         False Reflection
