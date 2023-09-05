@@ -1,0 +1,53 @@
+// Returns NULL if there is no entry.
+{
+    // [ tokenType, functionName, argcount ]
+    Muninn's Reflection
+    Numerical Reflection: 3
+    Selection Distillation
+    // [ library, [token] ]
+    Jester's Gambit
+    Flock's Disintegration
+    // [ argcount, functionName, tokenType, library ]
+    Bookkeeper's Gambit: v--
+    // [ argc, fname, lib ]
+    Scrivener's Purification
+    // [ "argc", fname, lib ]
+    Jester's Gambit
+    Spacing Reflection
+    Concatenation Distillation
+    Jester's Gambit
+    Concatenation Distillation
+    // [ "fname argc", lib ]
+    Jester's Gambit
+    Gemini Decomposition
+    Rotation Gambit
+    Locator's Distillation
+    Gemini Decomposition
+    Numerical Reflection: -1
+    Equality Distillation
+    // not found??
+    {
+        {  // [ -1, lib ]
+            Bookkeeper's Gambit: vv
+            Nullary Reflection
+            True Reflection
+        }
+        False Reflection
+    }
+    Flock's Disintegration
+    Augur's Exaltation
+    Hermes' Gambit
+    {
+        Charon's Gambit
+        Bookkeeper's Gambit: -
+    }
+    Flock's Disintegration
+    Augur's Exaltation
+    Hermes' Gambit
+    // [ indexOfKey, lib ]
+    Numerical Reflection: 1
+    Additive Distillation
+    Selection Distillation
+    // [ libraryEntry ]
+}
+Hermes' Gambit // TODO: optimize

@@ -92,6 +92,80 @@
     Flock's Disintegration
     Augur's Exaltation
     Hermes' Gambit
+
+    // [ tokenType, token ]
+    Gemini Decomposition
+    Numerical Reflection: 2  // inline
+    Equality Distillation
+    {
+        Bookkeeper's Gambit: v
+        //#include util/lookup_fnlocal_r.hexpattern
+        //#include util/append_to_build.hexpattern
+        True Reflection
+    }
+    {
+        False Reflection
+    }
+    Flock's Disintegration
+    Augur's Exaltation
+    Hermes' Gambit
+    {
+        Charon's Gambit
+        Bookkeeper's Gambit: -
+    }
+    Flock's Disintegration
+    Augur's Exaltation
+    Hermes' Gambit
+
+    // [ tokenType, token ]
+    Gemini Decomposition
+    Numerical Reflection: 3  // invokestore
+    Equality Distillation
+    {
+        Bookkeeper's Gambit: v
+        Gemini Decomposition
+        // token , token
+        //#include util/lookup_fnlocal_r.hexpattern
+        Gemini Decomposition
+        // libEnt, libEnt, token
+        Nullary Reflection
+        Equality Distillation
+        { // try to find a not-returnable version
+            // NULL, token
+            Bookkeeper's Gambit: v // drop the null
+            //#include util/lookup_fnlocal.hexpattern
+            //#include util/append_to_build.hexpattern
+        }
+        { // use the returnable version
+            Bookkeeper's Gambit: v- // drop the token
+            {
+                {
+                    Bookkeeper's Gambit: - // pattern data
+                }
+                Flock's Disintegration
+                Hermes' Gambit
+                Muninn's Reflection
+                Numerical Reflection: 0
+                Dioscuri Gambit
+                Selection Distillation
+                // [ autorefs, 0, raven, result, ... ]
+                Numerical Reflection: 4
+                Fisherman's Gambit
+                Integration Distillation
+                // [ autorefs + result, ... ]
+                Surgeon's Exaltation
+                Huginn's Gambit
+            }
+            // [ injection, val ]
+            Numerical Reflection: 1
+            Rotation Gambit
+            // [ val, 1, injection ]
+            Surgeon's Exaltation
+            //#include util/append_to_build.hexpattern
+        }
+        Augur's Exaltation
+        Hermes' Gambit
+    }
 }
 Muninn's Reflection
 Numerical Reflection: 2

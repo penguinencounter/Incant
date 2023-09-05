@@ -146,9 +146,7 @@
 // [
 //   [persist: [any...]]
 //   [library: [key, value, key, value, ...]]
-//   [interpreter: function]
 //   ["(", ")", "#", "$", ["+", "-", "*", "/"]]
-//   [lexer: function]
 //   [ravenmind default]
 //   [<init>: function]
 // ]
@@ -163,6 +161,7 @@
 //   [arguments: [int...]] // 4
 //   // At runtime...
 //   [build: any[]] // 2
+//   [library: [key, value, key, value, ...]] // 3
 // ]
 
 // TOKEN TYPES
@@ -204,7 +203,11 @@ Bookkeeper's Gambit: --vvv
 Vacant Reflection
 Numerical Reflection: 3
 Flock's Gambit
+// stack: top [ raven library ]
+Jester's Gambit
+Integration Distillation
+// stack: top [ raven* ]
 Huginn's Gambit
 
-// ravenmind for interpreter: [ autorefs tokens build ]
+// ravenmind for interpreter: [ autorefs tokens build library ]
 //#include interpreter.hexpattern
