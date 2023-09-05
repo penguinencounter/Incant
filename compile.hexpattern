@@ -1,173 +1,176 @@
 
 // you know, for the part that actually does the stuff, it's pretty short
 {
-    // [ token ]
-    Gemini Decomposition
-    Numerical Reflection: 0
-    Selection Distillation
-    // [ tokenType token ]
-    Gemini Decomposition
-    Numerical Reflection: 0 // push
-    Equality Distillation
     {
-        // [ tokenType, token ]
-        Bookkeeper's Gambit: v
         // [ token ]
-        {
-            {
-                Bookkeeper's Gambit: - // value to push
-            }
-            Flock's Disintegration
-        }
-        Numerical Reflection: 1
-        // [ 1, injection, token ]
-        Rotation Gambit
-        Numerical Reflection: 1
-        Selection Distillation
-        // [ value, 1, injection ]
-        Surgeon's Exaltation
-
-        // very poggers build system
-        //#include util/append_to_build.hexpattern
-
-        True Reflection
-    }
-    {
-        False Reflection
-    }
-    Flock's Disintegration
-    Augur's Exaltation
-    Hermes' Gambit
-    // True or False from eval of previous section
-    {
-        Charon's Gambit
-        Bookkeeper's Gambit: -
-    }
-    Flock's Disintegration
-    Augur's Exaltation
-    Hermes' Gambit
-
-    // [ tokenType, token ]
-    Gemini Decomposition
-    Numerical Reflection: 1  // pload ($X)
-    Equality Distillation
-
-    {
-        Bookkeeper's Gambit: v
-        // [ token ]
-        {
-            {
-                Bookkeeper's Gambit: - // pload value
-            }
-            Flock's Disintegration
-            Muninn's Reflection
-            Numerical Reflection: 0
-            Selection Distillation
-            // [ autorefs, pload value, ... ]
-            Jester's Gambit
-            Selection Distillation
-        }
-        Numerical Reflection: 1
-        // [ 1, inject, token ]
-        Rotation Gambit
-        // [ token, 1, inject ]
-        Numerical Reflection: 1
-        Selection Distillation
-        Surgeon's Exaltation
-        
-        //#include util/append_to_build.hexpattern
-
-        True Reflection
-    }
-    {
-        False Reflection
-    }
-    Flock's Disintegration
-    Augur's Exaltation
-    Hermes' Gambit
-    {
-        Charon's Gambit
-        Bookkeeper's Gambit: -
-    }
-    Flock's Disintegration
-    Augur's Exaltation
-    Hermes' Gambit
-
-    // [ tokenType, token ]
-    Gemini Decomposition
-    Numerical Reflection: 2  // inline
-    Equality Distillation
-    {
-        Bookkeeper's Gambit: v
-        //#include util/lookup_fnlocal_r.hexpattern
-        //#include util/append_to_build.hexpattern
-        True Reflection
-    }
-    {
-        False Reflection
-    }
-    Flock's Disintegration
-    Augur's Exaltation
-    Hermes' Gambit
-    {
-        Charon's Gambit
-        Bookkeeper's Gambit: -
-    }
-    Flock's Disintegration
-    Augur's Exaltation
-    Hermes' Gambit
-
-    // [ tokenType, token ]
-    Gemini Decomposition
-    Numerical Reflection: 3  // invokestore
-    Equality Distillation
-    {
-        Bookkeeper's Gambit: v
         Gemini Decomposition
-        // token , token
-        //#include util/lookup_fnlocal_r.hexpattern
+        Numerical Reflection: 0
+        Selection Distillation
+        // [ tokenType token ]
         Gemini Decomposition
-        // libEnt, libEnt, token
-        Nullary Reflection
+        Numerical Reflection: 0 // push
         Equality Distillation
-        { // try to find a not-returnable version
-            // NULL, token
-            Bookkeeper's Gambit: v // drop the null
-            //#include util/lookup_fnlocal.hexpattern
-            //#include util/append_to_build.hexpattern
-        }
-        { // use the returnable version
-            Bookkeeper's Gambit: v- // drop the token
+        {
+            // [ tokenType, token ]
+            Bookkeeper's Gambit: v
+            // [ token ]
             {
                 {
-                    Bookkeeper's Gambit: - // pattern data
+                    Bookkeeper's Gambit: - // value to push
                 }
                 Flock's Disintegration
-                Hermes' Gambit
-                Muninn's Reflection
-                Numerical Reflection: 0
-                Dioscuri Gambit
-                Selection Distillation
-                // [ autorefs, 0, raven, result, ... ]
-                Numerical Reflection: 4
-                Fisherman's Gambit
-                Integration Distillation
-                // [ autorefs + result, ... ]
-                Surgeon's Exaltation
-                Huginn's Gambit
             }
-            // [ injection, val ]
             Numerical Reflection: 1
+            // [ 1, injection, token ]
             Rotation Gambit
-            // [ val, 1, injection ]
+            Numerical Reflection: 1
+            Selection Distillation
+            // [ value, 1, injection ]
             Surgeon's Exaltation
+
+            // very poggers build system
             //#include util/append_to_build.hexpattern
+
+            True Reflection
         }
+        {
+            False Reflection
+        }
+        Flock's Disintegration
         Augur's Exaltation
         Hermes' Gambit
+        // True or False from eval of previous section
+        {
+            Charon's Gambit
+            Bookkeeper's Gambit: -
+        }
+        Flock's Disintegration
+        Augur's Exaltation
+        Hermes' Gambit
+
+        // [ tokenType, token ]
+        Gemini Decomposition
+        Numerical Reflection: 1  // pload ($X)
+        Equality Distillation
+
+        {
+            Bookkeeper's Gambit: v
+            // [ token ]
+            {
+                {
+                    Bookkeeper's Gambit: - // pload value
+                }
+                Flock's Disintegration
+                Muninn's Reflection
+                Numerical Reflection: 0
+                Selection Distillation
+                // [ autorefs, pload value, ... ]
+                Jester's Gambit
+                Selection Distillation
+            }
+            Numerical Reflection: 1
+            // [ 1, inject, token ]
+            Rotation Gambit
+            // [ token, 1, inject ]
+            Numerical Reflection: 1
+            Selection Distillation
+            Surgeon's Exaltation
+            
+            //#include util/append_to_build.hexpattern
+
+            True Reflection
+        }
+        {
+            False Reflection
+        }
+        Flock's Disintegration
+        Augur's Exaltation
+        Hermes' Gambit
+        {
+            Charon's Gambit
+            Bookkeeper's Gambit: -
+        }
+        Flock's Disintegration
+        Augur's Exaltation
+        Hermes' Gambit
+
+        // [ tokenType, token ]
+        Gemini Decomposition
+        Numerical Reflection: 2  // inline
+        Equality Distillation
+        {
+            Bookkeeper's Gambit: v
+            //#include util/lookup_fnlocal_r.hexpattern
+            //#include util/append_to_build.hexpattern
+            True Reflection
+        }
+        {
+            False Reflection
+        }
+        Flock's Disintegration
+        Augur's Exaltation
+        Hermes' Gambit
+        {
+            Charon's Gambit
+            Bookkeeper's Gambit: -
+        }
+        Flock's Disintegration
+        Augur's Exaltation
+        Hermes' Gambit
+
+        // [ tokenType, token ]
+        Gemini Decomposition
+        Numerical Reflection: 3  // invokestore
+        Equality Distillation
+        {
+            Bookkeeper's Gambit: v
+            Gemini Decomposition
+            // token , token
+            //#include util/lookup_fnlocal_r.hexpattern
+            Gemini Decomposition
+            // libEnt, libEnt, token
+            Nullary Reflection
+            Equality Distillation
+            { // try to find a not-returnable version
+                // NULL, token
+                Bookkeeper's Gambit: v // drop the null
+                //#include util/lookup_fnlocal.hexpattern
+                //#include util/append_to_build.hexpattern
+            }
+            { // use the returnable version
+                Bookkeeper's Gambit: v- // drop the token
+                {
+                    {
+                        Bookkeeper's Gambit: - // pattern data
+                    }
+                    Flock's Disintegration
+                    Hermes' Gambit
+                    Muninn's Reflection
+                    Numerical Reflection: 0
+                    Dioscuri Gambit
+                    Selection Distillation
+                    // [ autorefs, 0, raven, result, ... ]
+                    Numerical Reflection: 4
+                    Fisherman's Gambit
+                    Integration Distillation
+                    // [ autorefs + result, ... ]
+                    Surgeon's Exaltation
+                    Huginn's Gambit
+                }
+                // [ injection, val ]
+                Numerical Reflection: 1
+                Rotation Gambit
+                // [ val, 1, injection ]
+                Surgeon's Exaltation
+                //#include util/append_to_build.hexpattern
+            }
+            Augur's Exaltation
+            Hermes' Gambit
+        }
     }
+    Hermes' Gambit
 }
 Muninn's Reflection
-Numerical Reflection: 2
+Numerical Reflection: 1
 Selection Distillation
 Thoth's Gambit
