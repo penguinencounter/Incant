@@ -38,26 +38,7 @@ abstract class Iota {
         return `{"hexcasting:type":"${this.type}","hexcasting:data":${this.innerAsNBT()}}`
     }
 
-    private static readNumber(stream: StreamReader): number {
-        let number = ''
-        while (!stream.isAtEOF() && stream.peek().match(/[0-9]/)) number += stream.advance()
-        if (stream.peek() == '.') {
-            number += stream.advance()
-            while (!stream.isAtEOF() && stream.peek().match(/[0-9]/)) number += stream.advance()
-        }
-        return parseFloat(number)
-    }
-    public static parse(hexiota: string): Iota {
-        const stream = new StreamReader(hexiota)
-        stream.skipWhitespace()
-        const first = stream.peek()
-        if (first === '<') {
-            // it's a vector3
-            stream.advance() // <
-            
-        }
-        return new NullIota()
-    }
+    public abstract count(): number
 }
 
 class PatternIota extends Iota {
@@ -86,6 +67,7 @@ class PatternIota extends Iota {
         return `{startDir:${byte(startAngle)},angles:[B;${angles.join(',')}]}`
     }
     readonly type: string = 'hexcasting:pattern'
+    readonly count: () => number = () => 1
 }
 
 class NumberIota extends Iota {
@@ -96,6 +78,7 @@ class NumberIota extends Iota {
         super()
     }
     readonly type: string = 'hexcasting:double'
+    readonly count: () => number = () => 1
 }
 
 class BooleanIota extends Iota {
@@ -106,6 +89,7 @@ class BooleanIota extends Iota {
         super()
     }
     readonly type: string = 'hexcasting:boolean'
+    readonly count: () => number = () => 1
 }
 
 class VectorIota extends Iota {
@@ -119,6 +103,7 @@ class VectorIota extends Iota {
         super()
     }
     readonly type: string = 'hexcasting:vec3'
+    readonly count: () => number = () => 1
 }
 
 class NullIota extends Iota {
@@ -131,6 +116,7 @@ class NullIota extends Iota {
     }
     readonly data: null = null
     readonly type: string = 'hexcasting:null'
+    readonly count: () => number = () => 1
 }
 
 class ListIota extends Iota {
@@ -141,14 +127,28 @@ class ListIota extends Iota {
         super()
     }
     readonly type: string = 'hexcasting:list'
+    readonly count: () => number = () => (this.data.reduce((a, b) => a + b.count(), 0) + 1)
 }
 
-export type {
+// MoreIotas
+class StringIota extends Iota {
+    protected innerAsNBT(): string {
+        return `"${this.data}"`
+    }
+    constructor(public readonly data: string) {
+        super()
+    }
+    readonly type: string = 'moreiotas:string'
+    readonly count: () => number = () => 1
+}
+
+export {
     Iota,
     PatternIota,
     NumberIota,
     BooleanIota,
     VectorIota,
     NullIota,
-    ListIota
+    ListIota,
+    StringIota
 }

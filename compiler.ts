@@ -239,10 +239,10 @@ async function getSpellMeta() {
     return data
 }
 
-async function translatePattern(db: SpellDatabase, pattern: string, statusMessageAcceptor: ((message: string) => void) = (_) => {}) {
+async function iotafy(db: SpellDatabase, pattern: string) {
     pattern = stripString(pattern)
     const strippedOriginal = pattern
-    if (pattern === '') return ''
+    if (pattern === '') return null
     pattern = pattern.replaceAll('{', 'Introspection').replaceAll('}', 'Retrospection')
     let result: Pattern | null = null
     const numericalReflection = /^Numerical Reflection: (.+)$/
@@ -260,11 +260,17 @@ async function translatePattern(db: SpellDatabase, pattern: string, statusMessag
         const possible = db.queryByName(pattern)
         if (!possible) {
             console.log("failed to translate", pattern)
-            return ``
+            return null
         } else {
             result = directions[possible.direction as keyof typeof directions].apply(possible.pattern!)
         }
     }
+    return result
+}
+
+async function translatePattern(db: SpellDatabase, pattern: string) {
+    const result = await iotafy(db, pattern)
+    if (!result) return ''
     return `${result.direction.name},${result.pattern}`
 }
 
@@ -273,6 +279,7 @@ export default async function() {
     const db = new SpellDatabase(await getSpellMeta())
     return {
         db,
+        iotafy: iotafy.bind(null, db),
         translatePattern: translatePattern.bind(null, db)
     }
 }

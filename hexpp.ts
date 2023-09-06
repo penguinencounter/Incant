@@ -1,6 +1,7 @@
 import { Pattern, Direction, directions, stripString, nodify } from './shared.js'
 import { default as initCompiler } from './compiler.js'
-import { shorthandToNBT } from './export_give.js'
+import './export_give.js'
+import './build_lib.js'
 
 (function () {
     let compilerItems: Awaited<ReturnType<typeof initCompiler>>
@@ -84,7 +85,7 @@ import { shorthandToNBT } from './export_give.js'
                     for (const line of content.split('\n')) {
                         n++
                         setStatusMessage(`Translating: ${Math.round(n / totalCount * 100)}% ${n} / ${totalCount}`)
-                        const partial = await compilerItems!.translatePattern(line, setStatusMessage)
+                        const partial = await compilerItems!.translatePattern(line)
                         if (!partial.match(/^\s*$/gm))
                             translated.push('<' + partial + '>')
                         if (Date.now() - lastYield > 25) {
@@ -188,6 +189,4 @@ import { shorthandToNBT } from './export_give.js'
     }
 
     window.addEventListener('load', load)
-
-    console.log(shorthandToNBT)
 })()

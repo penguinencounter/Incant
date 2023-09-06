@@ -29,12 +29,14 @@
     Numerical Reflection: -1
     Equality Distillation
     // not found??
+    // THIS IS PROBLEMATIC
+    // TODO: mirror util/lookup_fnlocal.hexpattern
+    {  // [ -1, lib ]
+        Bookkeeper's Gambit: vv
+        Nullary Reflection
+        True Reflection
+    }
     {
-        {  // [ -1, lib ]
-            Bookkeeper's Gambit: vv
-            Nullary Reflection
-            True Reflection
-        }
         False Reflection
     }
     Flock's Disintegration
