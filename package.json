@@ -7,6 +7,9 @@
   "scripts": {
     "run": "npx tsc && node out/compiler.js"
   },
+  "dependencies": {
+    "typescript": "^5.2.2"
+  },
   "devDependencies": {
     "@types/node": "^20.5.7",
     "prompt-sync": "^4.2.0"
