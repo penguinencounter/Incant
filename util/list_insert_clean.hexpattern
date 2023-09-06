@@ -1,8 +1,6 @@
 // Take a `value` and put it in the `target` list at `index`.
 // list, number, any -> list
 
-// FIXME: one of these is broken. oh no
-
 Numerical Reflection: 2
 Fisherman's Gambit II
 // [ target, value, index, target ]

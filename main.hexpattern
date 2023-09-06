@@ -209,6 +209,8 @@ Integration Distillation
 // stack: top [ raven* ]
 Huginn's Gambit
 
+// FIXME: Something is putting empty lists onto the stack for each action.
+//        It's not critical, but investigating it would be nice.
 // ravenmind for compiler: [ autorefs tokens build library ]
 //#include compile.hexpattern
 
