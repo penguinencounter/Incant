@@ -28,12 +28,12 @@ async function build() {
                 }
             }
             // ...and start a new one
-            target = [resul.replaceAll(/(\d+)/g, '$1.00')]
+            target = [resul]
             builder = []
         } else if (aliasTester.test(line)) {
             const resul = aliasTester.exec(line)![1]
             console.log('alias', resul)
-            target.push(resul.replaceAll(/(\d+)/g, '$1.00'))
+            target.push(resul)
         } else if (line.startsWith('//')) {
 
         } else {
