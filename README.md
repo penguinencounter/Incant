@@ -2,6 +2,43 @@
 ### A tiny "DSL" for Hex Casting + MoreIotas
 DSL is in quotes because it's really just a command dispatcher.
 
+# Targets for version 1.1
+### a way to repeat actions
+`!<count>` repeats the previous token `<count>` times
+
+doing this naively would cause massive jank with arguments or inline functions
+therefore perhaps these steps would be better:
+1. collect tokens until an `invokestore` is encountered
+2. repeat the collected tokens `count - 1` times (leave the original in place)
+
+### add `recharge` family to the standard library
+* `recharge 0.00` -  `{rc3} Recharge Item`
+* `recharge 1.00` - zone dist. Item, iterate `Recharge Item` on all
+
+### better `blink`
+* if the target is > 30, do it in 30 block increments to avoid
+running out of ambit
+
+### `gtp` and `gtpl`
+* `gtp 1.00` - subtract player's current position, GTP
+* `gtpl 1.00` - direct GTP
+* `gtp 3.00` - build vector, subtract player's current position, GTP
+* `gtpl 3.00` - build vector, direct GTP
+* `gtp 2.00` (entity, vector) -> subtract entity's current position, GTP
+* `gtpl 2.00` (entity, vector) -> direct GTP (why tho?)
+
+### migrate single-use constants to embedded iotas
+* allow the preprocessor to recognize them
+* ideally match existing syntax; e.g. `<content>` and `<{content}>` (the `<\content>` mode is too complex for the preprocessor to handle)
+* targets (tentative):
+    * `(`
+    * `)`
+    * `#`
+    * `$`
+    * `!` if implemented
+    * the operator list (if buildvars are implemented this would be flexible-er)
+* should shrink the instruction count a little
+
 ## Current (very scuffed) build process:
 1. `npx tsc` (add `-w` if you're actively developing)
 2. `python server.py` (keep running for future use)

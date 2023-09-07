@@ -151,8 +151,7 @@
       // [ raven*, [argcounts*]]
       Numerical Reflection: 4
       // [ 4, raven*, [argcounts*]]
-      Numerical Reflection: 3
-      Fisherman's Gambit
+      Rotation Gambit
       // [ [argcounts*], 4, raven*]
       Surgeon's Exaltation
       // [ raven** ]
@@ -179,8 +178,7 @@
     Numerical Reflection: 1
     Winnowing Distillation
     // [ first char, word, octothorpe, dollar, ...]
-    Numerical Reflection: 3
-    Fisherman's Gambit
+    Rotation Gambit
     // [ octothorpe, first char, word, dollar, ...]
 
     Equality Distillation
@@ -229,8 +227,7 @@
       Numerical Reflection: 1
       Winnowing Distillation
       // [ first char, word, dollar, ...]
-      Numerical Reflection: 3
-      Fisherman's Gambit
+      Rotation Gambit
       // [ dollar, first char, word, ...]
       Equality Distillation
       Gemini Decomposition
@@ -314,8 +311,7 @@
         Muninn's Reflection
         Numerical Reflection: 3
         // [ 3, raven, word ]
-        Numerical Reflection: 3
-        Fisherman's Gambit
+        Rotation Gambit
         // [ word, 3, raven ]
         Surgeon's Exaltation
         Huginn's Gambit
@@ -352,8 +348,7 @@
       Numerical Reflection: 2
       Selection Distillation
       // [ backtrack, [tokens], token ]
-      Numerical Reflection: 3
-      Fisherman's Gambit
+      Rotation Gambit
       // [ token, backtrack, [tokens] ]
 
       //#include util/list_insert_clean.hexpattern
