@@ -1,0 +1,278 @@
+// puretext
+// A mod for Forge and Fabric adding stack-based programmable spellcasting
+
+// A
+Consideration: Abacus Purification
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 1
+Winnowing Distillation
+
+// mod
+Consideration: Modulus Distillation
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 3
+Winnowing Distillation
+False Reflection
+Case Distillation
+
+// for
+Consideration: Forget Pigment
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 3
+Winnowing Distillation
+False Reflection
+Case Distillation
+
+// Forge
+Consideration: Forget Pigment
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 5
+Winnowing Distillation
+
+// [ "A" "mod" "for" "Forge" ]
+// and
+// pull the A
+Numerical Reflection: 3
+Fisherman's Gambit II
+False Reflection
+Case Distillation
+// N
+Consideration: Red Sun's Nadir
+Patternmaster's Purification
+Numerical Reflection: 10
+Numerical Reflection: 11
+Winnowing Distillation
+False Reflection
+Case Distillation
+// d
+Consideration: Destroy Liquid
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 1
+Winnowing Distillation
+False Reflection
+Case Distillation
+
+Concatenation Distillation
+Concatenation Distillation
+
+// Fabric
+// Fa
+Consideration: Factorial Purification
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 2
+Winnowing Distillation
+// bri
+Consideration: Brigh's Gambit
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 3
+Winnowing Distillation
+False Reflection
+Case Distillation
+// c
+Consideration: Charon's Gambit
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 1
+Winnowing Distillation
+False Reflection
+Case Distillation
+
+Concatenation Distillation
+Concatenation Distillation
+
+// adding
+Consideration: Additive Distillation
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 4
+Winnowing Distillation
+False Reflection
+Case Distillation
+
+// stack
+Consideration: Stacking Distillation
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 5
+Winnowing Distillation
+False Reflection
+Case Distillation
+// the hyphen (-)
+Consideration: Bookkeeper's Gambit: -
+Patternmaster's Purification
+Numerical Reflection: 21
+Numerical Reflection: 22
+Winnowing Distillation
+// based
+// ba
+Consideration: Banish Sentinel
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 2
+Winnowing Distillation
+False Reflection
+Case Distillation
+// se
+Consideration: Banish Sentinel
+Patternmaster's Purification
+Numerical Reflection: 7
+Numerical Reflection: 9
+Winnowing Distillation
+False Reflection
+Case Distillation
+// d
+Consideration: Destroy Liquid
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 1
+Winnowing Distillation
+False Reflection
+Case Distillation
+
+// "based"
+Concatenation Distillation
+Concatenation Distillation
+
+// "stack-based"
+Concatenation Distillation
+Concatenation Distillation
+
+// programmable
+// progr
+Consideration: Progress Gambit
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 5
+Winnowing Distillation
+False Reflection
+Case Distillation
+// a
+Consideration: Additive Distillation
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 1
+Winnowing Distillation
+False Reflection
+Case Distillation
+// m m
+Consideration: Modulus Distillation
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 1
+Winnowing Distillation
+False Reflection
+Case Distillation
+Gemini Decomposition
+// ab
+Consideration: Abacus Purification
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 2
+Winnowing Distillation
+False Reflection
+Case Distillation
+// le
+Consideration: Length Distillation: Str
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 2
+Winnowing Distillation
+False Reflection
+Case Distillation
+
+Concatenation Distillation
+Concatenation Distillation
+Concatenation Distillation
+Concatenation Distillation
+Concatenation Distillation
+
+// spellcasting,
+// spe
+Consideration: Speaker's Decomposition
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 3
+Winnowing Distillation
+False Reflection
+Case Distillation
+// l l
+Consideration: Flock's Gambit
+Patternmaster's Purification
+Numerical Reflection: 1
+Numerical Reflection: 2
+Winnowing Distillation
+False Reflection
+Case Distillation
+Gemini Decomposition
+// cas
+Consideration: Case Distillation
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 3
+Winnowing Distillation
+False Reflection
+Case Distillation
+// ti
+Consideration: Timekeeper's Reflection
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 2
+Winnowing Distillation
+False Reflection
+Case Distillation
+// n
+Consideration: Negation Purification
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 1
+Winnowing Distillation
+False Reflection
+Case Distillation
+// g
+Consideration: Gate's Closing
+Patternmaster's Purification
+Numerical Reflection: 0
+Numerical Reflection: 1
+Winnowing Distillation
+False Reflection
+Case Distillation
+
+Concatenation Distillation
+Concatenation Distillation
+Concatenation Distillation
+Concatenation Distillation
+Concatenation Distillation
+Concatenation Distillation
+
+Numerical Reflection: 10
+Flock's Gambit
+Gemini Decomposition
+Numerical Reflection: 0
+Selection Distillation
+Huginn's Gambit
+Retrograde Purification
+Flock's Disintegration
+Bookkeeper's Gambit: v
+Numerical Reflection: 9
+Flock's Gambit
+Retrograde Purification
+{
+    Spacing Reflection
+    Jester's Gambit
+    Concatenation Distillation
+    Muninn's Reflection
+    Jester's Gambit
+    Concatenation Distillation
+    Huginn's Gambit
+}
+Jester's Gambit
+Thoth's Gambit
+Muninn's Reflection
+Reveal
