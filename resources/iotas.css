@@ -1,0 +1,77 @@
+:root {
+    --list-indent: 32px;
+    --list-indent-background: #ffffff10;
+    --hs-undefined: 0deg, 0%;
+    --hs-list: 300deg, 50%;
+}
+
+.list-indent {
+    padding-left: var(--list-indent);
+    background: var(--list-indent-background);
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.list-indent._compact {
+    flex-flow: row wrap;
+    gap: 5px;
+}
+
+.iota {
+    --color: var(--hs-undefined);
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    background-color: hsl(var(--color), 30%);
+    border: 3px solid hsl(var(--color), 35%);
+    gap: 15px;
+    width: max-content;
+}
+
+.iota._full {
+    padding: 0 10px;
+    width: 100%;
+}
+
+.iota>._content {
+    font-family: monospace;
+    font-size: 1rem;
+    padding: 10px 10px;
+}
+.iota._full>._content {
+    background: #ffffff20;
+}
+
+.iota>._weight {
+    display: none;
+}
+.iota._full>._weight {
+    display: inline;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1rem;
+    background: #00000020;
+    padding: 10px 10px;
+}
+
+.iota>._type {
+    display: none;
+}
+.iota._full>._type {
+    display: inline;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.iota._list {
+    --color: var(--hs-list);
+    /* background-color: #602060;
+    border: 3px solid #804080; */
+}
+
+.iota._pattern {
+    background-color: #604020;
+    border: 3px solid #806040;
+}
