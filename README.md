@@ -3,7 +3,10 @@
 DSL is in quotes because it's really just a command dispatcher.
 
 # Targets for version 1.1
-### a way to repeat actions
+### Consideration: NotImplementedMishap
+yeah just considerations (pattern excaping)
+
+### lexer repeat action
 `!<count>` repeats the previous token `<count>` times
 
 doing this naively would cause massive jank with arguments or inline functions
@@ -38,6 +41,16 @@ running out of ambit
     * `!` if implemented
     * the operator list (if buildvars are implemented this would be flexible-er)
 * should shrink the instruction count a little
+
+## Macros (more like compiler hooks, don't tell Chloe)
+### `macroName?` - lexer macro
+Runs during lexing. Can append and modify the already processed tokens.
+
+### `macroName!` - compiler macro
+Runs at compile time. Can modify previously built code.
+
+### Stdlib macros
+* `export!` - simplest one imo, just prepend some setup code and write the compiled output
 
 ## Current (very scuffed) build process:
 1. `npx tsc` (add `-w` if you're actively developing)
