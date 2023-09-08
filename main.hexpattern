@@ -188,9 +188,8 @@ Whisper Reflection // moreiotas; read from chat
 Spacing Reflection // moreiotas; push a space
 Separation Distillation // moreiotas
 // stack here: top [ words:[string...], ["(", ")", "//", "$"], lib...]
-// (optimization note: merge the lexer and interpreter into <init> to save a few evals)
 
-//#include lexer.hexpattern
+//#include parts/lexer.hexpattern
 
 // the lexer should consume the lexer's static data (the list of ()//$ is removed)
 // stack: top [ interpreter:function, libraryLocation:vec3, persist:[any...] ]
@@ -212,7 +211,7 @@ Huginn's Gambit
 // FIXME: Something is putting empty lists onto the stack for each action.
 //        It's not critical, but investigating it would be nice.
 // ravenmind for compiler: [ autorefs tokens build library ]
-//#include compile.hexpattern
+//#include parts/compile.hexpattern
 
 // Run the compiled target
 Muninn's Reflection
