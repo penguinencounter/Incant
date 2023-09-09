@@ -8,29 +8,6 @@ function long(n: number): string {
     return `${n.toFixed(0)}L`
 }
 
-class StreamReader {
-    private cursor: number = 0
-    constructor(public content: string) {}
-    private failEOF() {
-        if (this.isAtEOF()) throw new Error('Unexpected EOF')
-    }
-    public advance(): string {
-        this.failEOF()
-        return this.content[this.cursor++]
-    }
-    public peek(): string {
-        if (this.isAtEOF()) return '\0'
-        return this.content[this.cursor]
-    }
-    public isAtEOF(): boolean {
-        return this.cursor >= this.content.length
-    }
-
-    public skipWhitespace() {
-        while (!this.isAtEOF() && this.peek().match(/\s/)) this.advance()
-    }
-}
-
 const IOTA_TYPES: {[key: string]: (data: Tag) => {}} = {
     'hexcasting:pattern': (data: Tag) => PatternIota.fromNBT(data)
 }

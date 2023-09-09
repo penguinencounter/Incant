@@ -49,6 +49,10 @@ Runs during lexing. Can append and modify the already processed tokens.
 ### `macroName!` - compiler macro
 Runs at compile time. Can modify previously built code.
 
+### Unknown opcodes -> compiler macros
+If the compiler encounters an unknown opcode, it will check for a compiler macro with the same name.
+i.e. opcode `9.00` (as of yet unassigned) will try to invoke `9.00!` with the token on top of the stack.
+
 ### Stdlib macros
 * `export!` - simplest one imo, just prepend some setup code and write the compiled output
 
