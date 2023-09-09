@@ -1,5 +1,5 @@
 :root {
-    --list-indent: 32px;
+    --list-indent: 16px;
     --list-indent-background: #ffffff10;
     --hs-undefined: 0deg, 0%;
     --hs-list: 300deg, 50%;

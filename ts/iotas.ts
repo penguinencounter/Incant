@@ -1,4 +1,5 @@
-import { Pattern } from "./shared.js"
+import { Pattern, directions } from "./shared.js"
+import { Tag } from "./nbt.js"
 
 function byte(n: number): string {
     return `${n.toFixed(0)}b`
@@ -30,6 +31,10 @@ class StreamReader {
     }
 }
 
+const IOTA_TYPES: {[key: string]: (data: Tag) => {}} = {
+    'hexcasting:pattern': (data: Tag) => PatternIota.fromNBT(data)
+}
+
 abstract class Iota {
     public abstract type: string
     public abstract data: any
@@ -39,6 +44,9 @@ abstract class Iota {
     }
 
     public abstract count(): number
+    public static fromNBT(data: Tag): Iota {
+        throw new Error('fromNBT is abstract in Iota - use a subclass')
+    }
 }
 
 class PatternIota extends Iota {
@@ -68,6 +76,10 @@ class PatternIota extends Iota {
     }
     readonly type: string = 'hexcasting:pattern'
     readonly count: () => number = () => 1
+
+    public static fromNBT(data: Tag): PatternIota {
+        return new PatternIota(new Pattern(directions.E, ''))
+    }
 }
 
 class NumberIota extends Iota {
