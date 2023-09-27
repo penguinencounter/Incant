@@ -243,7 +243,8 @@ async function iotafy(db: SpellDatabase, pattern: string) {
     pattern = stripString(pattern)
     const strippedOriginal = pattern
     if (pattern === '') return null
-    pattern = pattern.replaceAll('{', 'Introspection').replaceAll('}', 'Retrospection')
+    if (pattern === '{') pattern = 'Introspection'
+    if (pattern === '}') pattern = 'Retrospection'
     let result: Pattern | null = null
     const numericalReflection = /^Numerical Reflection: (.+)$/
     if (numericalReflection.test(pattern)) {
@@ -255,6 +256,9 @@ async function iotafy(db: SpellDatabase, pattern: string) {
     if (bookkeepers.test(pattern)) {
         const mask = pattern.match(bookkeepers)![1]
         result = db.generateBookkeeper(mask)
+    }
+    const rawInject = /^<.*>$/
+    if (rawInject.test(pattern)) {
     }
     if (!result) {
         const possible = db.queryByName(pattern)

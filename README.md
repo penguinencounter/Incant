@@ -3,11 +3,11 @@
 DSL is in quotes because it's really just a command dispatcher.
 
 # Targets for version 1.1
-### Consideration: NotImplementedMishap
+### Consideration
 yeah just considerations (pattern excaping)
 
 ### lexer repeat action
-`!<count>` repeats the previous token `<count>` times
+`~<count>` repeats the previous token `<count>` times
 
 doing this naively would cause massive jank with arguments or inline functions
 therefore perhaps these steps would be better:
@@ -38,23 +38,42 @@ running out of ambit
     * `)`
     * `#`
     * `$`
-    * `!` if implemented
+    * `!`
+    * `?`
+    * `@`
+    * `~`
     * the operator list (if buildvars are implemented this would be flexible-er)
 * should shrink the instruction count a little
 
-## Macros (more like compiler hooks, don't tell Chloe)
-### `macroName?` - lexer macro
+## Hooks (read: preproccessor directies)
+### `?hookName` - lexer hook
 Runs during lexing. Can append and modify the already processed tokens.
 
-### `macroName!` - compiler macro
+### `!hookName` - compiler hook
 Runs at compile time. Can modify previously built code.
 
 ### Unknown opcodes -> compiler macros
 If the compiler encounters an unknown opcode, it will check for a compiler macro with the same name.
 i.e. opcode `9.00` (as of yet unassigned) will try to invoke `9.00!` with the token on top of the stack.
 
-### Stdlib macros
-* `export!` - simplest one imo, just prepend some setup code and write the compiled output
+### Unknown opcodes -> compiler macros
+If the compiler encounters an unknown opcode, it will check for a compiler macro with the same name.
+i.e. opcode `9.00` (as of yet unassigned) will try to invoke `9.00!` with the token on top of the stack.
+
+## @Functions
+Opcode `10.00` - syntactical sugar for a lookup
+
+`@n` refers to the nth defined function.
+Functions are defined with a compiler hook.
+`!f` is included in the standard library to aid in the scripting process
+
+## Stdlib hooks
+**`!f`** *create a new function from the previous commands*<br>
+Copies the compiler output and creates a new function from it,
+then clears the compiled output.
+
+**`!10.00`** *function operator opcode*<br>
+Look up the referenced function and return it.
 
 ## Current (very scuffed) build process:
 1. `npx tsc` (add `-w` if you're actively developing)
