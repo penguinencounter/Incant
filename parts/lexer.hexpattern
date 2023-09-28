@@ -21,43 +21,15 @@
     // how does loop unrolling work??? investigate later
     // because this is called by Thoth, the first item on the stack is a word
     // the stack looks like this:
-    // [ word, [[operators], "$", "#", "(", ")"], interpreter, ...]
-    Jester's Gambit
-
-    // Append the length of the character list to the ravenmind.
-    Gemini Decomposition // copy the character list (optimization: hardcode the length)
-    Abacus Purification
-    Muninn's Reflection
-    
-    // [ [raven], len of chars, [... chars ...], word, interpreter, ...]
-    Jester's Gambit
-    // [ len of chars, [raven], [... chars ...], word, interpreter, ...]
-    // only safe because we are immediately discarding in the next step
-    // and makes the next step easier
-    Speaker's Distillation
-    Huginn's Gambit
-    
-    // Unpack the character list, with the length at the start...
-    // [ [... chars ...], word, interpreter, ...]
-    Flock's Disintegration
-    Muninn's Reflection
-    Speaker's Decomposition
-    Jester's Gambit
-    Huginn's Gambit
-    // [ len of chars, *chars, word, interpreter, ...]
-    Numerical Reflection: 1
-    Additive Distillation
-    // [ len of chars + 1, *chars, word, interpreter, ...]
-    Fisherman's Gambit  // pull 'word' to the top
-    // [ word, *chars, interpreter, ...]
+    // [ word, ...]
 
     // is it an opening paren?
     Gemini Decomposition
-    Numerical Reflection: 4  // top [ word, word, paren, ...] -> top [ word, paren, word, ...]
-    Swindler's Gambit
+    <{"("}>
+    Jester's Gambit // top [ word, paren, word, ...]
     Equality Distillation
     Gemini Decomposition  // do the conditional execution *first*, then re-use the result to Break/not
-    // [ is_open_paren?, word, close_paren, octothorpe, dollar, [operators], interpreter, ...]
+    // [ is_open_paren?, word, ...]
     {  // it IS an opening paren!
       // increment backtracking
       // is there a shorter way to do this?
@@ -84,7 +56,6 @@
       Bookkeeper's Gambit: -
     }
     Flock's Disintegration
-    // Marker (v1) -- last saved item... --
     // stack, top [<action-if-false>, <action-if-true>, <boolean?>]
     Augur's Exaltation
     Hermes' Gambit  // open paren
@@ -98,9 +69,11 @@
 
     // is it a *closing* paren???
     Gemini Decomposition
-    Numerical Reflection: 4
-    Swindler's Gambit
+    // [word, word, ...]
+    <{")"}>
+    Jester's Gambit
     Equality Distillation
+    // [is_close_paren?, word, ...]
     Gemini Decomposition
     {
       // decrement backtracking
@@ -171,12 +144,14 @@
     Augur's Exaltation
     Hermes' Gambit  // Break if true
 
-    // [ word, octothorpe, dollar, ...]
+    // [ word, ...]
     // Number literals and autorefs.
     Gemini Decomposition
+    // [ word, word ]
     Numerical Reflection: 0
     Numerical Reflection: 1
     Winnowing Distillation
+    // [ first, word ]
     // [ first char, word, octothorpe, dollar, ...]
     Rotation Gambit
     // [ octothorpe, first char, word, dollar, ...]

@@ -1,4 +1,3 @@
-<{0.4}>
 // lexcasting: a very very tiny dsl for hexcasting
 
 // standard rules apply
@@ -145,10 +144,10 @@
 
 // --- Focus ---
 // [
-//   [persist: [any...]]
-//   [library: [key, value, key, value, ...]]
-//   ["(", ")", "#", "$", ["+", "-", "*", "/"]]
-//   [ravenmind default]
+//   [persist: [any...]] // TODO: Remove!
+//   [library: [key, value, key, value, ...]] // TODO: Use akash instead!
+//   ["(", ")", "#", "$", ["+", "-", "*", "/"]] // TODO: Remove!
+//   [ravenmind default] // TODO: Remove!
 //   [<init>: function]
 // ]
 
@@ -182,13 +181,14 @@
 // 4. Clear the autorefs to prepare for the next run
 // 5. Run the interpreter on the tokens, executing the script
 
-// (current impl)
-// After being run by a compatible executor, the stack should start without <init>
+// TODO: Find out what this actually should be
+<{[[], [], 0, null, [0]]}>
 Huginn's Gambit // write ravenmind; now [[], [], 0.00, NULL, [0]]
 Whisper Reflection // moreiotas; read from chat
 Spacing Reflection // moreiotas; push a space
 Separation Distillation // moreiotas
-// stack here: top [ words:[string...], ["(", ")", "//", "$"], lib...]
+// FIXME: maybe add a NULL to compensate for the bookkeeper's stuff/
+// stack here: top [ words:[string...] ]
 
 //#include parts/lexer.hexpattern
 

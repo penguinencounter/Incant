@@ -88,7 +88,7 @@ import { Iota } from './iotas.js'
                         setStatusMessage(`Translating: ${Math.round(n / totalCount * 100)}% ${n} / ${totalCount}`)
                         const partial = await compilerItems!.translatePattern(line)
                         if (!partial.match(/^\s*$/gm))
-                            translated.push('<' + partial + '>')
+                            translated.push(partial)
                         if (Date.now() - lastYield > 25) {
                             await yield_()
                             lastYield = Date.now()

@@ -6,6 +6,21 @@ class Pattern {
     public last(): string {
         return this.pattern[this.pattern.length - 1]
     }
+    public toString(): string {
+        return `<${this.direction.name},${this.pattern}>`
+    }
+}
+
+class IotaInject extends Pattern {
+    constructor(public iota: string) {
+        super(directions.E, '')
+    }
+    public extend(path: string): Pattern {
+        throw new Error('Cannot extend IotaInject')
+    }
+    public toString(): string {
+        return `${this.iota}`
+    }
 }
 
 class StreamReader {
@@ -133,6 +148,7 @@ function nodify(multiline: string): HTMLDivElement[] {
 }
 export {
     Pattern,
+    IotaInject,
     Direction,
     StreamReader,
     directions,

@@ -1,4 +1,4 @@
-import { Pattern, Direction, directions, stripString } from './shared.js'
+import { Pattern, Direction, directions, stripString, IotaInject } from './shared.js'
 
 type ArrayType<T> = T extends Array<infer U> ? U : never
 
@@ -245,37 +245,60 @@ async function iotafy(db: SpellDatabase, pattern: string) {
     if (pattern === '') return null
     if (pattern === '{') pattern = 'Introspection'
     if (pattern === '}') pattern = 'Retrospection'
-    let result: Pattern | null = null
+    let results: Pattern[] = []
     const numericalReflection = /^Numerical Reflection: (.+)$/
     if (numericalReflection.test(pattern)) {
         const value = parseFloat(pattern.match(numericalReflection)![1])
         // if (value > 1000 && !NumberCache[value]) statusMessageAcceptor(`Solving number: ${value}`)
-        result = await db.generateNumber(value)
+        results.push(await db.generateNumber(value))
     }
     const bookkeepers = /^Bookkeeper's Gambit: ([\-v]+)$/
     if (bookkeepers.test(pattern)) {
         const mask = pattern.match(bookkeepers)![1]
-        result = db.generateBookkeeper(mask)
+        results.push(db.generateBookkeeper(mask))
     }
-    const rawInject = /^<.*>$/
+    const rawInject = /^<(.*)>$/
     if (rawInject.test(pattern)) {
+        let value = pattern.match(rawInject)![1]
+        const wrapped = /^\{(.*)\}$/
+        let wrappingMode: "none" | "splat" = "none"
+        if (wrapped.test(value)) {
+            value = value.match(wrapped)![1]
+            wrappingMode = "splat"
+        }
+        const container = new IotaInject(value)
+        switch (wrappingMode) {
+            case 'splat':
+                // Intro
+                results.push(directions.W.apply("qqq"))
+                results.push(container)
+                // Retro
+                results.push(directions.E.apply("eee"))
+                // Flock's Disint
+                results.push(directions.NW.apply('qwaeawq'))
+                break;
+            case 'none':
+                results.push(container)
+                break;
+        }
+        
     }
-    if (!result) {
+    if (results.length === 0) {
         const possible = db.queryByName(pattern)
         if (!possible) {
             console.log("failed to translate", pattern)
             return null
         } else {
-            result = directions[possible.direction as keyof typeof directions].apply(possible.pattern!)
+            results.push(directions[possible.direction as keyof typeof directions].apply(possible.pattern!))
         }
     }
-    return result
+    return results
 }
 
 async function translatePattern(db: SpellDatabase, pattern: string) {
-    const result = await iotafy(db, pattern)
-    if (!result) return ''
-    return `${result.direction.name},${result.pattern}`
+    const results = await iotafy(db, pattern)
+    if (!results || results.length === 0) return ''
+    return results.map(result => result.toString()).join(',')
 }
 
 export default async function() {
