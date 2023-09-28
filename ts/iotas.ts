@@ -293,7 +293,7 @@ class ListIota extends Iota {
         } else {
             content_span.innerHTML = `${this.data.length} items`
             block.classList.add('_full')
-            container.classList.remove('_compact')
+            // container.classList.remove('_compact')
         }
         block.appendChild(content_span)
         const weight_span = document.createElement('span')

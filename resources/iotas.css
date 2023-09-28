@@ -15,6 +15,7 @@
 .list-indent {
     padding-left: var(--list-indent);
     background: var(--list-indent-background);
+    width: calc(100% - var(--list-indent));
     display: flex;
     flex-flow: column nowrap;
 }
@@ -39,13 +40,13 @@
 }
 
 .iota._full {
-    padding: 0 10px;
+    padding: 0 6px;
     width: 100%;
 }
 
 .iota>._content {
     font-size: 1rem;
-    padding: 10px 10px;
+    padding: 3px 6px;
 }
 .iota._full>._content {
     background: #ffffff20;
@@ -57,9 +58,9 @@
 .iota._full>._weight {
     display: inline;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 0.9rem;
     background: #00000020;
-    padding: 10px 10px;
+    padding: 3px 6px;
 }
 
 .iota>._type {
@@ -67,9 +68,8 @@
 }
 .iota._full>._type {
     display: inline;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: bold;
-    margin: 10px 0;
 }
 
 .iota._list {

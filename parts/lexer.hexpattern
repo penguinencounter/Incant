@@ -152,9 +152,8 @@
     Numerical Reflection: 1
     Winnowing Distillation
     // [ first, word ]
-    // [ first char, word, octothorpe, dollar, ...]
-    Rotation Gambit
-    // [ octothorpe, first char, word, dollar, ...]
+    <{"#"}>
+    // [ octothorpe, first char, word ]
 
     Equality Distillation
     Gemini Decomposition
@@ -186,23 +185,22 @@
     Hermes' Gambit
 
     // IF is-number-literal is false:
-    // [ is-number-literal<false>, word, dollar, [operators], ]
+    // [ is-number-literal<false>, word ]
     // ELSE:
-    // [ is-number-literal<true>, token, dollar, [operators], ]
-    { // token, dollar
+    // [ is-number-literal<true>, token ]
+    { // token
       // but first, we have to talk about parallel universes
       // <insert mario 64 music>
-      Bookkeeper's Gambit: v- // discard the "$" so that this and the other path are synchronized
       True Reflection // put the true back on (it got popped by the Augur's Exaltation)
     }
-    { // word, dollar
+    { // word
       Gemini Decomposition
-      // word, word, dollar
+      // word, word
       Numerical Reflection: 0
       Numerical Reflection: 1
       Winnowing Distillation
-      // [ first char, word, dollar, ...]
-      Rotation Gambit
+      // [ first char, word ]
+      <{"$"}>
       // [ dollar, first char, word, ...]
       Equality Distillation
       Gemini Decomposition
@@ -237,20 +235,18 @@
     Augur's Exaltation
     Hermes' Gambit
 
-    // [ is-number-literal || is-autoref, <varies>, [operators], ]
-    //   ^ == true                      , token,    [operators], ]
-    //   ^ == false                     , word,     [operators], ]
+    // [ is-number-literal || is-autoref, <varies>, ]
+    //   ^ == true                      , token,    ]
+    //   ^ == false                     , word,     ]
     // It is a function call of some kind (inline, invoke, or operator)
     {
-      Bookkeeper's Gambit: v- // discard the operators list
       True Reflection // repush true
     }
-    { // word, [operators]
+    { // word
       Gemini Decomposition
-      // word, word, [operators]
-      // cba -> bca
-      Numerical Reflection: 2
-      Swindler's Gambit
+      // word, word
+      <{["+", "-", "/", "*"]}>
+      Jester's Gambit
       // word, [operators], word
       Locator's Distillation
       // [ index/-1, word]
@@ -401,7 +397,7 @@
   // someone provided an alternative of using an unmatched Introspection, but that didn't work
 }
 
-// [ inline pattern, words, ["(", ")", "#", "$", [ operators ]], interpreter, ...]
+// [ inline pattern, words ]
 // NOTE: Thoths: pattern on the bottom
 Jester's Gambit
 Thoth's Gambit
@@ -418,4 +414,5 @@ Huginn's Gambit
 
 // for some reason the static data is still here?
 // I'm too lazy to figure out why, so just pop it off the stack :P
-Bookkeeper's Gambit: v
+// TODO: Does this still happen?
+// Bookkeeper's Gambit: v

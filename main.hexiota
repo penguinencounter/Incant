@@ -1,8 +1,1 @@
-[
-    [],
-    [
-        "(", ")", "#", "$",
-        ["+", "-", "*", "/"]
-    ],
-    #include main.hexpattern;
-]
+#include main.hexpattern;
