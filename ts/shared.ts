@@ -10,6 +10,7 @@ class Pattern {
 
 class StreamReader {
     private cursor: number = 0
+    get cursorPos() {return this.cursor}
     constructor(public content: string) { }
     private failEOF() {
         if (this.isAtEOF()) throw new Error('Unexpected EOF')
@@ -35,6 +36,12 @@ class StreamReader {
     }
     public isAtEOF(): boolean {
         return this.cursor >= this.content.length
+    }
+
+    public customMultiRead(validator: (char: string) => boolean): string {
+        let collection = ""
+        while (!this.isAtEOF() && validator(this.peek())) collection += this.advance()
+        return collection
     }
 
     public readUntil(text: string, advanceSep: boolean = true, includeSep: boolean = false) {
@@ -65,10 +72,20 @@ class StreamReader {
         }
         return false
     }
+    public matchs(k: string) {
+        const origin = this.cursor
+        for (const char of k.split('')) {
+            if (!this.match(char)) {
+                this.cursor = origin
+                return false
+            }
+        }
+        return true
+    }
 
     public expect(chars: string) {
         for (const char of chars.split('')) {
-            if (!this.match(char)) throw new Error(`Expected ${char} at ${this.cursor} but got ${this.peek()} (ctx: ${this.content.slice(this.cursor - 10, this.cursor + 10)} )`)
+            if (!this.match(char)) throw new Error(`Expected ${char} at ${this.cursor} but got ${this.peek()} (before: ${this.content.slice(this.cursor - 10, this.cursor)} | ${this.content.slice(this.cursor, this.cursor + 10)} :after)`)
         }
     }
 
@@ -99,7 +116,7 @@ const
     NW = new Direction('nw'),
     NE = new Direction('ne'),
     E = new Direction('e'),
-    directions = { SE, SW, W, NW, NE, E, SOUTH_EAST: SE, SOUTH_WEST: SW, WEST: W, NORTH_WEST: NW, NORTH_EAST: NE, EAST: E }
+    directions = { SE, SW, W, NW, NE, E, SOUTH_EAST: SE, SOUTH_WEST: SW, WEST: W, NORTH_WEST: NW, NORTH_EAST: NE, EAST: E, NORTHEAST: NE, NORTHWEST: NW, SOUTHEAST: SE, SOUTHWEST: SW }
 
 function stripString(s: string): string {
     return s.replace(/^\s*(.*?)\s*$/, '$1')

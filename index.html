@@ -11,6 +11,7 @@
             background-color: #222;
             color: #ddd;
         }
+
         #target {
             font-family: monospace;
             max-width: calc(100vw - 10px);
@@ -23,12 +24,17 @@
 
 <body>
     <div id="status" style="font-family: monospace; font-size: 1.5rem;">Loading ...</div>
-    <div id="log" style="font-family: monospace; color: #aaa; font-size: 0.9rem; max-height: 20em; overflow: auto auto;"></div>
+    <div id="log"
+        style="font-family: monospace; color: #aaa; font-size: 0.9rem; max-height: 20em; overflow: auto auto;"></div>
     <div id="statistics" style="font-family: monospace; font-style: italic; color: #88f; font-size: 1.0rem;"></div>
     <hr>
-    <code>
-        <div id="target"></pre>
-    </code>
+    <div>
+        <div id="render">
+            Pretty result will appear here
+        </div>
+        <br>
+        <div id="target"></div>
+    </div>
 </body>
 
 </html>

@@ -2,6 +2,7 @@ import { Pattern, Direction, directions, stripString, nodify } from './shared.js
 import { default as initCompiler } from './compiler.js'
 import './export_give.js'
 import './build_lib.js'
+import { Iota } from './iotas.js'
 
 (function () {
     let compilerItems: Awaited<ReturnType<typeof initCompiler>>
@@ -94,7 +95,7 @@ import './build_lib.js'
                         }
                     }
                     console.log('translated', translated.length, 'lines in', Date.now() - start, 'ms')
-                    return `[${translated.join(';')}]`
+                    return `[${translated.join(',')}]`
                 }
             },
             hexiota: {
@@ -182,6 +183,14 @@ import './build_lib.js'
             const target = document.getElementById('target')!
             target.innerHTML = ''
             nodify(built).forEach(el => target.appendChild(el))
+            const render = document.getElementById('render')!
+            const parsed = Iota.fromHexIota(target.innerText)
+            render.innerHTML = ''
+            if (parsed) {
+                parsed.generateNodes(render)
+            } else {
+                render.textContent = 'Failed to parse'
+            }
         } catch (e) {
             setStatusMessage(`Build failed`)
             if (e instanceof Error) console.log(e.message)
