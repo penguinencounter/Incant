@@ -236,6 +236,48 @@
     Augur's Exaltation
     Hermes' Gambit
 
+    // Compile-time hooks
+    // [ handled?    , <varies>, ]
+    {
+      True Reflection
+    }
+    Flock's Disintegration
+    { // word
+      Gemini Decomposition
+      Numerical Reflection: 0
+      Numerical Reflection: 1
+      Winnowing Distillation
+      // [ first, word ]
+      <{"!"}>
+      // opcode 4: compilerHook
+      Equality Distillation
+      Gemini Decomposition
+      {
+        Jester's Gambit
+        // [ word, (true) ]
+        Gemini Decomposition
+        Length Distillation: Str
+        Numerical Reflection: 1
+        Jester's Gambit
+        Winnowing Distillation
+        // [ functionName, (true) ]
+        // Opcode 4
+        Numerical Reflection: 4
+        Jester's Gambit
+        Numerical Reflection: 2
+        Flock's Gambit
+        // [ [4, funcName], (true) ]
+        Jester's Gambit
+        // [ (true), [4, funcName] ]
+      }
+      {
+        Bookkeeper's Gambit: -
+      }
+      Flock's Disintegration
+      Augur's Exaltation
+      Hermes' Gambit
+    }
+
     // Runtime-defined function calls (@0 etc.)
     // TODO: Named runtime functions?
     // [ handled?    , <varies>, ]
@@ -264,14 +306,14 @@
         // [ word (without @), (true) ]
         Input Purification
         // [ func-index, (true) ]
-        // Opcode 10 (translated at compile-time)
+        // Opcode 10
         Numerical Reflection: 10
         Jester's Gambit
         Numerical Reflection: 2
         Flock's Gambit
-        // [ [1, autoref-index], (true) ]
+        // [ [10, func-index], (true) ]
         Jester's Gambit
-        // [ (true), [1, autoref-index] ]
+        // [ (true), [10, func-index] ]
       }
       {
         Bookkeeper's Gambit: -

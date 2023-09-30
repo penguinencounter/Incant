@@ -145,7 +145,7 @@
 // --- Focus ---
 // [
 //   [persist: [any...]] // TODO: Remove!
-//   [library: [key, value, key, value, ...]] // TODO: Use akash instead!
+//   [library location (fixed)] // TODO: Use akash instead!
 //   ["(", ")", "#", "$", ["+", "-", "*", "/"]] // TODO: Remove!
 //   [ravenmind default] // TODO: Remove!
 //   [<init>: function]
@@ -169,6 +169,9 @@
 // 1: pload
 // 2: inline
 // 3: invoke
+// 4: compilerHook
+
+// 10: runtimeFunctionRef
 
 
 // a Token is [type: string, value: any, argument_count: number?]

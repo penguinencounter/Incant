@@ -298,7 +298,7 @@ class ListIota extends Iota {
         block.appendChild(content_span)
         const weight_span = document.createElement('span')
         weight_span.classList.add('_weight')
-        weight_span.innerHTML = `${this.count()}`
+        weight_span.innerHTML = `cost: ${this.count()}`
         block.appendChild(weight_span)
         container.appendChild(block)
         if (this.data.length === 0) {
