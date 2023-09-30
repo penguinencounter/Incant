@@ -39,7 +39,7 @@ async function build() {
         } else {
             const i = await compiler.iotafy(line)
             if (i !== null) {
-                builder.push(new PatternIota(i))
+                builder.concat(i.map(x => new PatternIota(x)))
             }
         }
     }

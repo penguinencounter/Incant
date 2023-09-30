@@ -1,8 +1,8 @@
 // --- Lexer script ---
-// FIXME: Run over this with a comb and optimize for pattern count
+// FIXME: Optimize for pattern count
 // Iterate over the list of words, at the top of the stack
 // stack is now:
-// top [ words, ["(", ")", "#", "$", [operators]], interpreter, ...]
+// top [ words, ...]
 
 {
   {
@@ -144,6 +144,7 @@
     Augur's Exaltation
     Hermes' Gambit  // Break if true
 
+    // TODO: investigate if we can keep the first char instead of recomputing it for each test
     // [ word, ...]
     // Number literals and autorefs.
     Gemini Decomposition
@@ -158,6 +159,7 @@
     Equality Distillation
     Gemini Decomposition
     {
+      // TODO: investigate computing this (characters after first) once as well?
       // [ true, word, dollar, ...]
       Jester's Gambit
       // [ word, true, dollar, ...]
@@ -189,10 +191,9 @@
     // ELSE:
     // [ is-number-literal<true>, token ]
     { // token
-      // but first, we have to talk about parallel universes
-      // <insert mario 64 music>
       True Reflection // put the true back on (it got popped by the Augur's Exaltation)
     }
+    Flock's Disintegration
     { // word
       Gemini Decomposition
       // word, word
@@ -235,13 +236,59 @@
     Augur's Exaltation
     Hermes' Gambit
 
-    // [ is-number-literal || is-autoref, <varies>, ]
-    //   ^ == true                      , token,    ]
-    //   ^ == false                     , word,     ]
+    // Runtime-defined function calls (@0 etc.)
+    // TODO: Named runtime functions?
+    // [ handled?    , <varies>, ]
+    {
+      True Reflection
+    }
+    Flock's Disintegration
+    { // word
+      Gemini Decomposition
+      Numerical Reflection: 0
+      Numerical Reflection: 1
+      Winnowing Distillation
+      // [ first, word ]
+      <{"@"}>
+      // opcode 10
+      Equality Distillation
+      Gemini Decomposition
+      {
+        Jester's Gambit
+        // [ word, (true) ]
+        Gemini Decomposition
+        Length Distillation: Str
+        Numerical Reflection: 1
+        Jester's Gambit
+        Winnowing Distillation
+        // [ word (without @), (true) ]
+        Input Purification
+        // [ func-index, (true) ]
+        // Opcode 10 (translated at compile-time)
+        Numerical Reflection: 10
+        Jester's Gambit
+        Numerical Reflection: 2
+        Flock's Gambit
+        // [ [1, autoref-index], (true) ]
+        Jester's Gambit
+        // [ (true), [1, autoref-index] ]
+      }
+      {
+        Bookkeeper's Gambit: -
+      }
+      Flock's Disintegration
+      Augur's Exaltation
+      Hermes' Gambit
+    }
+
+    // [ handled?    , <varies>, ]
+    //   ^ == true   , token,    ]
+    //   ^ == false  , word,     ]
     // It is a function call of some kind (inline, invoke, or operator)
     {
       True Reflection // repush true
     }
+    Flock's Disintegration
     { // word
       Gemini Decomposition
       // word, word

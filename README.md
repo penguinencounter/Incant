@@ -31,19 +31,15 @@ running out of ambit
 * `gtpl 2.00` (entity, vector) -> direct GTP (why tho?)
 
 ### migrate single-use constants to embedded iotas
-* allow the preprocessor to recognize them
-* ideally match existing syntax; e.g. `<content>` and `<{content}>` (the `<\content>` mode is too complex for the preprocessor to handle)
-* targets (tentative):
-    * `(`
-    * `)`
-    * `#`
-    * `$`
-    * `!`
-    * `?`
-    * `@`
-    * `~`
-    * the operator list (if buildvars are implemented this would be flexible-er)
-* should shrink the instruction count a little
+* `(` (done)
+* `)` (done)
+* `#` (done)
+* `$` (done)
+* `!` (not implemented)
+* `?` (not implemented)
+* `@` (not implemented)
+* `~` (not implemented)
+* operators (done)
 
 ## Hooks (read: preproccessor directies)
 ### `?hookName` - lexer hook
