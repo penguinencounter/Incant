@@ -144,10 +144,6 @@
 
 // --- Focus ---
 // [
-//   [persist: [any...]] // TODO: Remove!
-//   [library location (fixed)] // TODO: Use akash instead!
-//   ["(", ")", "#", "$", ["+", "-", "*", "/"]] // TODO: Remove!
-//   [ravenmind default] // TODO: Remove!
 //   [<init>: function]
 // ]
 
@@ -206,13 +202,20 @@ Bookkeeper's Gambit: --vvv
 Vacant Reflection
 Numerical Reflection: 3
 Flock's Gambit
-// stack: top [ raven library ]
-Jester's Gambit
+// stack: top [ raven ]
+// get the library contents
+{
+    
+    <(-30.50, 1.50, -48.50)> // library location  //#exportIndex "libraryLoc"
+    <<se,aqddqaqddqa>> // library key  //#exportIndex "libraryKey"
+}
+Flock's Disintegration
+Akasha's Distillation
 Integration Distillation
 // stack: top [ raven* ]
 Huginn's Gambit
 
-// FIXME: Something is putting empty lists onto the stack for each action.
+// FIXME: Something is putting empty lists onto the stack for each action. ("Stack leak"? We have memory leaks, so why not?)
 //        It's not critical, but investigating it would be nice.
 // ravenmind for compiler: [ autorefs tokens build library ]
 //#include parts/compile.hexpattern
