@@ -166,9 +166,43 @@
             }
             Augur's Exaltation
             Hermes' Gambit
+            True Reflection
         }
         {
             False Reflection
+        }
+        Flock's Disintegration
+        Augur's Exaltation
+        Hermes' Gambit
+
+        {
+            Charon's Gambit
+            Bookkeeper's Gambit: -
+        }
+        Flock's Disintegration
+        Augur's Exaltation
+        Hermes' Gambit
+        
+
+        // [ tokenType, token ]
+        Gemini Decomposition
+        Numerical Reflection: 4  // compilerHook
+        Equality Distillation
+        {
+            Bookkeeper's Gambit: v
+            //#include util/lookup_compiler_hook.hexpattern
+            //#include util/append_to_build.hexpattern
+            True Reflection
+        }
+        {
+            False Reflection
+        }
+        Flock's Disintegration
+        Augur's Exaltation
+        Hermes' Gambit
+        {
+            Charon's Gambit
+            Bookkeeper's Gambit: -
         }
         Flock's Disintegration
         Augur's Exaltation

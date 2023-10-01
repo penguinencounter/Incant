@@ -114,11 +114,11 @@ class PatternIota extends Iota {
         pattern.classList.add("iota", "_pattern")
         const type_span = document.createElement('span')
         type_span.classList.add('_type')
-        type_span.innerHTML = 'Pattern'
+        type_span.textContent = 'Pattern'
         pattern.appendChild(type_span)
         const content_span = document.createElement('span')
         content_span.classList.add('_content')
-        content_span.innerHTML = this.data.direction.name + ' ' + this.data.pattern
+        content_span.textContent = this.data.direction.name + ' ' + this.data.pattern
         pattern.appendChild(content_span)
         container.appendChild(pattern)
     }
@@ -150,11 +150,11 @@ class NumberIota extends Iota {
         block.classList.add("iota", "_number")
         const type_span = document.createElement('span')
         type_span.classList.add('_type')
-        type_span.innerHTML = 'Number'
+        type_span.textContent = 'Number'
         block.appendChild(type_span)
         const content_span = document.createElement('span')
         content_span.classList.add('_content')
-        content_span.innerHTML = this.data.toString()
+        content_span.textContent = this.data.toString()
         block.appendChild(content_span)
         container.appendChild(block)
     }
@@ -195,7 +195,7 @@ class BooleanIota extends Iota {
         else block.classList.add("_false")
         const value = document.createElement('span')
         value.classList.add('_content')
-        value.innerHTML = this.data ? 'True' : 'False'
+        value.textContent = this.data ? 'True' : 'False'
         block.appendChild(value)
         container.appendChild(block)
     }
@@ -218,11 +218,11 @@ class VectorIota extends Iota {
         block.classList.add("iota", "_vector")
         const type_span = document.createElement('span')
         type_span.classList.add('_type')
-        type_span.innerHTML = 'Vector'
+        type_span.textContent = 'Vector'
         block.appendChild(type_span)
         const content_span = document.createElement('span')
         content_span.classList.add('_content')
-        content_span.innerHTML = `${this.data[0]}, ${this.data[1]}, ${this.data[2]}`
+        content_span.textContent = `${this.data[0]}, ${this.data[1]}, ${this.data[2]}`
         block.appendChild(content_span)
         container.appendChild(block)
     }
@@ -263,7 +263,7 @@ class NullIota extends Iota {
         block.classList.add("iota", "_null")
         const value = document.createElement('span')
         value.classList.add('_content')
-        value.innerHTML = 'Null'
+        value.textContent = 'Null'
         block.appendChild(value)
         container.appendChild(block)
     }
@@ -284,21 +284,21 @@ class ListIota extends Iota {
         block.classList.add("iota", "_list")
         const type_span = document.createElement('span')
         type_span.classList.add('_type')
-        type_span.innerHTML = 'List'
+        type_span.textContent = 'List'
         block.appendChild(type_span)
         const content_span = document.createElement('span')
         content_span.classList.add('_content')
         if (this.data.length === 0) {
-            content_span.innerHTML = 'empty'
+            content_span.textContent = 'empty'
         } else {
-            content_span.innerHTML = `${this.data.length} items`
+            content_span.textContent = `${this.data.length} items`
             block.classList.add('_full')
             // container.classList.remove('_compact')
         }
         block.appendChild(content_span)
         const weight_span = document.createElement('span')
         weight_span.classList.add('_weight')
-        weight_span.innerHTML = `cost: ${this.count()}`
+        weight_span.textContent = `cost: ${this.count()}`
         block.appendChild(weight_span)
         container.appendChild(block)
         if (this.data.length === 0) {
@@ -350,11 +350,11 @@ class StringIota extends Iota {
         block.classList.add("iota", "_string")
         const type_span = document.createElement('span')
         type_span.classList.add('_type')
-        type_span.innerHTML = 'String'
+        type_span.textContent = 'String'
         block.appendChild(type_span)
         const content_span = document.createElement('span')
         content_span.classList.add('_content')
-        content_span.innerHTML = `"${this.data}"`
+        content_span.textContent = `"${this.data}"`
         block.appendChild(content_span)
         container.appendChild(block)
     }
