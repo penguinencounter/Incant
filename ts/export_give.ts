@@ -1,5 +1,7 @@
 // { data: { 'hexcasting:type': 'list', 'hexcasting:data': [ {'hexcasting:type': 'pattern', 'hexcasting:data': { startDir: 0b, angles: [B;] } } ] } }
 
+import { Iota, ListIota } from "./iotas.js"
+
 // startAngle
 // Northeast => 0
 // East => 1
@@ -67,14 +69,50 @@ function procedural(list_of_patterns: string) {
     console.log(`${commands.length} commands, ${capacity}% capacity (${capacityReal} chars) in last command`)
 }
 
+function giveTempl(content: string) {
+    return `give @p hexcasting:focus{data:${content}}`
+}
+
+function give2(iota: Iota): string[] {
+    if (!(iota instanceof ListIota)) {
+        console.log('not a list iota, cannot split')
+        return [giveTempl(iota.asNBT())]
+    }
+    const LIM = 32_000
+    const parts = iota.data
+    const commands: string[] = []
+    let collect: Iota[] = []
+    for (let i = 0; i < parts.length; i += 1) {
+        collect.push(parts[i])
+        const partial = new ListIota(collect)
+        const c = giveTempl(partial.asNBT())
+        if (c.length > LIM) {
+            collect.pop()
+            const partial2 = new ListIota(collect)
+            commands.push(giveTempl(partial2.asNBT()))
+            collect = [parts[i]]
+        }
+    }
+
+    if (collect.length > 0)
+        commands.push(giveTempl(new ListIota(collect).asNBT()))
+    
+    const capacityReal = LIM - commands[commands.length - 1].length
+    const capacity = Math.round(capacityReal / LIM * 1000)/10
+    console.log(`${commands.length} commands, ${capacity}% capacity (${capacityReal} chars) in last command`)
+    return commands
+}
+
 declare global {
     interface Window {
         s2n: typeof shorthandToNBT
         give: typeof procedural
+        give2: typeof give2
     }
 }
 window.s2n = targetGive
 window.give = procedural
+window.give2 = give2
 
 export {
     shorthandToNBT

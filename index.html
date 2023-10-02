@@ -18,6 +18,16 @@
             overflow-wrap: break-word;
             word-break: break-all;
         }
+
+        .xl-text {
+            overflow: scroll hidden;
+            white-space: nowrap;
+            border: 3px solid #aaa;
+            border-radius: 5px;
+            padding: 5px;
+            margin-bottom: 10px;
+            font-family: 'JetBrains Mono', monospace;
+        }
     </style>
     <link rel="stylesheet" href="resources/iotas.css">
 </head>
@@ -27,6 +37,12 @@
     <div id="log"
         style="font-family: monospace; color: #aaa; font-size: 0.9rem; max-height: 20em; overflow: auto auto;"></div>
     <div id="statistics" style="font-family: monospace; font-style: italic; color: #88f; font-size: 1.0rem;"></div>
+    <hr>
+    <div id="export-panel">
+        <button id="btn-batch-export" disabled>Batch Export</button>
+        <br>
+        <div id="exports"></div>
+    </div>
     <hr>
     <div>
         <div id="render">

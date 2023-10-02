@@ -172,10 +172,19 @@ import { Iota } from './iotas.js'
 
     async function load() {
         try {
+            const exportButton = document.getElementById('btn-batch-export')!
+
             setStatusMessage(`Initializing compiler...`)
             compilerItems = await initCompiler()
             const start = Date.now()
             let packageInfo = await loadHexPackage()
+            let urlQP = new URLSearchParams(window.location.search)
+            if (urlQP.has('entrypoint')) {
+                packageInfo.entrypoint = urlQP.get('entrypoint')!
+            }
+
+            let entrypoint = packageInfo.entrypoint
+            
             let built = await processFile(packageInfo.entrypoint)
             const end = Date.now()
             setStatusMessage(`Build completed.`)
@@ -188,9 +197,23 @@ import { Iota } from './iotas.js'
             render.innerHTML = ''
             if (parsed) {
                 parsed.generateNodes(render)
+                exportButton.addEventListener('click', () => {
+                    const outputExport = window.give2(parsed)
+                    const exports = document.getElementById('exports')!
+                    exports.innerHTML = ''
+                    for (const c of outputExport) {
+                        const el = document.createElement('div')
+                        el.textContent = c
+                        el.classList.add('xl-text')
+                        exports.appendChild(el)
+                    }
+                })
+                exportButton.removeAttribute('disabled')
             } else {
                 render.textContent = 'Failed to parse'
             }
+
+
         } catch (e) {
             setStatusMessage(`Build failed`)
             if (e instanceof Error) console.log(e.message)

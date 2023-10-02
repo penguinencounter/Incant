@@ -142,6 +142,7 @@ class PatternIota extends Iota {
 
 class NumberIota extends Iota {
     protected innerAsNBT(): string {
+        if (this.data % 1 === 0) return this.data + ".0"
         return this.data.toString() // double is the default for NBT
     }
 
@@ -205,13 +206,24 @@ class BooleanIota extends Iota {
     readonly type: string = 'hexcasting:boolean'
     readonly count: () => number = () => 1
 }
+function floathax(data: number): string {
+    const buf = new ArrayBuffer(8)
+    const view = new DataView(buf)
+    view.setFloat64(0, data, true)
+    const x = view.getBigInt64(0, true)
+    return x.toString() + "L"
+}
+
+declare global {
+    interface Window {
+        floatToBinary: typeof floathax
+    }
+}
+window.floatToBinary = floathax
 
 class VectorIota extends Iota {
     protected innerAsNBT(): string {
-        if (this.data.every(e => e % 1 === 0)) {
-            return `[L;${this.data.map(e => long(e)).join(',')}]`
-        }
-        return `{x:${this.data[0]},y:${this.data[1]},z:${this.data[2]}}`
+        return `[L;${this.data.map(e => floathax(e)).join(',')}]`
     }
     public generateNodes(container: HTMLElement): void {
         const block = document.createElement('div')
