@@ -33,72 +33,72 @@ Bookkeeper's Gambit: v
 // :: mkvec 3.00,
 Vector Exaltation
 
-// // The entity selection tools.
-// // :: select-entity 2.00,
-// Zone Distillation: Any
-// Numerical Reflection: 0
-// Selection Distillation
-// // :: select-entities 2.00,
-// Zone Distillation: Any
-// // :: select-animal 2.00,
-// Zone Distillation: Animal
-// Numerical Reflection: 0
-// Selection Distillation
-// // :: select-animals 2.00,
-// Zone Distillation: Animal
-// // :: select-monster 2.00,
-// Zone Distillation: Monster
-// Numerical Reflection: 0
-// Selection Distillation
-// // :: select-monsters 2.00,
-// Zone Distillation: Monster
-// // :: select-item 2.00,
-// Zone Distillation: Item
-// Numerical Reflection: 0
-// Selection Distillation
-// // :: select-items 2.00,
-// Zone Distillation: Item
-// // :: select-player 2.00,
-// Zone Distillation: Player
-// Numerical Reflection: 0
-// Selection Distillation
-// // :: select-players 2.00,
-// Zone Distillation: Player
-// // :: select-living 2.00,
-// Zone Distillation: Living
-// Numerical Reflection: 0
-// Selection Distillation
-// // :: select-livings 2.00,
-// Zone Distillation: Living
-// // :: select-not-living 2.00,
-// Zone Distillation: Non-Living
-// Numerical Reflection: 0
-// Selection Distillation
-// // :: select-not-livings 2.00,
-// Zone Distillation: Non-Living
+// The entity selection tools.
+// :: sel-entity 2.00,
+Zone Distillation: Any
+Numerical Reflection: 0
+Selection Distillation
+// :: sel-entities 2.00,
+Zone Distillation: Any
+// :: sel-animal 2.00,
+Zone Distillation: Animal
+Numerical Reflection: 0
+Selection Distillation
+// :: sel-animals 2.00,
+Zone Distillation: Animal
+// :: sel-monster 2.00,
+Zone Distillation: Monster
+Numerical Reflection: 0
+Selection Distillation
+// :: sel-monsters 2.00,
+Zone Distillation: Monster
+// :: sel-item 2.00,
+Zone Distillation: Item
+Numerical Reflection: 0
+Selection Distillation
+// :: sel-items 2.00,
+Zone Distillation: Item
+// :: sel-player 2.00,
+Zone Distillation: Player
+Numerical Reflection: 0
+Selection Distillation
+// :: sel-players 2.00,
+Zone Distillation: Player
+// :: sel-living 2.00,
+Zone Distillation: Living
+Numerical Reflection: 0
+Selection Distillation
+// :: sel-livings 2.00,
+Zone Distillation: Living
+// :: sel-not-living 2.00,
+Zone Distillation: Non-Living
+Numerical Reflection: 0
+Selection Distillation
+// :: sel-not-livings 2.00,
+Zone Distillation: Non-Living
 
-// // :: first 1.00,
-// Numerical Reflection: 0
-// Selection Distillation
-// // :: last 1.00,
-// Retrograde Purification
-// Numerical Reflection: 0
-// Selection Distillation
-// // :: index 2.00,
-// Selection Distillation
-// // :: set-or 2.00,
-// Unifying Distillation
-// // :: set-and 2.00,
-// Intersection Distillation
-// // :: set-xor 2.00,
-// Exclusionary Distillation
-// // :: unique 1.00,
-// Uniqueness Purification
+// :: first 1.00,
+Numerical Reflection: 0
+Selection Distillation
+// :: last 1.00,
+Retrograde Purification
+Numerical Reflection: 0
+Selection Distillation
+// :: index 2.00,
+Selection Distillation
+// :: union 2.00,
+Unifying Distillation
+// :: intersect 2.00,
+Intersection Distillation
+// :: set-xor 2.00,
+Exclusionary Distillation
+// :: uniq 1.00,
+Uniqueness Purification
 
-// // :: read-entity 1.00,
-// Chronicler's Purification
-// // :: write-entity 2.00
-// Chronicler's Gambit
+// :: read-entity 1.00,
+Chronicler's Purification
+// :: write-entity 2.00
+Chronicler's Gambit
 
 // // spells
 // :: explode 2.00
@@ -121,26 +121,26 @@ Jester's Gambit
 Blink
 // :: blink 2.00
 Blink
-// // :: place 1.00
-// Place Block
-// // :: break 1.00
-// Break Block
-// // :: place-water 1.00
-// Create Water
-// // :: remove-liquid 1.00
-// Destroy Liquid
-// // :: conjure-block 1.00
-// Conjure Block
-// // :: conjure-light 1.00
-// Conjure Light
-// // :: grow 1.00
-// Overgrow
-// // :: edify 1.00
-// Edify Sapling
-// // :: ignite 1.00
-// Ignite Block
-// // :: extinguish 1.00
-// Extinguish Area
+// :: place 1.00
+Place Block
+// :: break 1.00
+Break Block
+// :: mkwater 1.00
+Create Water
+// :: rmwater 1.00
+Destroy Liquid
+// :: conj 1.00
+Conjure Block
+// :: conjl 1.00
+Conjure Light
+// :: grow 1.00
+Overgrow
+// :: edify 1.00
+Edify Sapling
+// :: ignite 1.00
+Ignite Block
+// :: extinguish 1.00
+Extinguish Area
 // // :: sentinel 1.00
 // Summon Sentinel
 // // :: rm-sentinel 1.00
@@ -282,3 +282,7 @@ Bookkeeper's Gambit: v
 // Jester's Gambit
 // Surgeon's Exaltation
 // Huginn's Gambit
+
+//// 1.0.1
+
+// :: !

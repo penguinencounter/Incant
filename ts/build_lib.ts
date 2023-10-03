@@ -22,6 +22,7 @@ async function build() {
             // WRITE the previous entry...
             if (builder.length > 0) {
                 for (const nameOrAlias of target) {
+                    console.debug('Writing', nameOrAlias, 'with', builder.length, 'patterns')
                     const iota1 = new StringIota(nameOrAlias)
                     const iota2 = new ListIota(builder)
                     iota.data.push(iota1, iota2)
@@ -39,7 +40,7 @@ async function build() {
         } else {
             const i = await compiler.iotafy(line)
             if (i !== null) {
-                builder.concat(i.map(x => new PatternIota(x)))
+                builder = builder.concat(i.map(x => new PatternIota(x)))
             }
         }
     }

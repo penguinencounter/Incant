@@ -206,7 +206,7 @@ Flock's Gambit
 // get the library contents
 {
     
-    <(-30.50, 1.50, -48.50)> // library location  //#exportIndex "libraryLoc"
+    <(12.50, -30.50, -15.50)> // library location  //#exportIndex "libraryLoc"
     <<se,aqddqaqddqa>> // library key  //#exportIndex "libraryKey"
 }
 Flock's Disintegration
