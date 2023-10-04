@@ -70,7 +70,8 @@ function procedural(list_of_patterns: string) {
 }
 
 function giveTempl(content: string) {
-    return `give @p hexcasting:focus{data:${content}}`
+    // return `give @p hexcasting:focus{data:${content}}`
+    return `summon item ~ ~0.6 ~ {Item:{id:"hexcasting:focus",Count:1b,tag:{data:${content}}}}`
 }
 
 function give2(iota: Iota): string[] {

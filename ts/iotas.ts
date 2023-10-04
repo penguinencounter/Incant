@@ -28,7 +28,7 @@ abstract class Iota {
     }
     protected static fromHexIota_(data: StreamReader): Iota | null {
         data.skipWhitespace()
-        if (data.isAtEOF()) return null // The empty tag
+        if (data.isAtEOF()) throw new Error("Expected an iota, got EOF at " + data.cursorPos) // The empty tag
         const KEYWORDS = {
             'true': () => new BooleanIota(true),
             'false': () => new BooleanIota(false),
@@ -60,8 +60,7 @@ abstract class Iota {
                 for (const [k, v] of Object.entries(KEYWORDS)) {
                     if (data.matchs(k)) return v()
                 }
-                console.log(`Don't know what to do at position ${data.cursorPos} (${data.peekAhead(10)} / ident by ${keyer}). Check your syntax?`)
-                return null
+                throw new Error(`Don't know what to do at position ${data.cursorPos} ('${data.peekAhead(10)}'...; using '${keyer}' to predict types). Check your syntax?`)
         }
     }
     public static fromHexIota(data: string): Iota | null {
@@ -179,7 +178,7 @@ class NumberIota extends Iota {
             }
         }
         if (isValid && collection.length > 0) return new NumberIota(parseFloat(collection))
-        return null // single hyphens, dots, and empty strings are not valid numbers
+        throw new Error("Invalid number at " + stream.cursorPos + ": won't accept " + collection) // single hyphens, dots, and empty strings are not valid numbers
     }
     readonly type: string = 'hexcasting:double'
     readonly count: () => number = () => 1
@@ -248,17 +247,17 @@ class VectorIota extends Iota {
         data.expect('(')
         data.skipWhitespace()
         const x = NumberIota.fromHexIota_(data)
-        if (!x) return null
+        if (!x) throw new Error("Invalid vector X component")
         data.skipWhitespace()
         data.expect(',')
         data.skipWhitespace()
         const y = NumberIota.fromHexIota_(data)
-        if (!y) return null
+        if (!y) throw new Error("Invalid vector Y component")
         data.skipWhitespace()
         data.expect(',')
         data.skipWhitespace()
         const z = NumberIota.fromHexIota_(data)
-        if (!z) return null
+        if (!z) throw new Error("Invalid vector Z component")
         data.skipWhitespace()
         data.expect(')')
         return new VectorIota([x.data, y.data, z.data])

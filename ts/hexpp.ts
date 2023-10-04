@@ -183,8 +183,6 @@ import { Iota } from './iotas.js'
                 packageInfo.entrypoint = urlQP.get('entrypoint')!
             }
 
-            let entrypoint = packageInfo.entrypoint
-            
             let built = await processFile(packageInfo.entrypoint)
             const end = Date.now()
             setStatusMessage(`Build completed.`)
@@ -193,12 +191,19 @@ import { Iota } from './iotas.js'
             target.innerHTML = ''
             nodify(built).forEach(el => target.appendChild(el))
             const render = document.getElementById('render')!
-            const parsed = Iota.fromHexIota(target.innerText)
+            let parsed: Iota | null = null
+            let fail: string | null = null
+            try {
+                parsed = Iota.fromHexIota(target.innerText)
+            } catch (e) {
+                fail = e?.toString() ?? 'unknown error'
+                console.error(e)
+            }
             render.innerHTML = ''
-            if (parsed) {
+            if (parsed !== null) {
                 parsed.generateNodes(render)
                 exportButton.addEventListener('click', () => {
-                    const outputExport = window.give2(parsed)
+                    const outputExport = window.give2(parsed!)
                     const exports = document.getElementById('exports')!
                     exports.innerHTML = ''
                     for (const c of outputExport) {
@@ -210,7 +215,7 @@ import { Iota } from './iotas.js'
                 })
                 exportButton.removeAttribute('disabled')
             } else {
-                render.textContent = 'Failed to parse'
+                render.textContent = '❌ Invalid input. ' + fail
             }
 
 
