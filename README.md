@@ -1,7 +1,16 @@
 # Incant
 An alternative text-based language for Hex Casting + MoreIotas, with Hex Casting build tooling
 
-# Targets for version 1.1
+## Version 1.1 planned features
+### more friendly HexBuild interface
+* look less like a mix between a terminal and a tree viewer
+* hide the internals
+* provide build arguments to allow users to select operator list,
+  library target, library key, etc that would normally be hardcoded
+* provide support for parsing gz'd nbt
+* allow injecting directly to the Everbook (if that addon is installed)
+* merge libraries at build-time
+
 ### add `recharge` family to the standard library
 * `recharge 0.00` -  `{rc3} Recharge Item`
 * `recharge 1.00` - zone dist. Item, iterate `Recharge Item` on all
@@ -40,10 +49,6 @@ Runs at compile time. Can modify previously built code.
 If the compiler encounters an unknown opcode, it will check for a compiler macro with the same name.
 i.e. opcode `9.00` (as of yet unassigned) will try to invoke `9.00!` with the token on top of the stack.
 
-### Unknown opcodes -> compiler macros
-If the compiler encounters an unknown opcode, it will check for a compiler macro with the same name.
-i.e. opcode `9.00` (as of yet unassigned) will try to invoke `9.00!` with the token on top of the stack.
-
 ## @Functions
 Opcode `10.00` - syntactical sugar for a lookup
 
@@ -59,7 +64,7 @@ then clears the compiled output.
 **`!10.00`** *function operator opcode*<br>
 Look up the referenced function and return it.
 
-# Targets for version 1.2
+## Version 1.2 planned features
 ### lexer repeat action
 `~<count>` repeats the previous token `<count>` times
 
