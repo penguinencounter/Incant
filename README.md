@@ -1,19 +1,7 @@
-# Lexcasting
-### A tiny "DSL" for Hex Casting + MoreIotas
-DSL is in quotes because it's really just a command dispatcher.
+# Incant
+An alternative text-based language for Hex Casting + MoreIotas, with Hex Casting build tooling
 
 # Targets for version 1.1
-### Consideration
-yeah just considerations (pattern excaping)
-
-### lexer repeat action
-`~<count>` repeats the previous token `<count>` times
-
-doing this naively would cause massive jank with arguments or inline functions
-therefore perhaps these steps would be better:
-1. collect tokens until an `invokestore` is encountered
-2. repeat the collected tokens `count - 1` times (leave the original in place)
-
 ### add `recharge` family to the standard library
 * `recharge 0.00` -  `{rc3} Recharge Item`
 * `recharge 1.00` - zone dist. Item, iterate `Recharge Item` on all
@@ -71,62 +59,42 @@ then clears the compiled output.
 **`!10.00`** *function operator opcode*<br>
 Look up the referenced function and return it.
 
+# Targets for version 1.2
+### lexer repeat action
+`~<count>` repeats the previous token `<count>` times
+
+doing this naively would cause massive jank with arguments or inline functions
+therefore perhaps these steps would be better:
+1. collect tokens until an `invokestore` is encountered
+2. repeat the collected tokens `count - 1` times (leave the original in place)
+
 ## Current (very scuffed) build process:
 1. `npx tsc` (add `-w` if you're actively developing)
 2. `python server.py` (keep running for future use)
 3. open [the server](http://localhost:8080) in your browser
-4. open Firefox DevTools
-5. copy approximately the first half of the patterns
-6. run `s2n('<paste>')` in the console
-7. right-click the output, click "Copy Object"
-8. paste into a command block, run it
-9. Scribe's Reflection w/ staff
-10. (optional) throw the focus into the void
-11. copy the second half, run `s2n('<paste>')` again, run in a command block
-12. Scribe's Reflection w/ staff
-13. Combination Distillation
-14. Switch to the premade "Parser Base" focus
-15. Scribe's Reflection
-16. Integration Distillation
-17. Switch to the focus from /give
-18. Scribe's Gambit
-
-## Security
-If you use a akashic library as a function source, if the libraries are compromised (i.e. malicious patterns are installed) your player reference could be writen to an arbitrary library without your knowledge.
-
-Before passing the focus containing the Lexcasting data, check that it doesn't contain sensitive information that was stored with `save` or similar.
+4. Wait for build to finish, then press `Batch Export`
+5. Run the generated commands in command blocks to spawn in foci
+6. Use `/data` commands or manually merging the iotas with a staff to produce merged iota
 
 ## Defining fuctions
 Function keys need to follow a specific form.
 Here are some examples:
 ```
-// <function-name> <argument-count> <returns?>
-raycast-entity 0 r
-exponent 2 r
-print 1
+// :: <function-name> <argcount>.00
+// if the function leaves a value on the stack, put a comma (,)
+// after the argument count (no spaces)
 ```
 
 Functions can be "overloaded" to support a variable number of arguments.
 ```
-// note that there is no space at the end
 // this one launches the caster
-launch 1
+// :: launch 1.00
 // this one launches another entity
-launch 2
+// :: launch 2.00
 ```
 
 ### Special functions (operators)
-The math operators +, -, *, and / are actually functions with special names.
-```
-// addition infix operator
-+ 2 r
-// subtraction infix operator
-- 2 r
-// multiplication infix operator
-* 2 r
-// division infix operator
-/ 2 r
-```
+`TODO`
 
 ### Recommended standard libraries
 Implementations and documentation coming soonTM
