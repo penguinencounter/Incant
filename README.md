@@ -9,6 +9,8 @@ An alternative text-based language for Hex Casting + MoreIotas, with Hex Casting
   library target, library key, etc that would normally be hardcoded
 * provide support for parsing gz'd nbt
 * allow injecting directly to the Everbook (if that addon is installed)
+* allow injecting into the Creative Saved Toolbars
+* drag-and-drop to add custom libraries
 * merge libraries at build-time
 
 ### add `recharge` family to the standard library
