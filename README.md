@@ -1,5 +1,5 @@
 # Incant
-An alternative text-based language for Hex Casting + MoreIotas, with Hex Casting build tooling
+An alternative text-based language (interface?) for Hex Casting + MoreIotas, implemented in Hex Casting
 
 ## Version 1.1 planned features
 ### more friendly HexBuild interface
