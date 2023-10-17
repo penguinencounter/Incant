@@ -1,3 +1,5 @@
+import { Iota, PatternIota } from "./iotas.js"
+
 class Pattern {
     constructor(public direction: Direction, public pattern: string) { }
     public extend(path: string): Pattern {
@@ -8,6 +10,10 @@ class Pattern {
     }
     public toString(): string {
         return `<${this.direction.name},${this.pattern}>`
+    }
+
+    public toIota(): Iota {
+        return new PatternIota(this)
     }
 }
 
@@ -20,6 +26,9 @@ class IotaInject extends Pattern {
     }
     public toString(): string {
         return `${this.iota}`
+    }
+    public override toIota(): Iota {
+        return Iota.fromHexIota(this.iota)!
     }
 }
 

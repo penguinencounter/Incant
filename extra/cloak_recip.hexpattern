@@ -1,0 +1,36 @@
+// http://localhost:8080/?entrypoint=extra/cloak_recip.hexiota
+
+Mind's Reflection
+Compass' Purification II
+// with Mediaworks, the ambit can be up to 64 blocks, so this is a bit of an exaggeration
+Gemini Decomposition
+// TODO: make this configurable at runtime. i don't want to yeet random people into the void from 64 blocks away
+// melee range is 5 (or 7 if you're a voidling origin)
+Numerical Reflection: 10
+Zone Distillation: Player
+Jester's Gambit
+Numerical Reflection: 100
+Zone Distillation: Monster
+// [monsters players]
+Unifying Distillation
+// exclude self
+Mind's Reflection
+Integration Distillation
+Mind's Reflection
+Single's Purification
+// [ self [ stuff + self ] ]
+Exclusionary Distillation
+// [ [not-self stuff] ]
+
+// i apologize in advance to anyone who gets caught in this accidentally
+{ // entity, garbage
+    <{"replace w/ fixed or entity-fixed Gate"}>
+    Jester's Gambit
+    // cya (2.55 dust per entity if casting from phial or trinket buf)
+    // 4 dust per entity if casting from raw materials
+    Gate's Opening
+    Gate's Closing
+}
+Jester's Gambit
+Thoth's Gambit
+// there's garbage on the stack but we don't care! wheeeeeee

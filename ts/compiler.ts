@@ -257,6 +257,11 @@ async function iotafy(db: SpellDatabase, pattern: string) {
         const mask = pattern.match(bookkeepers)![1]
         results.push(db.generateBookkeeper(mask))
     }
+    const consider = /^Consideration: (.*)$/
+    if (consider.test(pattern)) {
+        const value = pattern.match(consider)![1]
+        
+    }
     const rawInject = /^<(.*)>$/
     if (rawInject.test(pattern)) {
         let value = pattern.match(rawInject)![1]

@@ -40,11 +40,19 @@ Numerical Reflection: 0
 Selection Distillation
 // :: sel-entities 2.00,
 Zone Distillation: Any
+// :: sel-entities 0.00,
+Mind's Reflection
+Numerical Reflection: 32
+Zone Distillation: Any
 // :: sel-animal 2.00,
 Zone Distillation: Animal
 Numerical Reflection: 0
 Selection Distillation
 // :: sel-animals 2.00,
+Zone Distillation: Animal
+// :: sel-animals 0.00,
+Mind's Reflection
+Numerical Reflection: 32
 Zone Distillation: Animal
 // :: sel-monster 2.00,
 Zone Distillation: Monster
@@ -52,11 +60,19 @@ Numerical Reflection: 0
 Selection Distillation
 // :: sel-monsters 2.00,
 Zone Distillation: Monster
+// :: sel-monsters 0.00,
+Mind's Reflection
+Numerical Reflection: 32
+Zone Distillation: Monster
 // :: sel-item 2.00,
 Zone Distillation: Item
 Numerical Reflection: 0
 Selection Distillation
 // :: sel-items 2.00,
+Zone Distillation: Item
+// :: sel-items 0.00,
+Mind's Reflection
+Numerical Reflection: 32
 Zone Distillation: Item
 // :: sel-player 2.00,
 Zone Distillation: Player
@@ -64,17 +80,29 @@ Numerical Reflection: 0
 Selection Distillation
 // :: sel-players 2.00,
 Zone Distillation: Player
+// :: sel-players 0.00,
+Mind's Reflection
+Numerical Reflection: 32
+Zone Distillation: Player
 // :: sel-living 2.00,
 Zone Distillation: Living
 Numerical Reflection: 0
 Selection Distillation
 // :: sel-livings 2.00,
 Zone Distillation: Living
+// :: sel-livings 0.00,
+Mind's Reflection
+Numerical Reflection: 32
+Zone Distillation: Living
 // :: sel-not-living 2.00,
 Zone Distillation: Non-Living
 Numerical Reflection: 0
 Selection Distillation
 // :: sel-not-livings 2.00,
+Zone Distillation: Non-Living
+// :: sel-not-livings 0.00,
+Mind's Reflection
+Numerical Reflection: 32
 Zone Distillation: Non-Living
 
 // :: first 1.00,
@@ -157,22 +185,22 @@ Nullary Reflection
 // :: ZERO 0.00,
 Vector Reflection Zero
 // :: EAST 0.00,
-// +: +X 0,
+// +: +X 0.00,
 Vector Reflection +X
 // :: WEST 0.00,
-// +: -X 0,
+// +: -X 0.00,
 Vector Reflection -X
 // :: UP 0.00,
-// +: +Y 0,
+// +: +Y 0.00,
 Vector Reflection +Y
 // :: DOWN 0.00,
-// +: -Y 0,
+// +: -Y 0.00,
 Vector Reflection -Y
 // :: SOUTH 0.00,
-// +: +Z 0,
+// +: +Z 0.00,
 Vector Reflection +Z
 // :: NORTH 0.00,
-// +: -Z 0,
+// +: -Z 0.00,
 Vector Reflection -Z
 // // :: PI 0.00,
 // Arc's Reflection
@@ -283,6 +311,42 @@ Bookkeeper's Gambit: v
 // Surgeon's Exaltation
 // Huginn's Gambit
 
-//// 1.0.1
+//// 1.1.0
+//// Compiler Hooks
 
-// :: !
+// :: !whoami
+Mind's Reflection
+Reveal
+Bookkeeper's Gambit: v
+
+// :: !about
+<{"Incant version 1.1.0+dev ~ try !help"}>
+Reveal
+Bookkeeper's Gambit: v
+
+// :: !help
+Vacant Reflection
+Muninn's Reflection
+Numerical Reflection: 3
+Selection Distillation
+Gemini Decomposition
+Abacus Purification
+Gemini Decomposition
+Muninn's Reflection
+Jester's Gambit
+Speaker's Distillation
+Huginn's Gambit
+// list is temporarily stored in the ravenmind
+// Take every other index
+{ // top: [ library, names ]
+    Speaker's Decomposition
+    Rotation Gambit
+    Jester's Gambit
+    Integration Distillation
+    Jester's Gambit
+    Speaker's Decomposition
+    Bookkeeper's Gambit: v
+}
+Jester's Gambit
+Gemini Gambit
+

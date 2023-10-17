@@ -11,7 +11,7 @@ async function build() {
     }
     const library = await resp.text()
     let target = ["__fallback"]
-    let builder: PatternIota[] = []
+    let builder: Iota[] = []
     for (let line of library.split('\n')) {
         line = stripString(line)
         const newFileTester = /^\/\/ :: (.*)$/
@@ -27,6 +27,10 @@ async function build() {
                     const iota2 = new ListIota(builder)
                     iota.data.push(iota1, iota2)
                 }
+            } else if (target.includes('__fallback')) {
+                console.info('Fallback function has no patterns, skipping')
+            } else {
+                console.warn(`Empty function definition for ${target.join(' and ')}, skipping`)
             }
             // ...and start a new one
             target = [resul]
@@ -40,9 +44,20 @@ async function build() {
         } else {
             const i = await compiler.iotafy(line)
             if (i !== null) {
-                builder = builder.concat(i.map(x => new PatternIota(x)))
+                builder = builder.concat(i.map(x => x.toIota()))
             }
         }
+    }
+    if (builder.length > 0) {
+        // Write the final entry
+        for (const nameOrAlias of target) {
+            console.debug('Writing', nameOrAlias, 'with', builder.length, 'patterns')
+            const iota1 = new StringIota(nameOrAlias)
+            const iota2 = new ListIota(builder)
+            iota.data.push(iota1, iota2)
+        }
+    } else {
+        console.warn(`Empty function definition for ${target.join(' and ')}, skipping`)
     }
     return iota
 }
